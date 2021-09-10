@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS0006: Metadata file 'C:\Users\Rich.DESIGNSYNTHESIS\source\repos\Knoodle-5.1\FrameWerks\bin\Debug\net5.0-windows\ref\FrameWorks.dll' could not be found
+dotnet_diagnostic.CS0006.severity = none
