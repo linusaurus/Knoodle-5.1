@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,10 @@ namespace KnoodleUX
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
+           
         }
+
+        
 
         private static void CurrentDomainOnUnhadledException(object sender, UnhandledExceptionEventArgs e)
         {

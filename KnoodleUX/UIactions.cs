@@ -141,6 +141,92 @@ namespace KnoodleUX
             dg.Columns.AddRange(colID, colArchDescription, colUnitID, colUnitName, colW, colD, colH, colMake, colNIC);
         }
 
+        public static void BuildSubAssemblyGrid(DataGridView dg)
+        {
+            dg.AutoGenerateColumns = false;
+            dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dg.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            // Currency Decimal Style
+            DataGridViewCellStyle dstyleCurrency = new DataGridViewCellStyle();
+            dstyleCurrency.Format = "C";
+            dstyleCurrency.NullValue = "";
+            dstyleCurrency.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Currency Decimal Style
+            DataGridViewCellStyle dstyleDecimal = new DataGridViewCellStyle();
+            dstyleDecimal.Format = "N2";
+            dstyleDecimal.NullValue = "0.00";
+            dstyleDecimal.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Wrapping Text Style
+            DataGridViewCellStyle dstyleWrapText = new DataGridViewCellStyle();
+            dstyleWrapText.NullValue = "";
+            dstyleWrapText.Alignment = DataGridViewContentAlignment.TopLeft;
+            dstyleWrapText.WrapMode = DataGridViewTriState.True;
+
+            // SubAssemblyID Column --
+            DataGridViewTextBoxColumn colSubassemblyID = new DataGridViewTextBoxColumn();
+            colSubassemblyID.HeaderText = "SubID";
+            colSubassemblyID.DataPropertyName = "SubAssemblyID";
+            colSubassemblyID.Width = 70;
+
+            // Assembly Name --
+            DataGridViewTextBoxColumn colSubAssemblyName = new DataGridViewTextBoxColumn();
+            colSubAssemblyName.HeaderText = "Subassembly Name";
+            colSubAssemblyName.DataPropertyName = "SubAssemblyName";
+            colSubAssemblyName.Width = 400;
+
+
+            // MakeFile ----------
+            DataGridViewTextBoxColumn colMakeFile = new DataGridViewTextBoxColumn();
+            colMakeFile.Width = 400;
+            colMakeFile.HeaderText = "MakeFile";
+            colMakeFile.DataPropertyName = "MakeFile";
+            colMakeFile.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            // W ----------
+            DataGridViewTextBoxColumn colW = new DataGridViewTextBoxColumn();
+            colW.Width = 110;
+            colW.HeaderText = "W";
+            colW.DataPropertyName = "W";
+            colW.DefaultCellStyle = dstyleDecimal;
+            // H ----------
+            DataGridViewTextBoxColumn colH = new DataGridViewTextBoxColumn();
+            colH.Width = 110;
+            colH.HeaderText = "H";
+            colH.DataPropertyName = "H";
+            colH.DefaultCellStyle = dstyleDecimal;
+            // D ----------
+            DataGridViewTextBoxColumn colD = new DataGridViewTextBoxColumn();
+            colD.Width = 110;
+            colD.HeaderText = "D";
+            colD.DataPropertyName = "D";
+            colD.DefaultCellStyle = dstyleDecimal;
+
+            //CPD_ID Column --
+            DataGridViewTextBoxColumn colCPD_ID = new DataGridViewTextBoxColumn();
+            colCPD_ID.HeaderText = "CPD-ID";
+            colCPD_ID.DataPropertyName = "CPD_id";
+            colCPD_ID.Width = 70;
+
+            //GlassPartID Column --
+            DataGridViewTextBoxColumn colGlassPartID = new DataGridViewTextBoxColumn();
+            colGlassPartID.HeaderText = "GlassID";
+            colGlassPartID.DataPropertyName = "GlassPartID";
+            colGlassPartID.Width = 70;
+
+            //OpCode Column --
+            DataGridViewTextBoxColumn colOpCode = new DataGridViewTextBoxColumn();
+            colOpCode.HeaderText = "Op Code";
+            colOpCode.DataPropertyName = "OpCode";
+            colOpCode.Width = 70;
+
+
+
+            //colUnit.DataSource = _partService.Units();
+            dg.Columns.AddRange(colSubassemblyID, colSubAssemblyName, colMakeFile, colW, colH, colD, colCPD_ID, colGlassPartID, colOpCode);
+        }
+
 
     }
 }

@@ -180,6 +180,7 @@ namespace KnoodleUX
             this.dgProductGrid.RowTemplate.Height = 25;
             this.dgProductGrid.Size = new System.Drawing.Size(799, 312);
             this.dgProductGrid.TabIndex = 0;
+            this.dgProductGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProductGrid_CellContentClick);
             this.dgProductGrid.SelectionChanged += new System.EventHandler(this.dgProducts_SelectionChanged);
             // 
             // tsProductTools

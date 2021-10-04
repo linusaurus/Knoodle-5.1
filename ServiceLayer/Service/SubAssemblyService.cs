@@ -22,7 +22,7 @@ namespace ServiceLayer
 
         public List<SubAssembly> GetUnitSubAssemlblies(int productID)
         {
-            return ctx.SubAssemblies.Where(l => l.ProductID == productID).ToList();
+            return ctx.SubAssembly.Where(l => l.ProductID == productID).ToList();
         }
      
        

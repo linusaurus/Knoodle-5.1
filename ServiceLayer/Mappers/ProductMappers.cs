@@ -15,7 +15,7 @@ namespace ServiceLayer.Mappers
         {
             destination.JobID = source.jobID;
             destination.JobName = source.jobname;
-            destination.Products = productMappers.MapList(source.Products);
+            destination.Products = productMappers.MapList(source.Product);
         }
 
     }

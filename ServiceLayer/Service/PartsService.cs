@@ -19,16 +19,14 @@ namespace ServiceLayer
 
         public void LoadParts()
         {
-            _parts = ctx.Parts.ToDictionary(p => p.PartID);
+            _parts = ctx.Part.ToDictionary(p => p.PartID);
             partCount = _parts.Count();
         }
-
 
         public Part GetPart(int partID)
         {
             return _parts[partID];
         }
-
 
         public int PartCount
         {

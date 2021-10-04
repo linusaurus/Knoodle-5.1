@@ -28,7 +28,7 @@ namespace KnoodleUX
         Job _selectedJob;
         // This is the primary active object
         JobListDto _SelectedJobDTO;
-        ProductDto _selectedProductDto;
+        ProductDto _selectedProductDto = new ProductDto();
         bool _loading = true;
         private List<ProductDto> _products;
         ProductMapper productMapper = new ProductMapper();
@@ -49,24 +49,26 @@ namespace KnoodleUX
 
             bsProducts = new BindingSource();
             UIactions.BuildProductGrid(this.dgProductGrid);
-            UIactions.BuildProductGrid(dgSubAssemblies);
+            UIactions.BuildSubAssemblyGrid(dgSubAssemblies);
 
             //---------------------Wire Events------------------------
 
             bsProducts.AddingNew += BsProducts_AddingNew;
-            bsProducts.ListChanged += BsProducts_ListChanged;
+            bsProducts.ListChanged += BsProduct_ListChanged;
             bsSubassemlies.AddingNew += BsSubassemlies_AddingNew;
+            bsSubassemlies.ListChanged += BsSubassemlies_ListChanged;
 
             if (KnoodleUX.Properties.Settings.Default.LastSelectedJob != default)
             {
                 _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);
+                // Populate the Product-Subassemlby graph ---
                 LoadProducts(_selectedJob.jobID);
-                this.Text = "Current Job " +  _selectedJob.jobID.ToString();
+                this.Text = $"Current Job = {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}"  ;
             }
 
             // Load the Parts into memory as dictionary--
             partsService = new PartsService();
-            //partsService.LoadParts();
+            partsService.LoadParts();
             //foreach (var p in partsService.Parts)
             //{
             //    SourceMaterial mat = new SourceMaterial() { ItemID = p.Key };
@@ -81,11 +83,15 @@ namespace KnoodleUX
             //    PartDictionary.PartSource.Add(mat.ItemID, mat);
             //}
 
-            //bsProducts.DataSource = _productService.GetProducts(1308);
-            ////bsProduct.DataSource = _ctx.Products.ToList();
-            //bsProducts.ListChanged += BsProduct_ListChanged;
-            //this.dgProducts.DataSource = bsProducts;
+        }
 
+        private void BsSubassemlies_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            BindingSource bs = (BindingSource)sender;
+            if (e.ListChangedType == ListChangedType.ItemChanged)
+            {
+                UIactions.CheckForDirtyState(e, this.btnSaveChanges);
+            };
         }
 
         private void BsSubassemlies_AddingNew(object sender, AddingNewEventArgs e)
@@ -104,15 +110,12 @@ namespace KnoodleUX
             }
         }
 
-        private void BsProducts_ListChanged(object sender, ListChangedEventArgs e)
+        private void BsProduct_ListChanged(object sender, ListChangedEventArgs e)
         {
             BindingSource bs = (BindingSource)sender;
             if (e.ListChangedType == ListChangedType.ItemChanged)
             {
-                // ISDirty set ot true;
-
-
-                // ctx.SaveChanges();
+                UIactions.CheckForDirtyState(e, this.btnSaveChanges);
             };
         }
 
@@ -159,20 +162,21 @@ namespace KnoodleUX
             cboJobsPicker.DataSource = _jobService.RecentJobs();
             cboJobsPicker.DisplayMember = "JobName";
             cboJobsPicker.ValueMember = "JobID";
-
             cboJobsPicker.SelectedValue = _SelectedJobDTO.JobID;
         }
 
-        private void BsProduct_ListChanged(object sender, ListChangedEventArgs e)
-        { UIactions.CheckForDirtyState(e, this.btnSaveChanges);
-        }
+        //private void BsProduct_ListChanged(object sender, ListChangedEventArgs e)
+        //{ UIactions.CheckForDirtyState(e, this.btnSaveChanges);
+        //}
            
 
        
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             UIactions.IsDirty = false;
-            UIactions.ToogleButtonStyle(UIactions.IsDirty, btnSaveChanges);         
+            UIactions.ToogleButtonStyle(UIactions.IsDirty, btnSaveChanges);
+            _productService.AddOrUpdate(_products);
+            
         }
 
         private void dgProducts_SelectionChanged(object sender, EventArgs e)
@@ -183,8 +187,9 @@ namespace KnoodleUX
                 BindingManagerBase bm = BindingContext[dv.DataSource, dv.DataMember];
                 if (bm.Count > 0 && bm.Current != null)
                 {
-                   // _selectedProductDTO = (ProductDto)bm.Current;
-                   // dgSubAssemblies.DataSource = _selectedProductDTO.SubAssemblies.ToList();
+                    _selectedProductDto = (ProductDto)bm.Current;
+                    bsSubassemlies.DataSource = _selectedProductDto.SubAssemblies.ToList();
+                  // dgSubAssemblies.DataSource = _selectedProductDto.SubAssemblies.ToList();
                 }
             }
         }
@@ -225,6 +230,11 @@ namespace KnoodleUX
                     }
                 }
             }
+        }
+
+        private void dgProductGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -20,16 +20,15 @@ namespace ServiceLayer
         {
             ctx = context;
         }
-
+        // this is the most critical query
         public Job GetDeepJob(int jobID)
         {
-            return ctx.Jobs.Include(s => s.Products).ThenInclude(s => s.SubAssemblies).Where(j => j.jobID == jobID).FirstOrDefault();
+            return ctx.Job.Include(s => s.Product).ThenInclude(s => s.SubAssemblies).Where(j => j.jobID == jobID).FirstOrDefault();
         }
 
         public Job FindJob(int jobID)
         {
-
-            return ctx.Jobs.Find(jobID);
+            return ctx.Job.Find(jobID);
         }
         /// <summary>
         /// Return list of 25 most recent Jobs
@@ -37,7 +36,7 @@ namespace ServiceLayer
         /// <returns></returns>
         public List<JobListDto> RecentJobs()
         {
-            var jobs = ctx.Jobs.AsNoTracking().OrderByDescending(r => r.start_ts).Select(d => new JobListDto
+            var jobs = ctx.Job.AsNoTracking().OrderByDescending(r => r.start_ts).Select(d => new JobListDto
             {
                 JobID = d.jobID,
                 JobName = d.jobname
@@ -47,8 +46,7 @@ namespace ServiceLayer
 
         public List<Job> SearchJobs(string term)
         {
-
-            return ctx.Jobs.Where(w => w.jobname.Contains(term)).ToList();
+            return ctx.Job.Where(w => w.jobname.Contains(term)).ToList();
         }
 
         
