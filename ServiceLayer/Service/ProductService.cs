@@ -69,7 +69,7 @@ namespace ServiceLayer
             productDTOList.ToList().ForEach(ad =>
             {
                 var product = ctx.Product.Include(s => s.SubAssemblies).FirstOrDefault(r => r.ProductID == ad.ProductID);
-                if (product == null)
+                if (product == null || product.ProductID == default)
                 {
                     product = new Product();
                     ctx.Product.Add(product);
@@ -94,13 +94,13 @@ namespace ServiceLayer
                     .Where(d => !ad.SubAssemblies.Any(SubAssemblyDTO => SubAssemblyDTO.SubAssemblyID == d.SubAssemblyID)).ToList()
                     .ForEach(deleted => ctx.SubAssembly.Remove(deleted));
 
-                if (ad.SubAssemblies != null)
+                if (ad.SubAssemblies != null )
                 {
                     //update or add SubAssembly --
                     ad.SubAssemblies.ToList().ForEach(od =>
                     {
                         var subassembly = product.SubAssemblies.FirstOrDefault(r => r.SubAssemblyID == od.SubAssemblyID);
-                        if (subassembly == null)
+                        if (subassembly == null || subassembly.SubAssemblyID == default)
                         {
                             subassembly = new SubAssembly();
                             product.SubAssemblies.Add(subassembly);

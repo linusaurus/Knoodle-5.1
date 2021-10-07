@@ -26,7 +26,10 @@ namespace ServiceLayer
         private bool nIC;
         private bool isDeleted;
 
-
+        public ProductDto()
+        {
+            SubAssemblies = new List<SubAssemblyDTO>();
+        }
         public bool IsDeleted
         {
             get { return isDeleted; }
