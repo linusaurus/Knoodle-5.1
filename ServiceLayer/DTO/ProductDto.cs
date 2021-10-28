@@ -188,6 +188,7 @@ namespace ServiceLayer
         }
 
         public List<SubAssemblyDTO> SubAssemblies { get; set; }
+       
 
 
         public event PropertyChangedEventHandler PropertyChanged;

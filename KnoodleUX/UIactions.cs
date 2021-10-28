@@ -90,7 +90,7 @@ namespace KnoodleUX
             DataGridViewTextBoxColumn colArchDescription = new DataGridViewTextBoxColumn();
             colArchDescription.HeaderText = "Contract Name";
             colArchDescription.DataPropertyName = "ArchDescription";
-            colArchDescription.Width = 400;
+            colArchDescription.Width = 450;
 
             // UnitID --
             DataGridViewTextBoxColumn colUnitID = new DataGridViewTextBoxColumn();
@@ -174,7 +174,7 @@ namespace KnoodleUX
             DataGridViewTextBoxColumn colSubAssemblyName = new DataGridViewTextBoxColumn();
             colSubAssemblyName.HeaderText = "Subassembly Name";
             colSubAssemblyName.DataPropertyName = "SubAssemblyName";
-            colSubAssemblyName.Width = 400;
+            colSubAssemblyName.Width = 550;
 
 
             // MakeFile ----------

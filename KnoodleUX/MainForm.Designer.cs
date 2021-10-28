@@ -326,6 +326,7 @@ namespace KnoodleUX
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "Knoodle Parametric";
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splconMain.Panel1.ResumeLayout(false);
             this.splconMain.Panel2.ResumeLayout(false);
