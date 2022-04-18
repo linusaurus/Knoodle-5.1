@@ -34,7 +34,9 @@ namespace KnoodleUX
             this.splconMain = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbpJobOrders = new System.Windows.Forms.TabPage();
+            this.lvJobOrders = new System.Windows.Forms.ListView();
             this.tbpDeliveries = new System.Windows.Forms.TabPage();
+            this.listBoxDecodedData = new System.Windows.Forms.ListBox();
             this.tabMainTabControl = new System.Windows.Forms.TabControl();
             this.tabInputTable = new System.Windows.Forms.TabPage();
             this.spcMainTabControl = new System.Windows.Forms.SplitContainer();
@@ -42,11 +44,16 @@ namespace KnoodleUX
             this.tsProductTools = new System.Windows.Forms.ToolStrip();
             this.tsBuildProducts = new System.Windows.Forms.ToolStripButton();
             this.tsSaveOutput = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAddProduct = new System.Windows.Forms.ToolStripButton();
+            this.tsbDeleteProduct = new System.Windows.Forms.ToolStripButton();
             this.dgSubAssemblies = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsSubAssemblyLabel = new System.Windows.Forms.ToolStripLabel();
             this.tabInspector = new System.Windows.Forms.TabPage();
             this.buttonsPanel = new System.Windows.Forms.Panel();
+            this.labelVersion = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
             this.cboJobsPicker = new System.Windows.Forms.ComboBox();
             this.btnInvertSelection = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
@@ -57,6 +64,8 @@ namespace KnoodleUX
             this.splconMain.Panel2.SuspendLayout();
             this.splconMain.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tbpJobOrders.SuspendLayout();
+            this.tbpDeliveries.SuspendLayout();
             this.tabMainTabControl.SuspendLayout();
             this.tabInputTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spcMainTabControl)).BeginInit();
@@ -88,7 +97,7 @@ namespace KnoodleUX
             // splconMain.Panel1
             // 
             this.splconMain.Panel1.Controls.Add(this.tabControl1);
-            this.splconMain.Panel1.Padding = new System.Windows.Forms.Padding(6);
+            this.splconMain.Panel1.Padding = new System.Windows.Forms.Padding(6, 6, 0, 6);
             // 
             // splconMain.Panel2
             // 
@@ -106,39 +115,62 @@ namespace KnoodleUX
             this.tabControl1.Location = new System.Drawing.Point(6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(293, 604);
+            this.tabControl1.Size = new System.Drawing.Size(299, 604);
             this.tabControl1.TabIndex = 0;
             // 
             // tbpJobOrders
             // 
+            this.tbpJobOrders.Controls.Add(this.lvJobOrders);
             this.tbpJobOrders.Location = new System.Drawing.Point(4, 24);
             this.tbpJobOrders.Name = "tbpJobOrders";
-            this.tbpJobOrders.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpJobOrders.Size = new System.Drawing.Size(285, 576);
+            this.tbpJobOrders.Padding = new System.Windows.Forms.Padding(6);
+            this.tbpJobOrders.Size = new System.Drawing.Size(291, 576);
             this.tbpJobOrders.TabIndex = 0;
             this.tbpJobOrders.Text = "Job Orders";
             this.tbpJobOrders.UseVisualStyleBackColor = true;
             // 
+            // lvJobOrders
+            // 
+            this.lvJobOrders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvJobOrders.HideSelection = false;
+            this.lvJobOrders.Location = new System.Drawing.Point(6, 6);
+            this.lvJobOrders.Name = "lvJobOrders";
+            this.lvJobOrders.Size = new System.Drawing.Size(279, 564);
+            this.lvJobOrders.TabIndex = 0;
+            this.lvJobOrders.UseCompatibleStateImageBehavior = false;
+            // 
             // tbpDeliveries
             // 
+            this.tbpDeliveries.Controls.Add(this.listBoxDecodedData);
             this.tbpDeliveries.Location = new System.Drawing.Point(4, 24);
             this.tbpDeliveries.Name = "tbpDeliveries";
             this.tbpDeliveries.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpDeliveries.Size = new System.Drawing.Size(285, 576);
+            this.tbpDeliveries.Size = new System.Drawing.Size(291, 576);
             this.tbpDeliveries.TabIndex = 1;
             this.tbpDeliveries.Text = "Deliveries";
             this.tbpDeliveries.UseVisualStyleBackColor = true;
+            // 
+            // listBoxDecodedData
+            // 
+            this.listBoxDecodedData.FormattingEnabled = true;
+            this.listBoxDecodedData.ItemHeight = 15;
+            this.listBoxDecodedData.Location = new System.Drawing.Point(20, 15);
+            this.listBoxDecodedData.Name = "listBoxDecodedData";
+            this.listBoxDecodedData.Size = new System.Drawing.Size(238, 379);
+            this.listBoxDecodedData.TabIndex = 0;
             // 
             // tabMainTabControl
             // 
             this.tabMainTabControl.Controls.Add(this.tabInputTable);
             this.tabMainTabControl.Controls.Add(this.tabInspector);
             this.tabMainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabMainTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabMainTabControl.Location = new System.Drawing.Point(6, 6);
             this.tabMainTabControl.Name = "tabMainTabControl";
             this.tabMainTabControl.SelectedIndex = 0;
             this.tabMainTabControl.Size = new System.Drawing.Size(813, 604);
             this.tabMainTabControl.TabIndex = 0;
+            this.tabMainTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabMainTabControl_DrawItem);
             // 
             // tabInputTable
             // 
@@ -173,12 +205,14 @@ namespace KnoodleUX
             // 
             // dgProductGrid
             // 
+            this.dgProductGrid.AllowUserToAddRows = false;
+            this.dgProductGrid.AllowUserToDeleteRows = false;
             this.dgProductGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgProductGrid.Location = new System.Drawing.Point(0, 28);
+            this.dgProductGrid.Location = new System.Drawing.Point(0, 37);
             this.dgProductGrid.Name = "dgProductGrid";
             this.dgProductGrid.RowTemplate.Height = 25;
-            this.dgProductGrid.Size = new System.Drawing.Size(799, 312);
+            this.dgProductGrid.Size = new System.Drawing.Size(799, 303);
             this.dgProductGrid.TabIndex = 0;
             this.dgProductGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProductGrid_CellContentClick);
             this.dgProductGrid.SelectionChanged += new System.EventHandler(this.dgProducts_SelectionChanged);
@@ -187,13 +221,17 @@ namespace KnoodleUX
             // 
             this.tsProductTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsBuildProducts,
-            this.tsSaveOutput});
+            this.tsSaveOutput,
+            this.toolStripSeparator1,
+            this.tsbAddProduct,
+            this.tsbDeleteProduct});
             this.tsProductTools.Location = new System.Drawing.Point(0, 0);
             this.tsProductTools.Name = "tsProductTools";
             this.tsProductTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tsProductTools.Size = new System.Drawing.Size(799, 28);
+            this.tsProductTools.Size = new System.Drawing.Size(799, 37);
             this.tsProductTools.TabIndex = 1;
             this.tsProductTools.Text = "toolStrip1";
+            this.tsProductTools.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsProductTools_ItemClicked);
             // 
             // tsBuildProducts
             // 
@@ -202,7 +240,7 @@ namespace KnoodleUX
             this.tsBuildProducts.Image = ((System.Drawing.Image)(resources.GetObject("tsBuildProducts.Image")));
             this.tsBuildProducts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBuildProducts.Name = "tsBuildProducts";
-            this.tsBuildProducts.Size = new System.Drawing.Size(100, 19);
+            this.tsBuildProducts.Size = new System.Drawing.Size(100, 28);
             this.tsBuildProducts.Text = "Build Assemblies";
             // 
             // tsSaveOutput
@@ -213,8 +251,36 @@ namespace KnoodleUX
             this.tsSaveOutput.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsSaveOutput.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
             this.tsSaveOutput.Name = "tsSaveOutput";
-            this.tsSaveOutput.Size = new System.Drawing.Size(76, 19);
+            this.tsSaveOutput.Size = new System.Drawing.Size(76, 28);
             this.tsSaveOutput.Text = "Save Output";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tsbAddProduct
+            // 
+            this.tsbAddProduct.BackColor = System.Drawing.Color.LightCyan;
+            this.tsbAddProduct.CheckOnClick = true;
+            this.tsbAddProduct.Image = global::KnoodleUX.Properties.Resources.twotone_add_box_black_24dp;
+            this.tsbAddProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tsbAddProduct.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbAddProduct.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAddProduct.Margin = new System.Windows.Forms.Padding(30, 1, 0, 2);
+            this.tsbAddProduct.Name = "tsbAddProduct";
+            this.tsbAddProduct.Size = new System.Drawing.Size(102, 28);
+            this.tsbAddProduct.Text = "Add Product";
+            // 
+            // tsbDeleteProduct
+            // 
+            this.tsbDeleteProduct.BackColor = System.Drawing.Color.Linen;
+            this.tsbDeleteProduct.Image = global::KnoodleUX.Properties.Resources.twotone_remove_circle_black_24dp;
+            this.tsbDeleteProduct.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.tsbDeleteProduct.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbDeleteProduct.Name = "tsbDeleteProduct";
+            this.tsbDeleteProduct.Size = new System.Drawing.Size(113, 28);
+            this.tsbDeleteProduct.Text = "Delete Product";
             // 
             // dgSubAssemblies
             // 
@@ -254,6 +320,8 @@ namespace KnoodleUX
             // 
             // buttonsPanel
             // 
+            this.buttonsPanel.Controls.Add(this.labelVersion);
+            this.buttonsPanel.Controls.Add(this.labelStatus);
             this.buttonsPanel.Controls.Add(this.cboJobsPicker);
             this.buttonsPanel.Controls.Add(this.btnInvertSelection);
             this.buttonsPanel.Controls.Add(this.btnClearAll);
@@ -264,6 +332,24 @@ namespace KnoodleUX
             this.buttonsPanel.Name = "buttonsPanel";
             this.buttonsPanel.Size = new System.Drawing.Size(1134, 100);
             this.buttonsPanel.TabIndex = 3;
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(1050, 22);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(38, 15);
+            this.labelVersion.TabIndex = 4;
+            this.labelVersion.Text = "label1";
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(827, 22);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(38, 15);
+            this.labelStatus.TabIndex = 3;
+            this.labelStatus.Text = "label1";
             // 
             // cboJobsPicker
             // 
@@ -323,6 +409,7 @@ namespace KnoodleUX
             this.Controls.Add(this.splconMain);
             this.Controls.Add(this.stsMainStatus);
             this.Controls.Add(this.buttonsPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "Knoodle Parametric";
@@ -333,6 +420,8 @@ namespace KnoodleUX
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).EndInit();
             this.splconMain.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.tbpJobOrders.ResumeLayout(false);
+            this.tbpDeliveries.ResumeLayout(false);
             this.tabMainTabControl.ResumeLayout(false);
             this.tabInputTable.ResumeLayout(false);
             this.spcMainTabControl.Panel1.ResumeLayout(false);
@@ -348,6 +437,7 @@ namespace KnoodleUX
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.buttonsPanel.ResumeLayout(false);
+            this.buttonsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,6 +467,13 @@ namespace KnoodleUX
         private System.Windows.Forms.ToolStripButton tsSaveOutput;
         private System.Windows.Forms.ComboBox cboJobsPicker;
         private System.Windows.Forms.DataGridView dgProductGrid;
+        private System.Windows.Forms.ListView lvJobOrders;
+        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.ListBox listBoxDecodedData;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tsbAddProduct;
+        private System.Windows.Forms.ToolStripButton tsbDeleteProduct;
     }
 }
 

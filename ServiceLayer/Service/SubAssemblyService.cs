@@ -9,10 +9,15 @@ namespace ServiceLayer
 {
     public class SubAssemblyService
     {
-        MosaicContext ctx = new MosaicContext();
+        private readonly MosaicContext ctx;
 
         public List<SubAssembly> SubAssemblies;
         private Product parent;
+
+        public SubAssemblyService(MosaicContext context)
+        {
+            ctx = context;
+        }
 
         public Product Parent { get => parent; set => parent = value; }
 

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using DataLayer.Entity;
 using DataLayer.Data;
 using ServiceLayer.Mappers;
+using ServiceLayer.DTO;
 
 namespace ServiceLayer
 {
@@ -21,6 +22,19 @@ namespace ServiceLayer
        public List<Product> GetJobUnits(int jobID)
         {
             return ctx.Product.Include(p => p.SubAssemblies).Where(j => j.JobID == jobID).ToList();
+        }
+
+       
+       public List<JobOrdersList> JobOrders(int jobID)
+       {
+                return  ctx.PurchaseOrder.Where(j => j.JobID==jobID).Select(p => new JobOrdersList
+                {
+                    PurchaseOrderID = p.PurchaseOrderID,
+                    OrderDate = p.OrderDate.GetValueOrDefault().ToShortDateString(),
+                    SupplierName = p.Supplier.SupplierName
+
+                }).ToList();
+            
         }
 
         public List<ProductDto> GetProducts(int jobID)

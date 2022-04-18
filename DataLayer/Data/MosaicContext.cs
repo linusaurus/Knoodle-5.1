@@ -11,8 +11,11 @@ namespace DataLayer.Data
 {
     public partial class MosaicContext : DbContext
     {
-        public MosaicContext()
+
+        private readonly string _connectionString;
+        public MosaicContext(string connectionString)
         {
+            _connectionString = connectionString;
         }
 
         public MosaicContext(DbContextOptions<MosaicContext> options)
@@ -65,8 +68,7 @@ namespace DataLayer.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=FILE-SERVER;Initial Catalog=Mosaic;Integrated Security=True");
+                optionsBuilder.UseSqlServer(_connectionString);
             }
         }
 

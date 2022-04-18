@@ -227,6 +227,19 @@ namespace KnoodleUX
             dg.Columns.AddRange(colSubassemblyID, colSubAssemblyName, colMakeFile, colW, colH, colD, colCPD_ID, colGlassPartID, colOpCode);
         }
 
+        public static void BuildJobOrderListView(ListView lv)
+        {
+            lv.View = View.Details;
+            lv.FullRowSelect = true;
+            lv.MultiSelect = false;
+
+            lv.Columns.Add("PO", 45, HorizontalAlignment.Center);
+            lv.Columns.Add("Date", 70, HorizontalAlignment.Center);
+            lv.Columns.Add("Supplier", 180, HorizontalAlignment.Left);
+            
+
+        }
+
 
     }
 }

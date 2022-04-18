@@ -11,7 +11,12 @@ namespace ServiceLayer
 
     public class PartsService 
     {
-        MosaicContext ctx = new MosaicContext();
+        private readonly MosaicContext ctx; 
+
+        public PartsService(MosaicContext context)
+        {
+            ctx = context;
+        }
 
         private int partCount;
         private Dictionary<int, Part> _parts = new Dictionary<int, Part>();

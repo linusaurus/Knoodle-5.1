@@ -29,6 +29,7 @@ namespace ServiceLayer
         public ProductDto()
         {
             SubAssemblies = new List<SubAssemblyDTO>();
+            
         }
         public bool IsDeleted
         {
