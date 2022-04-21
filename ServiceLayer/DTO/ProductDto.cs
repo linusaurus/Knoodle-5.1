@@ -28,8 +28,7 @@ namespace ServiceLayer
 
         public ProductDto()
         {
-            SubAssemblies = new List<SubAssemblyDTO>();
-            
+            SubAssemblies = new List<SubAssemblyDTO>();           
         }
         public bool IsDeleted
         {
@@ -190,8 +189,6 @@ namespace ServiceLayer
 
         public List<SubAssemblyDTO> SubAssemblies { get; set; }
        
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChange([CallerMemberName] string name = null)

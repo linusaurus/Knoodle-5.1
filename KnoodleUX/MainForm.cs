@@ -13,7 +13,6 @@ using DataLayer.Entity;
 using ServiceLayer;
 using ServiceLayer.DTO;
 using ServiceLayer.Mappers;
-using SocketMobile.Capture;
 using KnoodleUX.UXControls;
 
 
@@ -48,7 +47,7 @@ namespace KnoodleUX
         private Rectangle tabArea;
         private RectangleF tabTextArea;
         //--------------------------------------
-        CaptureHelper mCapture;
+      
         //-------------------------------------
         Timer timerOpenCapture = new Timer();
         public MainForm()
@@ -115,22 +114,15 @@ namespace KnoodleUX
             tabArea = tabMainTabControl.GetTabRect(0);
             tabTextArea = (RectangleF)tabMainTabControl.GetTabRect(0);
 
-           
-
         }
 
     
         #region UI Handlers
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-           // ProcessStartInfo sInfo = new ProcessStartInfo("https://www.socketmobile.com");
-           // Process.Start(sInfo);
+         
         }
 
-
-       
-
-     
 
         private void TabMainTabControl_MouseClick(object sender, MouseEventArgs e)
         {
@@ -174,24 +166,24 @@ namespace KnoodleUX
                 { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }
                 
             }
-            bs.EndEdit();
+            
         }
 
         private void BsSubassemlies_AddingNew(object sender, AddingNewEventArgs e)
         {
-            //if (_selectedProductDto != null)
-            //{
-            //    e.NewObject = new SubAssemblyDTO
-            //    {
-            //        ProductID = _selectedProductDto.ProductID,
-            //        SubAssemblyName = "New Sub....",
-            //        W = decimal.Zero,
-            //        H = decimal.Zero,
-            //        D = decimal.Zero,
-            //        d = decimal.Zero
-            //    };
-           
-            //}
+            if (_selectedProductDto != null)
+            {
+                e.NewObject = new SubAssemblyDTO
+                {
+                    ProductID = _selectedProductDto.ProductID,
+                    SubAssemblyName = "New Sub....",
+                    W = decimal.Zero,
+                    H = decimal.Zero,
+                    D = decimal.Zero,
+                    d = decimal.Zero
+                };
+
+            }
         }
 
         private void BsProduct_ListChanged(object sender, ListChangedEventArgs e)
@@ -254,8 +246,7 @@ namespace KnoodleUX
             cboJobsPicker.DataSource = _jobService.RecentJobs();
             cboJobsPicker.DisplayMember = "JobName";
             cboJobsPicker.ValueMember = "JobID";
-    
-           
+  
         }
 
         /// <summary>
@@ -267,7 +258,7 @@ namespace KnoodleUX
         {
             UIactions.IsDirty = false;
             UIactions.ToogleButtonStyle(UIactions.IsDirty, btnSaveChanges);
-            _productService.AddOrUpdate(_products);
+            _productService.AddOrUpdate(_SelectedJobDTO);
             LoadProducts(_selectedJob.jobID);
             
         }

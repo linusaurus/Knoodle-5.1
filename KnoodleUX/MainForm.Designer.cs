@@ -205,8 +205,6 @@ namespace KnoodleUX
             // 
             // dgProductGrid
             // 
-            this.dgProductGrid.AllowUserToAddRows = false;
-            this.dgProductGrid.AllowUserToDeleteRows = false;
             this.dgProductGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgProductGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgProductGrid.Location = new System.Drawing.Point(0, 37);

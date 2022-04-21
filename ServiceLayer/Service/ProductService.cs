@@ -68,19 +68,20 @@ namespace ServiceLayer
             return unit;
         }
 
-        public void AddOrUpdate(List<ProductDto> productDTOList)
-        {
-            if (productDTOList != null && productDTOList.Count > 0 )
-            {
 
-             var productList = ctx.Product.Include(s => s.SubAssemblies).Where(o => o.JobID == productDTOList[0].JobID).ToList();
+        public void AddOrUpdate(JobListDto jobListDto)
+        {
+            if (jobListDto != null )
+            {
+                
+             var productList = ctx.Product.Include(s => s.SubAssemblies).Where(o => o.JobID == jobListDto.JobID).ToList();
 
             //remove deleted products -
             productList
-                .Where(d => !productDTOList.Any(dto => dto.ProductID == d.ProductID || dto.ProductID == default)).ToList()
+                .Where(d => !jobListDto.Products.Any(dto => dto.ProductID == d.ProductID || dto.ProductID == default)).ToList()
                 .ForEach(deleted => ctx.Product.Remove(deleted));
 
-            productDTOList.ToList().ForEach(ad =>
+            jobListDto.Products.ToList().ForEach(ad =>
             {
                 var product = ctx.Product.Include(s => s.SubAssemblies).FirstOrDefault(r => r.ProductID == ad.ProductID);
                 if (product == null || product.ProductID == default)
@@ -130,10 +131,15 @@ namespace ServiceLayer
                     });
                 }
                
-            });
 
-            ctx.SaveChanges();
+            });
+               
+                ctx.SaveChanges();
             }
+            
+
+           
+            
         }
        
     }

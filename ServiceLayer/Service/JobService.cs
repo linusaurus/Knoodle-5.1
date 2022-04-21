@@ -26,6 +26,11 @@ namespace ServiceLayer
             return ctx.Job.Include(s => s.Product).ThenInclude(s => s.SubAssemblies).Where(j => j.jobID == jobID).FirstOrDefault();
         }
 
+        public void AddOrUpdateJob()
+        {
+
+        }
+
         public Job FindJob(int jobID)
         {
             return ctx.Job.Find(jobID);
