@@ -18,9 +18,9 @@ namespace FrameWorks
      
    
 
-      public static List<Component> TrackMaker(SubAssemblyBase subassembly, int PanelCount,int positions, TrackConfiguration configuration)
+      public static List<ComponentPart> TrackMaker(SubAssemblyBase subassembly, int PanelCount,int positions, TrackConfiguration configuration)
        {
-            List<Component> result = new List<Component>();
+            List<ComponentPart> result = new List<ComponentPart>();
 
             switch (configuration)
 	        {
@@ -31,7 +31,7 @@ namespace FrameWorks
             for (int i = 0; i < PanelCount; i++)
 			{
             
-            Component p = new Component(3345,"Blade-" + i.ToString(),subassembly,1,subassembly.SubAssemblyWidth + 3.0m);
+            ComponentPart p = new ComponentPart(3345,"Blade-" + i.ToString(),subassembly,1,subassembly.SubAssemblyWidth + 3.0m);
             result.Add(p);
 			}
                     

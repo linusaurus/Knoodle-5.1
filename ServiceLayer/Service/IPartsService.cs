@@ -6,7 +6,6 @@ namespace ServiceLayer
     {
         int PartCount { get; set; }
         Dictionary<int, Part> Parts { get; }
-
         Part GetPart(int partID);
         void LoadParts();
     }

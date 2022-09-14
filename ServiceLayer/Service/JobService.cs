@@ -45,7 +45,7 @@ namespace ServiceLayer
             {
                 JobID = d.jobID,
                 JobName = d.jobname
-            }).Take(80).ToList();
+            }).Take(120).ToList();
             return jobs;
         }
 

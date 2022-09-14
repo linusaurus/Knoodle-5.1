@@ -48,7 +48,7 @@ namespace FrameWorks
             //create an Assembly and use its GetExecutingAssembly Method
             //http://msdn2.microsoft.com/en-us/library/system.reflection.assembly.getexecutingassembly.aspx
             Assembly asm = Assembly.GetExecutingAssembly();
-
+           
 
             //create a list for the namespaces
             List<string> namespaceList = new List<string>();

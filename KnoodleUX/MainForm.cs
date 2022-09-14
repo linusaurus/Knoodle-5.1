@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-//using FrameWorks;
+using FrameWorks;
 using DataLayer.Data;
 using DataLayer.Entity;
 using ServiceLayer;
@@ -54,19 +54,19 @@ namespace KnoodleUX
         {
             InitializeComponent();
             ctx = new MosaicContext(Properties.Settings.Default.MosiacConnection);
-
-          
+        
             UIactions.BuildJobOrderListView(lvJobOrders);
 
             _productService = new ProductService(ctx);
             _jobService = new JobService(ctx);
             // ---------------set binding source to grids-------------
             dgProductGrid.DataSource = bsProducts;
-           dgSubAssemblies.DataSource = bsSubassemlies;
+            dgSubAssemblies.DataSource = bsSubassemlies;
             //--------------------Flesh out the Grids ----------------
 
             UIactions.BuildProductGrid(this.dgProductGrid);
             UIactions.BuildSubAssemblyGrid(dgSubAssemblies);
+            dgSubAssemblies.CellClick += DgSubAssemblies_CellClick; ;
 
             //---------------------Wire Events------------------------
 
@@ -74,53 +74,83 @@ namespace KnoodleUX
             bsProducts.ListChanged += BsProduct_ListChanged;
             bsSubassemlies.AddingNew += BsSubassemlies_AddingNew;
             bsSubassemlies.ListChanged += BsSubassemlies_ListChanged;
+
             lvJobOrders.MouseDoubleClick += LvJobOrders_MouseDoubleClick;
             tabMainTabControl.MouseClick += TabMainTabControl_MouseClick;
             //---------------------------------------------------------------------
 
             if (KnoodleUX.Properties.Settings.Default.LastSelectedJob != default)
             {
-                _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);
+                _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);            
                 // Populate the Product-Subassemlby graph ---
                 LoadProducts(_selectedJob.jobID);
 
-
                 LoadJobOrders(_selectedJob.jobID);
                 this.Text = $"Knoodle Parametric - Current Job = {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
-               
+                lbJobLabel.Text = $" {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
             }
 
             // Load the Parts into memory as dictionary--
             partsService = new PartsService(ctx);
             partsService.LoadParts();
-            //foreach (var p in partsService.Parts)
-            //{
-            //    SourceMaterial mat = new SourceMaterial() { ItemID = p.Key };
-            //    mat.ItemID = p.Key;
-            //    mat.MarkUp = p.Value.MarkUp.GetValueOrDefault();
-            //    mat.MaterialDescription = p.Value.ItemDescription;
-            //    mat.MaterialName = p.Value.ItemName;
-            //    mat.UOM = p.Value.UnitOfMeasureID.GetValueOrDefault();
-            //    mat.Waste = p.Value.Waste.GetValueOrDefault();
-            //    mat.Weight = p.Value.Weight.GetValueOrDefault();
 
-            //    PartDictionary.PartSource.Add(mat.ItemID, mat);
-            //}
+            foreach (var p in partsService.Parts)
+            {
+                SourceMaterial mat = new SourceMaterial() { ItemID = p.Key };
+                mat.ItemID = p.Key;
+                mat.MarkUp = p.Value.MarkUp.GetValueOrDefault();
+                mat.MaterialDescription = p.Value.ItemDescription;
+                mat.MaterialName = p.Value.ItemName;
+                mat.UOM = p.Value.UnitOfMeasureID.GetValueOrDefault();
+                mat.Waste = p.Value.Waste.GetValueOrDefault();
+                mat.Weight = p.Value.Weight.GetValueOrDefault();
 
+                PartDictionary.PartSource.Add(mat.ItemID, mat);
+            }
+
+           
             // Tune the TabControl Basic Parameters
             tabMainTabControl.SizeMode = TabSizeMode.Fixed;
             tabMainTabControl.ItemSize = new Size(110, 21);
             tabMainTabControl.Location = new Point(25, 25);
             tabArea = tabMainTabControl.GetTabRect(0);
             tabTextArea = (RectangleF)tabMainTabControl.GetTabRect(0);
+            _loading = true;
+            LoadJobPicker();
 
+
+            cboJobsPicker.SelectedIndex = cboJobsPicker.FindString(_selectedJob.jobname.ToString());
         }
 
-    
+        private void DgSubAssemblies_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                ClassNameFinder classNameFinder = new ClassNameFinder();
+                classNameFinder.ShowDialog();
+            };
+        }
+
+
         #region UI Handlers
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
          
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if ((keyData == Keys.Enter) || (keyData == Keys.Return))
+
+            {
+
+                SaveJob();
+                return true;
+            }
+            else
+            {
+                return base.ProcessCmdKey(ref msg, keyData);
+            }
         }
 
 
@@ -240,12 +270,18 @@ namespace KnoodleUX
 
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void LoadJobPicker()
         {
-            _loading = true;
             cboJobsPicker.DataSource = _jobService.RecentJobs();
             cboJobsPicker.DisplayMember = "JobName";
             cboJobsPicker.ValueMember = "JobID";
+            _loading = true;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+           
   
         }
 
@@ -256,11 +292,16 @@ namespace KnoodleUX
         /// <param name="e"></param>
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
+            SaveJob();
+        }
+
+        private void SaveJob()
+        {
             UIactions.IsDirty = false;
             UIactions.ToogleButtonStyle(UIactions.IsDirty, btnSaveChanges);
+
             _productService.AddOrUpdate(_SelectedJobDTO);
             LoadProducts(_selectedJob.jobID);
-            
         }
         #region Grid Selectors
 
@@ -304,7 +345,7 @@ namespace KnoodleUX
         private void cboJobsPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!_loading)
-            {
+            {          
                 ComboBox cb = (ComboBox)sender;
                 if (cb.DataSource != null)
                 {
@@ -316,12 +357,12 @@ namespace KnoodleUX
                         KnoodleUX.Properties.Settings.Default.LastSelectedJob = _selectedJob.jobID;
                         KnoodleUX.Properties.Settings.Default.Save();
                         LoadProducts(_selectedJob.jobID);
-                        this.Text = _SelectedJobDTO.JobID.ToString();
+                        this.Text = $"{_SelectedJobDTO.JobID.ToString()} - {_selectedJob.jobname}";
                         // Load the Job Order in the Side-Bar
                         LoadJobOrders(_selectedJob.jobID);
                     }
                 }
-            }
+             }
            
         }
 
@@ -333,7 +374,7 @@ namespace KnoodleUX
         #endregion
         private void MainForm_Activated(object sender, EventArgs e)
         {
-            cboJobsPicker.SelectedValue = _selectedJob.jobID;
+            cboJobsPicker.SelectedIndex = cboJobsPicker.FindString(_selectedJob.jobname.ToString());
             _loading = false;
         }
 
@@ -387,6 +428,20 @@ namespace KnoodleUX
 
                 default:
                     break;
+            }
+        }
+        // Build ----------------------------------------
+        private void tsBuildProducts_Click(object sender, EventArgs e)
+        {
+            //loop through products list and build Product models
+            foreach (var item in _products)
+            {
+                Unit b = new Unit(item);
+                foreach (var sub in item.SubAssemblies)
+                {
+                    SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub, 1);
+                }
+               
             }
         }
     }

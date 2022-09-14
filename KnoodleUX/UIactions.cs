@@ -221,10 +221,16 @@ namespace KnoodleUX
             colOpCode.DataPropertyName = "OpCode";
             colOpCode.Width = 70;
 
+            //OpCode Column --
+            DataGridViewButtonColumn colMakeFileFind = new DataGridViewButtonColumn();
+            colMakeFileFind.HeaderText = "?";
+            colMakeFileFind.DataPropertyName = "OpCode";
+            colMakeFileFind.Width = 30;
+
 
 
             //colUnit.DataSource = _partService.Units();
-            dg.Columns.AddRange(colSubassemblyID, colSubAssemblyName, colMakeFile, colW, colH, colD, colCPD_ID, colGlassPartID, colOpCode);
+            dg.Columns.AddRange(colSubassemblyID, colSubAssemblyName, colMakeFile, colMakeFileFind, colW, colH, colD, colCPD_ID, colGlassPartID, colOpCode);
         }
 
         public static void BuildJobOrderListView(ListView lv)

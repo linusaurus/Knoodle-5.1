@@ -19,7 +19,7 @@ namespace FrameWorks.Makes.EuroBox
         public override void Build()
         {
 
-            FrameWorks.Component Component;
+            FrameWorks.ComponentPart Component;
             #region Case
 
             // Left Side
@@ -65,11 +65,11 @@ namespace FrameWorks.Makes.EuroBox
 
             #region Labor
 
-            Component = new LComponent("Drafting", this, 1.5m, 85.0m);
+          
             this.Components.Add(Component);
             #endregion
 
-            foreach (FrameWorks.Component p in this.Components)
+            foreach (FrameWorks.ComponentPart p in this.Components)
             {
                 // needed to tickle the cost forcing calculation
                 decimal d = p.Area;
@@ -91,7 +91,7 @@ namespace FrameWorks.Makes.EuroBox
         public override void Build()
         {
 
-            FrameWorks.Component Component;
+            FrameWorks.ComponentPart Component;
             #region Case
 
             // Left Side
@@ -134,7 +134,7 @@ namespace FrameWorks.Makes.EuroBox
             this.Components.Add(Component);
             #endregion
 
-            foreach (FrameWorks.Component p in this.Components)
+            foreach (FrameWorks.ComponentPart p in this.Components)
             {
                 // needed to tickle the cost forcing calculation
                 decimal d = p.Area;

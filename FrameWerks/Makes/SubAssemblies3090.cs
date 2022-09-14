@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace FrameWorks.Core
+namespace FrameWorks.Makes
 {
-    public  class  BOMLineItem
+   public class SubAssemblies3090 : SubAssemblyBase
     {
-
-        public BOMLineItem()
+        public SubAssemblies3090() : base()
         {
 
         }
-
-
     }
 }

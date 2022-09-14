@@ -24,7 +24,6 @@ namespace ServiceLayer
             return ctx.Product.Include(p => p.SubAssemblies).Where(j => j.JobID == jobID).ToList();
         }
 
-       
        public List<JobOrdersList> JobOrders(int jobID)
        {
                 return  ctx.PurchaseOrder.Where(j => j.JobID==jobID).Select(p => new JobOrdersList
@@ -34,7 +33,7 @@ namespace ServiceLayer
                     SupplierName = p.Supplier.SupplierName
 
                 }).ToList();
-            
+           
         }
 
         public List<ProductDto> GetProducts(int jobID)

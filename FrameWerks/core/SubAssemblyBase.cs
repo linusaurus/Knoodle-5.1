@@ -1,7 +1,7 @@
 #region Copyright (c) 2021 WeaselWare Software
 /************************************************************************************
 '
-' Copyright  2008 WeaselWare Software 
+' Copyright  2022 WeaselWare Software 
 '
 ' This software is provided 'as-is', without any express or implied warranty. In no 
 ' event will the authors be held liable for any damages arising from the use of this 
@@ -28,54 +28,44 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using FrameWorks.Makes;
-
-
-
-
-
+using FrameWorks;
+using ServiceLayer;
 
 namespace FrameWorks 
 {
-   [Serializable]
+  
     public abstract class SubAssemblyBase 
    {
       
       #region Fields
       
       
-      protected int subAssemblyID;
+      protected int m_subAssemblyID;
     
       protected AssemblyBase m_parent;
-      protected List<Component> m_Components = new List<Component>();
-      protected string makeFileName;
-      protected string subAssemblyName;
+      protected List<ComponentPart> m_componentParts = new List<ComponentPart>();
+      protected string m_makeFileName;
+      protected string m_subAssemblyName;
       protected decimal m_subAssemblyWidth;
       protected decimal m_subAssemblyHieght;
       protected decimal m_subAssemblyDepth;
       protected decimal m_calculatedCost;
-      protected static int counter;
+      protected static int m_counter;
       protected decimal m_area;
       protected decimal m_perimeter;
-      protected decimal m_wieght;
-      protected decimal m_radius;
-      protected decimal m_laborTotal;
+      protected decimal m_weight;
+
       protected FrameWorks.Workorder m_workorder;
-
-        // Parent Product Assembly
-       // private ProductDto parentAssembly;
-
-
-
+   
         #endregion
 
 
 
-        public static SubAssemblyBase  FactoryNew(object criteria,int subID)
+        public static SubAssemblyBase FactoryNew(SubAssemblyDTO criteria,int subID)
        {
            SubAssemblyBase newAssembly = null;
-           string tp =  "FrameWorks.Makes.System2010.AwnFixedUnit";
-            Type t = Type.GetType(tp);
+           
+           Type t = Type.GetType(criteria.MakeFile.ToString());
           
            try
            {
@@ -83,16 +73,14 @@ namespace FrameWorks
                {
                  newAssembly = (SubAssemblyBase)Activator.CreateInstance(t, true);
                  newAssembly.SubAssemblyID = subID;
-                 
-                 
                }
 
            }
            catch (Exception e)
            {
                string msg =  String.Format("Makefile {0} no match found",criteria.ToString() );
-               throw e;
-           }
+                throw;
+            }
            
            
            return newAssembly;
@@ -101,7 +89,7 @@ namespace FrameWorks
 
        public override string ToString()
        {
-           return subAssemblyID.ToString();
+           return m_subAssemblyID.ToString();
        }
 
 
@@ -109,8 +97,8 @@ namespace FrameWorks
 
       public SubAssemblyBase()
       {
-        // subAssemblyID = Guid.NewGuid();
-         counter++ ;
+        //subAssemblyID = Guid.NewGuid();
+         m_counter++ ;
         
       }
       
@@ -122,28 +110,28 @@ namespace FrameWorks
            
       public int CreateID
       {
-             get{return counter;}
+         get{return m_counter;}
       }
 
       public decimal SquareFootPrice
       {
           get
           {
-              return Decimal.Divide(CalculatedCost, this.m_area);
+                return Decimal.Divide(CalculatedCost, this.m_area);
           }
       }
 
 
       
-      public decimal CalculatedCost
+      public  decimal CalculatedCost
       {
           get
           {
               decimal _cost = decimal.Zero;
-              foreach (Component Component in this.m_Components)
+              foreach (ComponentPart component in this.m_componentParts)
               {
-                  decimal per = Component.UnitPrice;
-                  _cost += Component.CalculatedCost;
+                  decimal per = component.CalculatedCost;
+                  _cost += component.CalculatedCost;
 
               }
               m_calculatedCost = _cost;
@@ -154,36 +142,20 @@ namespace FrameWorks
         /// <summary>
         /// TODO replace with reference to a selfcalculationg WORKORDER object
         /// </summary>
-      public decimal LaborTotal
-      {
-          get {
-
-              m_laborTotal = decimal.Zero;
-              foreach (var lComponent in m_Components)
-              {
-                  if (lComponent.GetType().Name == "LComponent")
-                  {
-                        m_laborTotal += lComponent.LaborAmount * lComponent.Rate;
-                  }
-                
-              }
-
-              return Math.Round(m_laborTotal, 2);
-          }
-
-      }
-      public decimal Wieght
+   
+      public decimal Weight
       {
          get 
          {
             decimal w = decimal.Zero;
-             foreach (FrameWorks.Component p in this.Components)
-             {
-                 w += p.Weight;
-             }
+
+             //foreach (FrameWorks.ComponentPart p in this.Components)
+             //{
+             //    w += p.Weight;
+             //}
              return Math.Round(w,2);
          }
-         set { m_wieght = value; }
+         set { m_weight = value; }
       }
 
       public decimal Area
@@ -193,8 +165,6 @@ namespace FrameWorks
                 result = Math.Round(((m_subAssemblyWidth * m_subAssemblyHieght)/144),2);
                 m_area = result;
                 return m_area;
-          
-          
           }
          
       }
@@ -206,9 +176,7 @@ namespace FrameWorks
             m_perimeter = decimal.Zero;
             m_perimeter = (m_subAssemblyWidth * 2.0m) + (m_subAssemblyHieght * 2.0m) + (m_subAssemblyDepth * 2.0m);
             return Math.Round(m_perimeter,2);
-
          }
-
       }
 
       
@@ -216,8 +184,8 @@ namespace FrameWorks
       
       public int SubAssemblyID
       {
-         get{return subAssemblyID;}
-         set{subAssemblyID = value;}
+         get{return m_subAssemblyID;}
+         set{m_subAssemblyID = value;}
       }
 
       public AssemblyBase Parent
@@ -230,21 +198,21 @@ namespace FrameWorks
         /// <summary>
         /// Refactored Parts Name
         /// </summary>
-      public List<Component> Components
+      public List<ComponentPart> Components
       {
-         get { return m_Components ; }
+         get { return m_componentParts; }
       } 
 
       public string ModelID
       {
           get {return this.GetType().ToString() ;}
           //get {return makeFileName; }
-         set{makeFileName = value;}
+         set{m_makeFileName = value;}
       }
       public string Name
       {
-         get { return subAssemblyName ; }
-         set { subAssemblyName = value;}
+         get { return m_subAssemblyName ; }
+         set { m_subAssemblyName = value;}
       }
       public decimal SubAssemblyWidth
       {

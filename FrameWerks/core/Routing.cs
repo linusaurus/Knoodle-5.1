@@ -77,9 +77,6 @@ namespace FrameWorks
 
         #region properties 
 
-       
-     
-
         public List<Routing> Routings
         { get { return m_routings; } }
 

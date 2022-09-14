@@ -1,7 +1,7 @@
-#region Copyright (c) 2011 WeaselWare Software
+#region Copyright (c) 2022 WeaselWare Software
 /************************************************************************************
 '
-' Copyright  2011 WeaselWare Software 
+' Copyright  2022 WeaselWare Software 
 '
 ' This software is provided 'as-is', without any express or implied warranty. In no 
 ' event will the authors be held liable for any damages arising from the use of this 
@@ -30,24 +30,21 @@ using System.Reflection ;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-
+using ServiceLayer;
 
 namespace FrameWorks
 {
    [Serializable]
-   public abstract class AssemblyBase : INotifyPropertyChanged
+   public abstract class AssemblyBase
    {
       #region Fields
 
-      protected string m_projectID;
-      protected string m_projectGroup;
-      protected string m_productID;
-
-      protected int m_UnitID;
-      protected decimal m_varDecimalOne;
-      protected object[] options;
-      protected string m_unitName = string.Empty;
-      protected string m_projectInstanceName = string.Empty;
+      protected string  m_jobID;
+      protected int  m_productID;
+      protected int      m_UnitID;
+      protected object[] m_params;
+      protected string   m_unitName = string.Empty;
+      protected string  m_projectInstanceName = string.Empty;
       protected decimal m_unitWidth;
       protected decimal m_unitHeight;
       protected decimal m_unitDepth;
@@ -61,15 +58,10 @@ namespace FrameWorks
       
       #region ICutlistableUnit Members
 
-      public object[] Options
-      { get { return options; } set { options = value; } }
+      public object[] Params
+      { get { return m_params; } set { m_params = value; } }
 
-      public decimal VarDecimalOne
-       {
-           get { return m_varDecimalOne ;}
-           set { m_varDecimalOne = value;}
 
-       }
       [Category("Pricing")]
       [Description("Price per square foot of the aggregate Unit")]
       public decimal SquareFootPrice
@@ -121,23 +113,23 @@ namespace FrameWorks
       
       #region Static Methods
       
-      public static  FrameWorks.Unit  FactoryNew(object criteria)
-      {
-         FrameWorks.Unit newUnit;
-         newUnit = null;
-         Type t = Type.GetType(criteria.ToString());
-         if(t != null)
-         {
-            newUnit= (FrameWorks.Unit)Activator.CreateInstance(t, true);
-         }
+      //public static  FrameWorks.Unit  FactoryNew(object criteria)
+      //{
+      //   FrameWorks.Unit newUnit;
+      //   newUnit = null;
+      //   Type t = Type.GetType(criteria.ToString());
+      //   if(t != null)
+      //   {
+      //      newUnit= (FrameWorks.Unit)Activator.CreateInstance(t, true);
+      //   }
       
-         return newUnit;
+      //   return newUnit;
       
-      }
-      
-       #endregion
-    
-      [Category("Pricing")]
+      //}
+  
+        #endregion
+
+        [Category("Pricing")]
       [Description("Name of this item in the contract or bid ")]
       public string ProjectInstanceName
       {
@@ -145,20 +137,21 @@ namespace FrameWorks
          set{ m_projectInstanceName = value;}
  
       }
+
+     public int ProductID
+        {
+            get { return m_productID ; }
+            set { m_productID = value;}
+        }
       public string UnitName
       {
          get{return m_unitName;}
          set{m_unitName = value;}
      
       }
-
-      public string MakeFileName
-      {
-          get { return m_MakeFileName; }
-          set { m_MakeFileName = value; }
-      }
+    
       [Category("Pricing")]
-      [Description("Total dollar price for the material and labor for the Assembly")]
+      [Description("Total of material Assembly")]
       public decimal CalculatedCost
       {                 
            get
@@ -207,8 +200,7 @@ namespace FrameWorks
 
       #endregion
 
-      public event EventHandler ComponentProccessed;
-        public event PropertyChangedEventHandler PropertyChanged;
+    
     }
   
 

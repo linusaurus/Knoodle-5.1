@@ -756,25 +756,25 @@ public class Functions
    }
 
 
-   public static int NextBomID()
-   {
-      int returnvalue = 1;
-      SqlConnection cn = new SqlConnection(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BOM;Data Source=ws-1009");
-      SqlCommand cmd = cn.CreateCommand();
-      cmd.CommandText = "GetIndex";
-      cmd.CommandType = CommandType.StoredProcedure;
-      cmd.Parameters.Add("@NextBomID",SqlDbType.Int );
-      cmd.Parameters["@NextBomID"].Direction = ParameterDirection.Output;
+   //public static int NextBomID()
+   //{
+   //   int returnvalue = 1;
+   //   SqlConnection cn = new SqlConnection(@"Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BOM;Data Source=ws-1009");
+   //   SqlCommand cmd = cn.CreateCommand();
+   //   cmd.CommandText = "GetIndex";
+   //   cmd.CommandType = CommandType.StoredProcedure;
+   //   cmd.Parameters.Add("@NextBomID",SqlDbType.Int );
+   //   cmd.Parameters["@NextBomID"].Direction = ParameterDirection.Output;
       
-      cn.Open();
-      cmd.ExecuteNonQuery();
-      returnvalue = (int)cmd.Parameters["@NextBomID"].Value;
-      cn.Close();
-      return returnvalue;
+   //   cn.Open();
+   //   cmd.ExecuteNonQuery();
+   //   returnvalue = (int)cmd.Parameters["@NextBomID"].Value;
+   //   cn.Close();
+   //   return returnvalue;
       
-      ;
+   //   ;
    
-   }  
+   //}  
    public static int gCounterTick;
 
 
@@ -961,7 +961,7 @@ public class Functions
      
          foreach(SubAssemblyBase _sub in unit.SubAssemblies)
          {
-               foreach(Component _Component in _sub.Components)
+               foreach(ComponentPart _Component in _sub.Components)
                {
                   value++;
                }

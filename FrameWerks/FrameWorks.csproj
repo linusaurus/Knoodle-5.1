@@ -1,10 +1,77 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 <PropertyGroup>
-  <TargetFramework>net5.0-windows</TargetFramework>
+  <TargetFramework>net6.0-windows</TargetFramework>
   <UseWindowsForms>true</UseWindowsForms>
   <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 </PropertyGroup>
+
+<ItemGroup>
+  <Compile Remove="EuroBox\**" />
+  <Compile Remove="hardware\**" />
+  <Compile Remove="SubAssemblies2010\**" />
+  <Compile Remove="SubAssemblies2060\**" />
+  <Compile Remove="SubAssemblies3000\**" />
+  <Compile Remove="SubAssemblies3010\**" />
+  <Compile Remove="SubAssemblies3090\**" />
+  <Compile Remove="SubAssemblies3250\**" />
+  <Compile Remove="SubAssemblies3340\**" />
+  <Compile Remove="SubAssemblies3530\**" />
+  <Compile Remove="SubAssemblies5010\**" />
+  <Compile Remove="SubAssembliesBahia\**" />
+  <Compile Remove="SubAssembliesFASTrack\**" />
+  <Compile Remove="SubAssembliesFASTrcPer\**" />
+  <Compile Remove="SubAssembliesFFI_LS_Gears\**" />
+  <Compile Remove="SubAssembliesMonacoCoveSS\**" />
+  <Compile Remove="SubAssembliesTiburAlum\**" />
+  <Compile Remove="SubAssembliesTiburBronze\**" />
+  <Compile Remove="SubAssembliesTiburon\**" />
+  <Compile Remove="System2000\**" />
+  <EmbeddedResource Remove="EuroBox\**" />
+  <EmbeddedResource Remove="hardware\**" />
+  <EmbeddedResource Remove="SubAssemblies2010\**" />
+  <EmbeddedResource Remove="SubAssemblies2060\**" />
+  <EmbeddedResource Remove="SubAssemblies3000\**" />
+  <EmbeddedResource Remove="SubAssemblies3010\**" />
+  <EmbeddedResource Remove="SubAssemblies3090\**" />
+  <EmbeddedResource Remove="SubAssemblies3250\**" />
+  <EmbeddedResource Remove="SubAssemblies3340\**" />
+  <EmbeddedResource Remove="SubAssemblies3530\**" />
+  <EmbeddedResource Remove="SubAssemblies5010\**" />
+  <EmbeddedResource Remove="SubAssembliesBahia\**" />
+  <EmbeddedResource Remove="SubAssembliesFASTrack\**" />
+  <EmbeddedResource Remove="SubAssembliesFASTrcPer\**" />
+  <EmbeddedResource Remove="SubAssembliesFFI_LS_Gears\**" />
+  <EmbeddedResource Remove="SubAssembliesMonacoCoveSS\**" />
+  <EmbeddedResource Remove="SubAssembliesTiburAlum\**" />
+  <EmbeddedResource Remove="SubAssembliesTiburBronze\**" />
+  <EmbeddedResource Remove="SubAssembliesTiburon\**" />
+  <EmbeddedResource Remove="System2000\**" />
+  <None Remove="EuroBox\**" />
+  <None Remove="hardware\**" />
+  <None Remove="SubAssemblies2010\**" />
+  <None Remove="SubAssemblies2060\**" />
+  <None Remove="SubAssemblies3000\**" />
+  <None Remove="SubAssemblies3010\**" />
+  <None Remove="SubAssemblies3090\**" />
+  <None Remove="SubAssemblies3250\**" />
+  <None Remove="SubAssemblies3340\**" />
+  <None Remove="SubAssemblies3530\**" />
+  <None Remove="SubAssemblies5010\**" />
+  <None Remove="SubAssembliesBahia\**" />
+  <None Remove="SubAssembliesFASTrack\**" />
+  <None Remove="SubAssembliesFASTrcPer\**" />
+  <None Remove="SubAssembliesFFI_LS_Gears\**" />
+  <None Remove="SubAssembliesMonacoCoveSS\**" />
+  <None Remove="SubAssembliesTiburAlum\**" />
+  <None Remove="SubAssembliesTiburBronze\**" />
+  <None Remove="SubAssembliesTiburon\**" />
+  <None Remove="System2000\**" />
+</ItemGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+</ItemGroup>
 
 <ItemGroup>
   <Compile Update="properties\Settings.Designer.cs">
