@@ -36,43 +36,51 @@ namespace FrameWorks
   
     public abstract class SubAssemblyBase 
    {
-      
-      #region Fields
-      
-      
-      protected int m_subAssemblyID;
-    
-      protected AssemblyBase m_parent;
-      protected List<ComponentPart> m_componentParts = new List<ComponentPart>();
-      protected string m_makeFileName;
-      protected string m_subAssemblyName;
-      protected decimal m_subAssemblyWidth;
-      protected decimal m_subAssemblyHieght;
-      protected decimal m_subAssemblyDepth;
-      protected decimal m_calculatedCost;
-      protected static int m_counter;
-      protected decimal m_area;
-      protected decimal m_perimeter;
-      protected decimal m_weight;
 
-      protected FrameWorks.Workorder m_workorder;
+        #region Fields
+
+        protected int m_productID;
+        protected int m_subAssemblyID;
+    
+        protected AssemblyBase m_parent;
+        protected List<ComponentPart> m_componentParts = new List<ComponentPart>();
+        protected string m_makeFileName;
+        protected string m_subAssemblyName;
+        protected decimal m_subAssemblyWidth;
+        protected decimal m_subAssemblyHieght;
+        protected decimal m_subAssemblyDepth;
+        protected decimal m_calculatedCost;
+        protected static int m_counter;
+        protected decimal m_area;
+        protected decimal m_perimeter;
+        protected decimal m_weight;
+
+        protected FrameWorks.Workorder m_workorder;
    
         #endregion
 
 
 
-        public static SubAssemblyBase FactoryNew(SubAssemblyDTO criteria,int subID)
+        public static SubAssemblyBase FactoryNew(SubAssemblyDTO criteria)
        {
-           SubAssemblyBase newAssembly = null;
            
+           SubAssemblyBase newAssembly = null;          
            Type t = Type.GetType(criteria.MakeFile.ToString());
-          
+        
            try
            {
                if (t != null)
                {
-                 newAssembly = (SubAssemblyBase)Activator.CreateInstance(t, true);
-                 newAssembly.SubAssemblyID = subID;
+                    newAssembly = (SubAssemblyBase)Activator.CreateInstance(t, true);
+
+                    newAssembly.ProductID = criteria.ProductID;
+                    newAssembly.SubAssemblyID = criteria.SubAssemblyID;
+                    newAssembly.m_subAssemblyName = criteria.SubAssemblyName;
+                    newAssembly.SubAssemblyWidth = criteria.W.GetValueOrDefault();
+                    newAssembly.m_subAssemblyHieght = criteria.H.GetValueOrDefault();
+                    newAssembly.SubAssemblyDepth = criteria.D.GetValueOrDefault();
+                    newAssembly.ModelID = criteria.MakeFile.ToString();
+              
                }
 
            }
@@ -120,8 +128,6 @@ namespace FrameWorks
                 return Decimal.Divide(CalculatedCost, this.m_area);
           }
       }
-
-
       
       public  decimal CalculatedCost
       {
@@ -194,7 +200,11 @@ namespace FrameWorks
          set{ m_parent = value;}
       }
 
-
+        public int ProductID
+        {
+            get{return m_productID;}
+            set{m_productID = value;}
+        }
         /// <summary>
         /// Refactored Parts Name
         /// </summary>

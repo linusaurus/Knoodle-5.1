@@ -108,19 +108,19 @@ namespace KnoodleUX
 
             // W ----------
             DataGridViewTextBoxColumn colW = new DataGridViewTextBoxColumn();
-            colW.Width = 100;
+            colW.Width = 140;
             colW.HeaderText = "W";
             colW.DataPropertyName = "W";
             colW.DefaultCellStyle = dstyleDecimal;
             // D ----------
             DataGridViewTextBoxColumn colD = new DataGridViewTextBoxColumn();
-            colD.Width = 100;
+            colD.Width = 140;
             colD.HeaderText = "D";
             colD.DataPropertyName = "D";
             colD.DefaultCellStyle = dstyleDecimal;
             // H ----------
             DataGridViewTextBoxColumn colH = new DataGridViewTextBoxColumn();
-            colH.Width = 100;
+            colH.Width = 140;
             colH.HeaderText = "H";
             colH.DataPropertyName = "H";
             colH.DefaultCellStyle = dstyleDecimal;

@@ -124,10 +124,16 @@ namespace KnoodleUX
 
         private void DgSubAssemblies_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            DataGridView dv = (DataGridView)sender;
+        
             if (e.ColumnIndex == 3)
             {
                 ClassNameFinder classNameFinder = new ClassNameFinder();
-                classNameFinder.ShowDialog();
+                if(classNameFinder.ShowDialog() == DialogResult.OK)
+                {
+                    ((SubAssemblyDTO)bsSubassemlies.Current).MakeFile = classNameFinder.SelectedClass;
+                    dv.Refresh();
+                }
             };
         }
 
@@ -436,10 +442,16 @@ namespace KnoodleUX
             //loop through products list and build Product models
             foreach (var item in _products)
             {
-                Unit b = new Unit(item);
-                foreach (var sub in item.SubAssemblies)
+                if (item.Make)
                 {
-                    SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub, 1);
+                    Unit b = new Unit(item);
+
+                    foreach (var sub in item.SubAssemblies)
+                    {
+                        SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub);
+                        s.Parent = b;
+                        b.SubAssemblies.Add(s);
+                    }
                 }
                
             }
