@@ -12,34 +12,34 @@ namespace ServiceLayer
     public class SubAssemblyDTO : INotifyPropertyChanged
     {
 
-        public int productID { get; set; }
-        public int subAssemblyID { get; set; }
-        public string subAssemblyName { get; set; }
-        public string makeFile { get; set; }
-        public decimal? w { get; set; }
-        public decimal? h { get; set; }
-        public decimal? d { get; set; }
+        private int _productID { get; set; }
+        private int _subAssemblyID { get; set; }
+        private string _subAssemblyName { get; set; }
+        private string _makeFile { get; set; }
+        private decimal? _w { get; set; }
+        private decimal? _h { get; set; }
+        private decimal? _d { get; set; }
 
-        public int? glassPartID { get; set; }
-        public int? cPD_id { get; set; }
+        private int? _glassPartID { get; set; }
+        private int? _cPD_id { get; set; }
 
 
         public int? GlassPartID
         {
-            get { return glassPartID; }
+            get { return _glassPartID; }
             set
             {
-                glassPartID = value;
+                _glassPartID = value;
                 OnPropertyChange();
             }
         }
 
         public int? CPD_ID
         {
-            get { return cPD_id; }
+            get { return _cPD_id; }
             set
             {
-                cPD_id = value;
+                _cPD_id = value;
                 OnPropertyChange();
             }
         }
@@ -47,10 +47,10 @@ namespace ServiceLayer
         // ProductionDate
         public int ProductID
         {
-            get { return productID; }
+            get { return _productID; }
             set
             {
-                productID = value;
+                _productID = value;
                 OnPropertyChange();
             }
         }
@@ -58,10 +58,10 @@ namespace ServiceLayer
         // SUbAssemblyID
         public int SubAssemblyID
         {
-            get { return subAssemblyID; }
+            get { return _subAssemblyID; }
             set
             {
-                subAssemblyID = value;
+                _subAssemblyID = value;
                 OnPropertyChange();
             }
         }
@@ -69,10 +69,10 @@ namespace ServiceLayer
         // SubAssemblyName
         public string SubAssemblyName
         {
-            get { return subAssemblyName; }
+            get { return _subAssemblyName; }
             set
             {
-                subAssemblyName = value;
+                _subAssemblyName = value;
                 OnPropertyChange();
             }
         }
@@ -80,10 +80,10 @@ namespace ServiceLayer
         // MakeFile
         public string MakeFile
         {
-            get { return makeFile; }
+            get { return _makeFile; }
             set
             {
-                makeFile = value;
+                _makeFile = value;
                 OnPropertyChange();
             }
         }
@@ -91,10 +91,10 @@ namespace ServiceLayer
         // W
         public decimal? W
         {
-            get { return w; }
+            get { return _w; }
             set
             {
-                w = value;
+                _w = value;
                 OnPropertyChange();
             }
         }
@@ -102,20 +102,20 @@ namespace ServiceLayer
         // H
         public decimal? H
         {
-            get { return h; }
+            get { return _h; }
             set
             {
-                h = value;
+                _h = value;
                 OnPropertyChange();
             }
         }
         // D
         public decimal? D
         {
-            get { return d; }
+            get { return _d; }
             set
             {
-                d = value;
+                _d = value;
                 OnPropertyChange();
             }
         }

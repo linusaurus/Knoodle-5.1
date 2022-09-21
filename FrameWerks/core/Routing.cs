@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FrameWorks
 {
-    [Serializable]
+  
     public class Routing
     {
         private int m_routingID;
@@ -15,6 +15,7 @@ namespace FrameWorks
         private decimal m_hours;
         private decimal m_amount;
         private int m_costFactor;
+      
 
         // Default Constructor
         public Routing()
@@ -53,14 +54,14 @@ namespace FrameWorks
 
 
 
-    [Serializable]
+   
     public class Workorder
     {
 
         //private int m_workOrderID;
         //private string m_workOrderName;
         private List<Routing> m_routings;
-        //private FrameWorks.SubAssemblyBase m_subAssembly;
+        private readonly SubAssemblyBase _parentSubAssembly;
 
         // Default Constructor
         public Workorder()
@@ -72,6 +73,7 @@ namespace FrameWorks
         public Workorder(FrameWorks.SubAssemblyBase Subassembly,int workOrderID)
         {
             m_routings = new List<Routing>();
+            _parentSubAssembly = Subassembly;
 
         }
 

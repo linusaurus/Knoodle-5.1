@@ -1,7 +1,7 @@
-#region Copyright (c) 2020 WeaselWare Software
+#region Copyright (c) 2022 WeaselWare Software
 /************************************************************************************
 '
-' Copyright  2011 WeaselWare Software 
+' Copyright  2022 WeaselWare Software 
 '
 ' This software is provided 'as-is', without any express or implied warranty. In no 
 ' event will the authors be held liable for any damages arising from the use of this 
@@ -15,7 +15,7 @@
 ' you wrote the original software. If you use this software in a product, an 
 ' acknowledgment (see the following) in the product documentation is required.
 '
-' Portions Copyright 2020 WeaselWare Software
+' Portions Copyright 2022 WeaselWare Software
 '
 ' 2. Altered source versions must be plainly marked as such, and must not be 
 ' misrepresented as being the original software.
@@ -29,7 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-
+using System.Runtime.CompilerServices;
 
 namespace FrameWorks
 {
@@ -75,7 +75,7 @@ namespace FrameWorks
       
       protected SubAssemblyBase parentAssembly;
       protected decimal area;
-      protected string componentLabel = string.Empty;
+      protected string _componentLabel = string.Empty;
       protected string componentIdentifier = string.Empty;
       protected int unitOfMeasureID = 0;
       protected decimal weight;
@@ -108,10 +108,13 @@ namespace FrameWorks
          {
                 this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
                 unitOfMeasureID = m_source.UOM ;
-         }
-      }
+            }
+        }
 
-      public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent,int Quantity, decimal calculatedLength)
+       
+
+
+        public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent,int Quantity, decimal calculatedLength)
       {
          if (sourceID == -1)
          {
@@ -124,7 +127,8 @@ namespace FrameWorks
              try
              {
                 this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-             }
+                this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{parent.ComponentParts.Count}";
+                }
              catch 
              {
                  ComponentNotFoundException ex = new ComponentNotFoundException(String.Format("Source Part {0} does not exist",sourceID.ToString()));
@@ -141,7 +145,39 @@ namespace FrameWorks
 
       }
 
-      public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent, int Quantity, decimal calculatedLength,decimal width)
+        public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent, int Quantity, decimal calculatedLength, string PartGroupType)
+        {
+            if (sourceID == -1)
+            {
+                m_source = new SourceMaterial();
+                componentSourceNumber = -1;
+
+            }
+            else
+            {
+                try
+                {
+                    this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
+                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-";
+                }
+                catch
+                {
+                    ComponentNotFoundException ex = new ComponentNotFoundException(String.Format("Source Part {0} does not exist", sourceID.ToString()));
+                    throw ex;
+                }
+
+            }
+
+
+            this.functionalName = functionalName;
+            //this.parent = parentAssembly;
+            this.componentLength = calculatedLength;
+            this.Qnty = Quantity;
+            this.componentGroupType = PartGroupType;
+
+        }
+
+        public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent, int Quantity, decimal calculatedLength,decimal width)
       {
           if (sourceID == -1)
           {
@@ -154,7 +190,8 @@ namespace FrameWorks
               try
               {
                   this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-              }
+                  this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{}";
+                }
               catch
               {
                   ComponentNotFoundException ex = new ComponentNotFoundException("Component ID = does not exist");
@@ -416,10 +453,10 @@ namespace FrameWorks
        public string ComponentLabel
        {
          get{
-             componentLabel =  this.parentAssembly.Parent.UnitID.ToString() + this.ComponentLabel ;
-             return componentLabel;
+             
+             return _componentLabel;
          }
-         set{componentLabel = value;}
+         set{_componentLabel = value;}
        
        }
     
@@ -456,10 +493,10 @@ namespace FrameWorks
             
             //--- Each
             case 1:
-                {
+            {
                     this.m_calculatedCost = Math.Round((decimal)(m_Qnty * m_source.Cost),2);
                     break;
-                }
+             }
             //--- Foot
             case 2:
             {

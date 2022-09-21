@@ -55,17 +55,18 @@ namespace FrameWorks
         protected decimal m_perimeter;
         protected decimal m_weight;
 
+        protected List<SubAssemblyBase> m_childSubAssembly = new List<SubAssemblyBase> ();
+
         protected FrameWorks.Workorder m_workorder;
+
    
         #endregion
 
-
-
-        public static SubAssemblyBase FactoryNew(SubAssemblyDTO criteria)
-       {
+        public static SubAssemblyBase FactoryNew(SubAssemblyDTO Criteria)
+        {
            
            SubAssemblyBase newAssembly = null;          
-           Type t = Type.GetType(criteria.MakeFile.ToString());
+           Type t = Type.GetType(Criteria.MakeFile.ToString());
         
            try
            {
@@ -73,26 +74,32 @@ namespace FrameWorks
                {
                     newAssembly = (SubAssemblyBase)Activator.CreateInstance(t, true);
 
-                    newAssembly.ProductID = criteria.ProductID;
-                    newAssembly.SubAssemblyID = criteria.SubAssemblyID;
-                    newAssembly.m_subAssemblyName = criteria.SubAssemblyName;
-                    newAssembly.SubAssemblyWidth = criteria.W.GetValueOrDefault();
-                    newAssembly.m_subAssemblyHieght = criteria.H.GetValueOrDefault();
-                    newAssembly.SubAssemblyDepth = criteria.D.GetValueOrDefault();
-                    newAssembly.ModelID = criteria.MakeFile.ToString();
-              
-               }
+                    if (newAssembly != null)// Makefile not found 
+                    {                
+                    newAssembly.ProductID = Criteria.ProductID;
+                    newAssembly.SubAssemblyID = Criteria.SubAssemblyID;
+                    newAssembly.m_subAssemblyName = Criteria.SubAssemblyName;
+                    newAssembly.SubAssemblyWidth = Criteria.W.GetValueOrDefault();
+                    newAssembly.m_subAssemblyHieght = Criteria.H.GetValueOrDefault();
+                    newAssembly.SubAssemblyDepth = Criteria.D.GetValueOrDefault();
+                    newAssembly.ModelID = Criteria.MakeFile.ToString();
+                    }
+                    else
+                    {
+                        // log to the console window
+                        Console.Write($"{t} not found or mispelled");
+                    }
+
+
+                }
 
            }
            catch (Exception e)
            {
-               string msg =  String.Format("Makefile {0} no match found",criteria.ToString() );
+                string msg =  String.Format("Makefile {0} no match found",Criteria.ToString() );              
                 throw;
-            }
-           
-           
-           return newAssembly;
-            
+           }
+           return newAssembly;            
        }
 
        public override string ToString()
@@ -105,9 +112,15 @@ namespace FrameWorks
 
       public SubAssemblyBase()
       {
-        //subAssemblyID = Guid.NewGuid();
-         m_counter++ ;
+   
         
+      }
+
+     
+      public List<SubAssemblyBase> ChildSubAssemblies
+      {
+          get { return m_childSubAssembly; }
+          set { m_childSubAssembly = value; }
       }
       
       #endregion
@@ -125,7 +138,7 @@ namespace FrameWorks
       {
           get
           {
-                return Decimal.Divide(CalculatedCost, this.m_area);
+                return Math.Round( Decimal.Divide(CalculatedCost, this.m_area), 2);
           }
       }
       
@@ -208,7 +221,7 @@ namespace FrameWorks
         /// <summary>
         /// Refactored Parts Name
         /// </summary>
-      public List<ComponentPart> Components
+      public List<ComponentPart> ComponentParts
       {
          get { return m_componentParts; }
       } 

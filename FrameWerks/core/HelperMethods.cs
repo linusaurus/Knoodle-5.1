@@ -961,7 +961,7 @@ public class Functions
      
          foreach(SubAssemblyBase _sub in unit.SubAssemblies)
          {
-               foreach(ComponentPart _Component in _sub.Components)
+               foreach(ComponentPart _Component in _sub.ComponentParts)
                {
                   value++;
                }

@@ -113,20 +113,7 @@ namespace FrameWorks
       
       #region Static Methods
       
-      //public static  FrameWorks.Unit  FactoryNew(object criteria)
-      //{
-      //   FrameWorks.Unit newUnit;
-      //   newUnit = null;
-      //   Type t = Type.GetType(criteria.ToString());
-      //   if(t != null)
-      //   {
-      //      newUnit= (FrameWorks.Unit)Activator.CreateInstance(t, true);
-      //   }
-      
-      //   return newUnit;
-      
-      //}
-  
+     
         #endregion
 
         [Category("Pricing")]

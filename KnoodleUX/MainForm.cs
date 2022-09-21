@@ -14,6 +14,7 @@ using ServiceLayer;
 using ServiceLayer.DTO;
 using ServiceLayer.Mappers;
 using KnoodleUX.UXControls;
+using CutlistEngine;
 
 
 namespace KnoodleUX
@@ -37,12 +38,16 @@ namespace KnoodleUX
         SubAssemblyDTO _selectedSubAssemblyDTO = new SubAssemblyDTO();
 
         bool _loading = true;
+        public static int _counter = 1;
         private List<ProductDto> _products;
         ProductMapper productMapper = new ProductMapper();
         JobMapper jobMapper = new JobMapper();
 
         BindingSource bsProducts = new BindingSource();
         BindingSource bsSubassemlies = new BindingSource();
+
+        List<FrameWorks.AssemblyBase> internalUnits = new List<FrameWorks.AssemblyBase>();
+        
 
         private Rectangle tabArea;
         private RectangleF tabTextArea;
@@ -97,6 +102,7 @@ namespace KnoodleUX
             foreach (var p in partsService.Parts)
             {
                 SourceMaterial mat = new SourceMaterial() { ItemID = p.Key };
+                mat.Cost = p.Value.Cost.GetValueOrDefault();
                 mat.ItemID = p.Key;
                 mat.MarkUp = p.Value.MarkUp.GetValueOrDefault();
                 mat.MaterialDescription = p.Value.ItemDescription;
@@ -216,7 +222,7 @@ namespace KnoodleUX
                     W = decimal.Zero,
                     H = decimal.Zero,
                     D = decimal.Zero,
-                    d = decimal.Zero
+                    
                 };
 
             }
@@ -439,6 +445,7 @@ namespace KnoodleUX
         // Build ----------------------------------------
         private void tsBuildProducts_Click(object sender, EventArgs e)
         {
+            internalUnits.Clear();
             //loop through products list and build Product models
             foreach (var item in _products)
             {
@@ -449,12 +456,87 @@ namespace KnoodleUX
                     foreach (var sub in item.SubAssemblies)
                     {
                         SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub);
-                        s.Parent = b;
+                        b.AddSubAssembly(s);
+                        s.Build();
                         b.SubAssemblies.Add(s);
                     }
+                    //Populate list of processed Units
+                    internalUnits.Add(b);
                 }
                
             }
+
+            DB.FillBuildTree(tvBuildTree, internalUnits);
+        }
+
+        private void tsSaveOutput_Click(object sender, EventArgs e)
+        {
+            if (internalUnits.Count > 0)
+            {
+                using (CutlistEngine.CutlistDBContext ctx = new CutlistDBContext())
+                {
+                    foreach (var pd in internalUnits)
+                    {
+                        foreach (var sub in pd.SubAssemblies)
+                        {
+                            foreach (var prt in sub.ComponentParts)
+                            {
+                                
+                            }
+                            
+                        }
+                        
+                    }
+
+                    ctx.SaveChanges();
+                }
+
+                
+                   
+            }
+        }
+
+        private void tvBuildTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            string sel = e.Node.Tag.GetType().BaseType.ToString();
+
+
+            switch (sel)
+            {
+                case "FrameWorks.SubAssemblyBase":
+                    {
+                        FrameWorks.SubAssemblyBase selectedPart = (FrameWorks.SubAssemblyBase)e.Node.Tag;
+                        this.partPropertyGrid.SelectedObject = selectedPart;
+                        break;
+                    }
+                case "FrameWorks.AssemblyBase":
+                    {
+                        FrameWorks.AssemblyBase selectedPart = (FrameWorks.AssemblyBase)e.Node.Tag;
+                        this.partPropertyGrid.SelectedObject = selectedPart;
+                        break;
+                    }
+                case "System.Object":
+                    {
+
+                        FrameWorks.ComponentPart selectedPart = (FrameWorks.ComponentPart)e.Node.Tag;
+                        this.partPropertyGrid.SelectedObject = selectedPart;
+                        break;
+                    }
+                case "FrameWorks.ComponentPart":
+                    {
+
+                        FrameWorks.ComponentPart selectedPart = (FrameWorks.ComponentPart)e.Node.Tag;
+                        this.partPropertyGrid.SelectedObject = selectedPart;
+                        break;
+                    }
+
+
+
+                default:
+                    break;
+            }
+
+
         }
     }
 }

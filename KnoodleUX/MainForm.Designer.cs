@@ -52,6 +52,8 @@ namespace KnoodleUX
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsSubAssemblyLabel = new System.Windows.Forms.ToolStripLabel();
             this.tabInspector = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tvBuildTree = new System.Windows.Forms.TreeView();
             this.buttonsPanel = new System.Windows.Forms.Panel();
             this.lbJobLabel = new System.Windows.Forms.Label();
             this.cboJobsPicker = new System.Windows.Forms.ComboBox();
@@ -59,6 +61,7 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
+            this.partPropertyGrid = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
             this.splconMain.Panel2.SuspendLayout();
@@ -79,6 +82,11 @@ namespace KnoodleUX
             this.tsProductTools.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgSubAssemblies)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.tabInspector.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.buttonsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -270,6 +278,7 @@ namespace KnoodleUX
             this.tsSaveOutput.Name = "tsSaveOutput";
             this.tsSaveOutput.Size = new System.Drawing.Size(76, 28);
             this.tsSaveOutput.Text = "Save Output";
+            this.tsSaveOutput.Click += new System.EventHandler(this.tsSaveOutput_Click);
             // 
             // toolStripSeparator1
             // 
@@ -327,13 +336,40 @@ namespace KnoodleUX
             // 
             // tabInspector
             // 
+            this.tabInspector.Controls.Add(this.splitContainer1);
             this.tabInspector.Location = new System.Drawing.Point(4, 24);
             this.tabInspector.Name = "tabInspector";
-            this.tabInspector.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInspector.Padding = new System.Windows.Forms.Padding(6);
             this.tabInspector.Size = new System.Drawing.Size(896, 520);
             this.tabInspector.TabIndex = 1;
             this.tabInspector.Text = "Inspector";
             this.tabInspector.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(6, 6);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tvBuildTree);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.partPropertyGrid);
+            this.splitContainer1.Size = new System.Drawing.Size(884, 508);
+            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // tvBuildTree
+            // 
+            this.tvBuildTree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvBuildTree.Location = new System.Drawing.Point(0, 0);
+            this.tvBuildTree.Name = "tvBuildTree";
+            this.tvBuildTree.Size = new System.Drawing.Size(294, 508);
+            this.tvBuildTree.TabIndex = 0;
+            this.tvBuildTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBuildTree_AfterSelect);
             // 
             // buttonsPanel
             // 
@@ -411,6 +447,14 @@ namespace KnoodleUX
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
+            // partPropertyGrid
+            // 
+            this.partPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.partPropertyGrid.Location = new System.Drawing.Point(0, 0);
+            this.partPropertyGrid.Name = "partPropertyGrid";
+            this.partPropertyGrid.Size = new System.Drawing.Size(586, 508);
+            this.partPropertyGrid.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -449,6 +493,11 @@ namespace KnoodleUX
             ((System.ComponentModel.ISupportInitialize)(this.dgSubAssemblies)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.tabInspector.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.buttonsPanel.ResumeLayout(false);
             this.buttonsPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -487,6 +536,9 @@ namespace KnoodleUX
         private System.Windows.Forms.ListBox lbDelivery;
         private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.Label lbJobLabel;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.TreeView tvBuildTree;
+        private System.Windows.Forms.PropertyGrid partPropertyGrid;
     }
 }
 
