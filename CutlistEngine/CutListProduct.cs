@@ -34,6 +34,7 @@ namespace CutlistEngine
         public string? Jobname { get; set; }
         public int ProductID { get; set; }
         public int SubAssemblyID { get; set; }
+        public string? SubAssemblyName { get; set; }
         public string? ProductName { get; set; }
         [Column(TypeName = "int32")]
         public int PartID { get; set; }

@@ -1,7 +1,7 @@
-﻿#region Copyright (c) 2010 WeaselWare Software
+﻿#region Copyright (c) 2022 WeaselWare Software
 /************************************************************************************
 '
-' Copyright  2010 WeaselWare Software 
+' Copyright  2022 WeaselWare Software 
 '
 ' This software is provided 'as-is', without any express or implied warranty. In no 
 ' event will the authors be held liable for any damages arising from the use of this 
@@ -15,7 +15,7 @@
 ' you wrote the original software. If you use this software in a product, an 
 ' acknowledgment (see the following) in the product documentation is required.
 '
-' Portions Copyright 2010 WeaselWare Software
+' Portions Copyright 2022 WeaselWare Software
 '
 ' 2. Altered source versions must be plainly marked as such, and must not be 
 ' misrepresented as being the original software.
@@ -30,6 +30,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrameWorks;
+using ServiceLayer;
+
 
 namespace FrameWorks
 {
@@ -39,6 +41,8 @@ namespace FrameWorks
         
         public static Dictionary<int, SourceMaterial> PartSource { get; set; } 
             = new Dictionary<int, SourceMaterial>();
+        public static Dictionary<int, ServiceLayer.PartsService.PartItem> PartLookup { get; set; }
+           = new Dictionary<int, PartsService.PartItem>();
 
     }
 

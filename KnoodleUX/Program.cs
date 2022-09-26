@@ -9,6 +9,7 @@ namespace KnoodleUX
 {
     static class Program
     {
+        public static int counter;
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>

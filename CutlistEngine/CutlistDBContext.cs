@@ -12,11 +12,22 @@ namespace CutlistEngine
 {
     public class CutlistDBContext : DbContext
     {
-        public DbSet<CutListProduct> CutListProducts { get; set; }
-
+        private static bool _created = false;
+        private string DBFolderPath = @"Data Source=C:\DB\";
+        public DbSet<CutListProduct>? CutListProducts { get; set; }
+        public CutlistDBContext()
+        {
+            if (!_created)
+            {
+                
+                _created = true;
+               //Database.EnsureDeleted();
+               // Database.EnsureCreated();
+            }
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string path = Path.Combine(@"Data Source=C:\DB\", "CL1479.db");
+            string path = Path.Combine(DBFolderPath, "CLJOB1427.db");
          
             optionsBuilder.UseSqlite(path);
             SQLitePCL.Batteries.Init();

@@ -95,26 +95,10 @@ namespace KnoodleUX
                 lbJobLabel.Text = $" {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
             }
 
-            // Load the Parts into memory as dictionary--
+            //---Load the Parts into memory as dictionary------------
             partsService = new PartsService(ctx);
-            partsService.LoadParts();
-
-            foreach (var p in partsService.Parts)
-            {
-                SourceMaterial mat = new SourceMaterial() { ItemID = p.Key };
-                mat.Cost = p.Value.Cost.GetValueOrDefault();
-                mat.ItemID = p.Key;
-                mat.MarkUp = p.Value.MarkUp.GetValueOrDefault();
-                mat.MaterialDescription = p.Value.ItemDescription;
-                mat.MaterialName = p.Value.ItemName;
-                mat.UOM = p.Value.UnitOfMeasureID.GetValueOrDefault();
-                mat.Waste = p.Value.Waste.GetValueOrDefault();
-                mat.Weight = p.Value.Weight.GetValueOrDefault();
-
-                PartDictionary.PartSource.Add(mat.ItemID, mat);
-            }
-
-           
+            PartDictionary.PartLookup = partsService.PartItems();
+            //-------------------------------------------------------
             // Tune the TabControl Basic Parameters
             tabMainTabControl.SizeMode = TabSizeMode.Fixed;
             tabMainTabControl.ItemSize = new Size(110, 21);
@@ -458,7 +442,7 @@ namespace KnoodleUX
                         SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub);
                         b.AddSubAssembly(s);
                         s.Build();
-                        b.SubAssemblies.Add(s);
+                      
                     }
                     //Populate list of processed Units
                     internalUnits.Add(b);
@@ -481,7 +465,33 @@ namespace KnoodleUX
                         {
                             foreach (var prt in sub.ComponentParts)
                             {
-                                
+                                CutListProduct cut = new CutListProduct
+                                {
+                                    PartClass = prt.ComponentGroupType,
+                                    Markup = prt.MarkUp,
+                                    PartID = prt.Source.PartID,
+                                    SubAssemblyName = "SubName",
+                                    PartSourceDescription = prt.Source.MaterialDescription,
+                                    SubAssemblyID = sub.SubAssemblyID,
+                                    ProductID = sub.ProductID,
+                                    ProductName = sub.Parent.UnitName,
+                                    JobId = _selectedJob.jobID,
+                                    Jobname = _selectedJob.jobname,
+                                    FunctionalPartCost = prt.CalculatedCost,
+                                    FunctionName = prt.FunctionalName,
+                                    PartIdentifier = prt.ComponentLabel,
+                                    UnitCost = prt.UnitPrice,
+                                    Qnty = prt.Qnty,
+                                    Width = prt.ComponentWidth,
+                                    Length = prt.ComponentLength,
+                                    UnitOfMeasure = prt.UnitOfMeasureName,
+                                    Tax = prt.CalculatedCost * 0.78m,
+                                    Waste = prt.CalculatedCost * prt.Waste
+                                    
+                                    
+                                };
+
+                                ctx.CutListProducts.Add(cut);
                             }
                             
                         }
@@ -537,6 +547,17 @@ namespace KnoodleUX
             }
 
 
+        }
+        // Condense the output parts and display 
+        private void tsShowRecipe_Click(object sender, EventArgs e)
+        {
+            using (CutlistEngine.CutlistDBContext ctx = new CutlistDBContext())
+            {
+                var recipe = ctx.CutListProducts.ToList();
+                var result = recipe.GroupBy(x => x.PartID,(key,values) => 
+                    new { id=key,amount =  values.Sum(x => x.Qnty) ,length = values.Sum(p => p.Length)
+                });
+            }
         }
     }
 }

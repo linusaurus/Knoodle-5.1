@@ -54,6 +54,7 @@ namespace KnoodleUX
             this.tabInspector = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvBuildTree = new System.Windows.Forms.TreeView();
+            this.partPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.buttonsPanel = new System.Windows.Forms.Panel();
             this.lbJobLabel = new System.Windows.Forms.Label();
             this.cboJobsPicker = new System.Windows.Forms.ComboBox();
@@ -61,7 +62,7 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
-            this.partPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.tsShowRecipe = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
             this.splconMain.Panel2.SuspendLayout();
@@ -246,6 +247,7 @@ namespace KnoodleUX
             this.tsProductTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsBuildProducts,
             this.tsSaveOutput,
+            this.tsShowRecipe,
             this.toolStripSeparator1,
             this.tsbAddProduct,
             this.tsbDeleteProduct});
@@ -371,6 +373,14 @@ namespace KnoodleUX
             this.tvBuildTree.TabIndex = 0;
             this.tvBuildTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBuildTree_AfterSelect);
             // 
+            // partPropertyGrid
+            // 
+            this.partPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.partPropertyGrid.Location = new System.Drawing.Point(0, 0);
+            this.partPropertyGrid.Name = "partPropertyGrid";
+            this.partPropertyGrid.Size = new System.Drawing.Size(586, 508);
+            this.partPropertyGrid.TabIndex = 0;
+            // 
             // buttonsPanel
             // 
             this.buttonsPanel.Controls.Add(this.lbJobLabel);
@@ -447,13 +457,17 @@ namespace KnoodleUX
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
-            // partPropertyGrid
+            // tsShowRecipe
             // 
-            this.partPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.partPropertyGrid.Location = new System.Drawing.Point(0, 0);
-            this.partPropertyGrid.Name = "partPropertyGrid";
-            this.partPropertyGrid.Size = new System.Drawing.Size(586, 508);
-            this.partPropertyGrid.TabIndex = 0;
+            this.tsShowRecipe.BackColor = System.Drawing.Color.Tan;
+            this.tsShowRecipe.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsShowRecipe.Image = ((System.Drawing.Image)(resources.GetObject("tsShowRecipe.Image")));
+            this.tsShowRecipe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsShowRecipe.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
+            this.tsShowRecipe.Name = "tsShowRecipe";
+            this.tsShowRecipe.Size = new System.Drawing.Size(78, 28);
+            this.tsShowRecipe.Text = "Show Recipe";
+            this.tsShowRecipe.Click += new System.EventHandler(this.tsShowRecipe_Click);
             // 
             // MainForm
             // 
@@ -539,6 +553,7 @@ namespace KnoodleUX
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView tvBuildTree;
         private System.Windows.Forms.PropertyGrid partPropertyGrid;
+        private System.Windows.Forms.ToolStripButton tsShowRecipe;
     }
 }
 

@@ -64,7 +64,7 @@ namespace FrameWorks
 
         public static SubAssemblyBase FactoryNew(SubAssemblyDTO Criteria)
         {
-           
+          
            SubAssemblyBase newAssembly = null;          
            Type t = Type.GetType(Criteria.MakeFile.ToString());
         

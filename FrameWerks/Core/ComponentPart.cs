@@ -30,6 +30,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Diagnostics.Metrics;
+using FrameWorks.Core;
 
 namespace FrameWorks
 {
@@ -50,21 +52,19 @@ namespace FrameWorks
         }
 
     }
+
+    
  
     public class ComponentPart
    {
 
       #region Fields
 
-      //protected FrameWorks.Material m_source;
-
-   
       protected decimal unitPrice;
       protected string componentName;
-      protected int componentSourceNumber;
       protected decimal unitSpecificAmount;
-      // this requires the lookup and a Component number
-      protected SourceMaterial m_source;
+        //this requires the lookup and a Component number
+      protected ServiceLayer.PartsService.PartItem m_source;
       protected decimal componentWidth = 0.0m;
       protected decimal componentThick = 0.0m;
       protected decimal componentLength = 0.0m;
@@ -72,18 +72,18 @@ namespace FrameWorks
       protected string componentGroupType;
       protected decimal sourceWaste = 0.0m;
       protected decimal sourceMarkup = 0.0m;
-      
+      //----------------------------------------------
       protected SubAssemblyBase parentAssembly;
       protected decimal area;
-      protected string _componentLabel = string.Empty;
+      protected string componentLabel = string.Empty;
       protected string componentIdentifier = string.Empty;
       protected int unitOfMeasureID = 0;
+      protected string unitOfMeasureName = string.Empty;
       protected decimal weight;
       protected decimal waste = 0.0m;
       protected decimal markup = 0.0m;
       protected int supplierID;
-      
-
+      protected int partID;
       
 
       #endregion
@@ -101,14 +101,21 @@ namespace FrameWorks
       {
          if(sourceID == -1)
          {
-            m_source = new SourceMaterial();
-            componentSourceNumber  = -1;
+            m_source = new ServiceLayer.PartsService.PartItem();
+           
          } 
          else
-         {
-                this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-                unitOfMeasureID = m_source.UOM ;
-            }
+         {      
+                this.m_source = FrameWorks.PartDictionary.PartLookup[sourceID];         
+                unitOfMeasureID = m_source.UoM;
+                unitOfMeasureName = m_source.UnitName;
+                partID = m_source.PartID;
+                waste = m_source.Waste ;
+                markup = m_source.MarkUp;
+                unitPrice = m_source.UnitCost;
+ 
+          }
+
         }
 
        
@@ -118,16 +125,22 @@ namespace FrameWorks
       {
          if (sourceID == -1)
          {
-            m_source = new SourceMaterial();
-            componentSourceNumber  = -1;
+            m_source = new ServiceLayer.PartsService.PartItem();
 
          }
          else
          {
              try
              {
-                this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-                this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{parent.ComponentParts.Count}";
+                this.m_source = FrameWorks.PartDictionary.PartLookup[sourceID];
+                    unitOfMeasureID = m_source.UoM;
+                    unitOfMeasureName = m_source.UnitName;
+                    partID = m_source.PartID;
+                    waste = m_source.Waste;
+                    markup = m_source.MarkUp;
+                    unitPrice = m_source.UnitCost;
+                
+                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{Globals.counter++}";
                 }
              catch 
              {
@@ -147,18 +160,23 @@ namespace FrameWorks
 
         public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent, int Quantity, decimal calculatedLength, string PartGroupType)
         {
+            
             if (sourceID == -1)
             {
-                m_source = new SourceMaterial();
-                componentSourceNumber = -1;
-
+                m_source = new ServiceLayer.PartsService.PartItem();
             }
             else
             {
                 try
                 {
-                    this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-";
+                    this.m_source = FrameWorks.PartDictionary.PartLookup[sourceID];                  
+                    unitOfMeasureID = m_source.UoM;
+                    unitOfMeasureName = m_source.UnitName;
+                    partID = m_source.PartID;
+                    waste = m_source.Waste;
+                    markup = m_source.MarkUp;
+                    unitPrice = m_source.UnitCost;
+                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{Globals.counter++}";
                 }
                 catch
                 {
@@ -181,16 +199,21 @@ namespace FrameWorks
       {
           if (sourceID == -1)
           {
-              m_source = new SourceMaterial();
-              componentSourceNumber = -1;
+              m_source = new ServiceLayer.PartsService.PartItem();
 
           }
           else
           {
               try
               {
-                  this.m_source = FrameWorks.PartDictionary.PartSource[sourceID];
-                  this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{}";
+                  this.m_source = FrameWorks.PartDictionary.PartLookup[sourceID];
+                    unitOfMeasureID = m_source.UoM;
+                    unitOfMeasureName = m_source.UnitName;
+                    partID = m_source.PartID;
+                    waste = m_source.Waste;
+                    markup = m_source.MarkUp;
+                    unitPrice = m_source.UnitCost;
+                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{Globals.counter++}";
                 }
               catch
               {
@@ -220,7 +243,7 @@ namespace FrameWorks
       { 
           get 
           {
-             unitPrice = m_source.Cost;          
+             unitPrice = m_source.UnitCost;          
              return unitPrice; 
           } 
           set 
@@ -245,7 +268,7 @@ namespace FrameWorks
               if (m_source.Waste != decimal.Zero)
               {
                   decimal qty = decimal.Parse(m_Qnty.ToString());
-                  switch (m_source.UOM)
+                  switch (m_source.UoM)
                   {
 
                       //--- Each-------------------------------------------------------------------
@@ -371,7 +394,7 @@ namespace FrameWorks
       {
           get 
           {
-              switch(m_source.UOM ) 
+              switch(m_source.UoM ) 
              {
             
                 //--- Each
@@ -432,7 +455,7 @@ namespace FrameWorks
         {
             if ( this.Source !=null )
             {
-              unitOfMeasureID = this.Source.UOM ;
+              unitOfMeasureID = this.Source.UoM ;
             }
             return unitOfMeasureID; 
         }
@@ -442,43 +465,26 @@ namespace FrameWorks
                 unitOfMeasureID = value;
         } 
        }
+
+        [Category("Material")]
+        public string UnitOfMeasureName
+        {
+            get { return unitOfMeasureName; }
+            set { unitOfMeasureName = value; }
+        }
       
-      //public decimal UnitSpecificAmount
-      //{ get 
-      //    {
-      //        return ConvertToUomAmount(this.UnitSpecificAmount,this); 
-      //    }     
-      //}
-  
        public string ComponentLabel
        {
          get{
              
-             return _componentLabel;
+             return componentLabel;
          }
-         set{_componentLabel = value;}
+         set{componentLabel = value;}
        
        }
-    
-      //public string Com
-      //{
-      //   get { return c; }
-      //   set { m_ComponentIdentifier = value; }
-      //}
 
-   
-      public int ComponentSourceNumber
-      {
-         get
-         {
-             return m_source.ItemID ; 
-         }
-         set
-         {
-            this.ComponentSourceNumber = value ;
-            
-         }
-      }
+
+ 
       [Category("Component Specification")]
       private int m_Qnty;
       [Category("Component Specification")]
@@ -488,38 +494,38 @@ namespace FrameWorks
       {
         get {
         
-        switch(m_source.UOM ) 
+        switch(m_source.UoM ) 
         {
             
             //--- Each
             case 1:
             {
-                    this.m_calculatedCost = Math.Round((decimal)(m_Qnty * m_source.Cost),2);
+                    this.m_calculatedCost = Math.Round((decimal)(m_Qnty * m_source.UnitCost),2);
                     break;
              }
             //--- Foot
             case 2:
             {
-                    decimal cs = (decimal)(this.componentLength / 12) *  Convert.ToDecimal(Qnty) * m_source.Cost;
+                    decimal cs = (decimal)(this.componentLength / 12) *  Convert.ToDecimal(Qnty) * m_source.UnitCost;
                     this.m_calculatedCost = Math.Round(cs, 2);
                     break;
             }
             //--- Inch
             case 6:
             {
-                    this.m_calculatedCost =(decimal) (this.componentLength  *  Convert.ToDecimal(Qnty)  *  m_source.Cost);
+                    this.m_calculatedCost =(decimal) (this.componentLength  *  Convert.ToDecimal(Qnty)  *  m_source.UnitCost);
                     break;
             }
             //--- Pair
             case 7:
             {
-                    this.m_calculatedCost = Math.Round((decimal)(m_Qnty * m_source.Cost),2);
+                    this.m_calculatedCost = Math.Round((decimal)(m_Qnty * m_source.UnitCost),2);
                     break;
             }
             //--- Square Foot
             case 8:
             {
-                decimal cs = (decimal)((this.Area  * m_source.Cost));
+                decimal cs = (decimal)((this.Area  * m_source.UnitCost));
                 this.m_calculatedCost = Math.Round(cs,2);
                 break;
             }
@@ -527,14 +533,14 @@ namespace FrameWorks
             case 9:
             {
              
-                this.m_calculatedCost = (decimal)((this.Area  * Qnty) * m_source.Cost) ;
+                this.m_calculatedCost = (decimal)((this.Area  * Qnty) * m_source.UnitCost) ;
                 break;
             }
             //--- Bdft
             case 10:
             {
 
-                this.m_calculatedCost = (decimal)((this.Area * Qnty) * m_source.Cost);
+                this.m_calculatedCost = (decimal)((this.Area * Qnty) * m_source.UnitCost);
                 break;
             }
        
@@ -569,7 +575,7 @@ namespace FrameWorks
       }
 
       [Category("Material")]
-      public virtual SourceMaterial Source
+      public virtual ServiceLayer.PartsService.PartItem Source
       {
          get { return m_source; }
          set { m_source = value; }

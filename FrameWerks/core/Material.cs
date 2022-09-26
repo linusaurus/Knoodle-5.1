@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,21 +15,22 @@ namespace FrameWorks
       private string materialDescription;
       private decimal cost = decimal.Zero;
       private int uom = 0;
+      private string unitOfMeasure;
       private decimal weight = 0.0m;
       private decimal waste = 0.0m;
       private decimal markup = 0.0m;
-      private int supplierID;
-
-      public int SupplierID
-      {
-          get { return supplierID; }
-          set { supplierID = value; }
-      }
+     
 
       public override string ToString()
       {
           return this.materialName;
       }
+
+        public string UnitOfMeasure
+        {
+            get { return this.unitOfMeasure; }
+            set { this.unitOfMeasure = value; }
+        }
 
       public decimal MarkUp
       {
@@ -65,29 +67,25 @@ namespace FrameWorks
          set { materialDescription = value; }
       }
 
-
       public decimal Height
       {
          get { return height; }
          set { height = value; }
       }
 	
-
       public decimal Width
       {
          get { return width; }
          set { width = value; }
       }
-	
-      
+	     
       public string MaterialName
       {
          get { return materialName; }
          set { materialName = value; }
       }
-	
 
-      public int ItemID
+      public int PartID
       {
          get { return partID;}
          set { partID = value;}
