@@ -12,27 +12,37 @@ namespace CutlistEngine
 {
     public class CutlistDBContext : DbContext
     {
-        private static bool _created = false;
+       
         private string DBFolderPath = @"Data Source=C:\DB\";
+        private string path;
+        private string con;
         public DbSet<CutListProduct>? CutListProducts { get; set; }
-        public CutlistDBContext()
+
+ 
+        public CutlistDBContext(string? filePath)
         {
-            if (!_created)
-            {
-                
-                _created = true;
-               //Database.EnsureDeleted();
-               // Database.EnsureCreated();
-            }
+           path = Path.Combine(DBFolderPath, filePath);
+           con = $"{path}.db";
+
         }
+
+        public CutlistDBContext(DbContextOptions<CutlistDBContext> options)
+            : base(options)
+        {
+            
+        }
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string path = Path.Combine(DBFolderPath, "CLJOB1427.db");
-         
-            optionsBuilder.UseSqlite(path);
-            SQLitePCL.Batteries.Init();
-
-
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite(con);
+                SQLitePCL.Batteries.Init();
+            }
         }
+
+        
     }
 }

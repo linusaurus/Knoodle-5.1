@@ -15,7 +15,10 @@ using ServiceLayer.DTO;
 using ServiceLayer.Mappers;
 using KnoodleUX.UXControls;
 using CutlistEngine;
-
+using Dapper;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.Sqlite;
+using System.Collections.ObjectModel;
 
 namespace KnoodleUX
 {
@@ -71,6 +74,7 @@ namespace KnoodleUX
 
             UIactions.BuildProductGrid(this.dgProductGrid);
             UIactions.BuildSubAssemblyGrid(dgSubAssemblies);
+           // UIactions.BuildRecipeGrid(dgvRecipeGrid);
             dgSubAssemblies.CellClick += DgSubAssemblies_CellClick; ;
 
             //---------------------Wire Events------------------------
@@ -98,6 +102,7 @@ namespace KnoodleUX
             //---Load the Parts into memory as dictionary------------
             partsService = new PartsService(ctx);
             PartDictionary.PartLookup = partsService.PartItems();
+            this.tsPartLoadedStatus.Text = $"{PartDictionary.PartLookup.Count} - Parts Loaded";
             //-------------------------------------------------------
             // Tune the TabControl Basic Parameters
             tabMainTabControl.SizeMode = TabSizeMode.Fixed;
@@ -457,7 +462,8 @@ namespace KnoodleUX
         {
             if (internalUnits.Count > 0)
             {
-                using (CutlistEngine.CutlistDBContext ctx = new CutlistDBContext())
+                // Spin up the File based MySqlite database base on the selected JobID ---
+                using (CutlistEngine.CutlistDBContext ctx = (CutlistDBContext)DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
                 {
                     foreach (var pd in internalUnits)
                     {
@@ -470,7 +476,7 @@ namespace KnoodleUX
                                     PartClass = prt.ComponentGroupType,
                                     Markup = prt.MarkUp,
                                     PartID = prt.Source.PartID,
-                                    SubAssemblyName = "SubName",
+                                    SubAssemblyName = sub.Name,
                                     PartSourceDescription = prt.Source.MaterialDescription,
                                     SubAssemblyID = sub.SubAssemblyID,
                                     ProductID = sub.ProductID,
@@ -479,7 +485,7 @@ namespace KnoodleUX
                                     Jobname = _selectedJob.jobname,
                                     FunctionalPartCost = prt.CalculatedCost,
                                     FunctionName = prt.FunctionalName,
-                                    PartIdentifier = prt.ComponentLabel,
+                                    PartIdentifier = pd.ProductID.ToString()+"."+ sub.SubAssemblyID.ToString() +".",                                  
                                     UnitCost = prt.UnitPrice,
                                     Qnty = prt.Qnty,
                                     Width = prt.ComponentWidth,
@@ -487,22 +493,16 @@ namespace KnoodleUX
                                     UnitOfMeasure = prt.UnitOfMeasureName,
                                     Tax = prt.CalculatedCost * 0.78m,
                                     Waste = prt.CalculatedCost * prt.Waste
-                                    
-                                    
                                 };
 
                                 ctx.CutListProducts.Add(cut);
                             }
-                            
-                        }
-                        
-                    }
 
+                        }
+
+                    }
                     ctx.SaveChanges();
                 }
-
-                
-                   
             }
         }
 
@@ -551,13 +551,22 @@ namespace KnoodleUX
         // Condense the output parts and display 
         private void tsShowRecipe_Click(object sender, EventArgs e)
         {
-            using (CutlistEngine.CutlistDBContext ctx = new CutlistDBContext())
+            //string sql = "SELECT SUM(Qnty), Round(SUM(Length), 2) AS [Total Length], UnitCost, UnitOfMeasure, PartSourceDescription, ProductID, SUm(Qnty) * UnitCost AS Price FROM CutlistProducts GROUP BY PartID, UnitCost";
+            string sql = "Select * FROM CutListProducts";
+
+            using (CutlistEngine.CutlistDBContext ctx = (CutlistDBContext)DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
             {
-                var recipe = ctx.CutListProducts.ToList();
-                var result = recipe.GroupBy(x => x.PartID,(key,values) => 
-                    new { id=key,amount =  values.Sum(x => x.Qnty) ,length = values.Sum(p => p.Length)
-                });
+
+                List<CutListProduct> crud = ctx.CutListProducts.ToList();
+                dgvOutputGrid.DataSource = crud;
+                tabMainTabControl.SelectedTab = tabMainTabControl.TabPages[2];
+
+
             }
+
         }
+
+       
+
     }
 }

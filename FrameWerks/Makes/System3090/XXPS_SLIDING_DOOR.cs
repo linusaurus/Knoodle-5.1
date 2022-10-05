@@ -16,8 +16,10 @@ namespace FrameWorks.Makes.System3090
         public override void Build()
         {
             // Frame --
-            m_componentParts.Add(new ComponentPart(1, "Reclusive Hinge PlateLH", this, 2, this.m_subAssemblyWidth - 6.25m));
-            m_componentParts.Add(new ComponentPart(1, "Reclusive Hinge PlateRH", this, 4, this.m_subAssemblyWidth - 6.25m));
+            ComponentPart m_p = new ComponentPart(1244, "Stile", this, 1, SubAssemblyWidth + 12.0m);
+            m_p.ComponentGroupType = "Frame";
+            m_componentParts.Add(m_p);
+            
         }
     }
 }

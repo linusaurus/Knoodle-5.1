@@ -31,6 +31,7 @@ namespace KnoodleUX
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.stsMainStatus = new System.Windows.Forms.StatusStrip();
+            this.tsPartLoadedStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.splconMain = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tbpJobOrders = new System.Windows.Forms.TabPage();
@@ -45,6 +46,7 @@ namespace KnoodleUX
             this.tsProductTools = new System.Windows.Forms.ToolStrip();
             this.tsBuildProducts = new System.Windows.Forms.ToolStripButton();
             this.tsSaveOutput = new System.Windows.Forms.ToolStripButton();
+            this.tsShowRecipe = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAddProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteProduct = new System.Windows.Forms.ToolStripButton();
@@ -55,6 +57,8 @@ namespace KnoodleUX
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tvBuildTree = new System.Windows.Forms.TreeView();
             this.partPropertyGrid = new System.Windows.Forms.PropertyGrid();
+            this.tbRecipe = new System.Windows.Forms.TabPage();
+            this.dgvOutputGrid = new System.Windows.Forms.DataGridView();
             this.buttonsPanel = new System.Windows.Forms.Panel();
             this.lbJobLabel = new System.Windows.Forms.Label();
             this.cboJobsPicker = new System.Windows.Forms.ComboBox();
@@ -62,7 +66,7 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
-            this.tsShowRecipe = new System.Windows.Forms.ToolStripButton();
+            this.stsMainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
             this.splconMain.Panel2.SuspendLayout();
@@ -88,16 +92,26 @@ namespace KnoodleUX
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tbRecipe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutputGrid)).BeginInit();
             this.buttonsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // stsMainStatus
             // 
+            this.stsMainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsPartLoadedStatus});
             this.stsMainStatus.Location = new System.Drawing.Point(10, 670);
             this.stsMainStatus.Name = "stsMainStatus";
             this.stsMainStatus.Size = new System.Drawing.Size(1258, 22);
             this.stsMainStatus.TabIndex = 1;
             this.stsMainStatus.Text = "statusStrip1";
+            // 
+            // tsPartLoadedStatus
+            // 
+            this.tsPartLoadedStatus.Name = "tsPartLoadedStatus";
+            this.tsPartLoadedStatus.Size = new System.Drawing.Size(118, 17);
+            this.tsPartLoadedStatus.Text = "toolStripStatusLabel1";
             // 
             // splconMain
             // 
@@ -190,6 +204,7 @@ namespace KnoodleUX
             // 
             this.tabMainTabControl.Controls.Add(this.tabInputTable);
             this.tabMainTabControl.Controls.Add(this.tabInspector);
+            this.tabMainTabControl.Controls.Add(this.tbRecipe);
             this.tabMainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabMainTabControl.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tabMainTabControl.Location = new System.Drawing.Point(6, 6);
@@ -282,6 +297,19 @@ namespace KnoodleUX
             this.tsSaveOutput.Text = "Save Output";
             this.tsSaveOutput.Click += new System.EventHandler(this.tsSaveOutput_Click);
             // 
+            // tsShowRecipe
+            // 
+            this.tsShowRecipe.BackColor = System.Drawing.Color.Tan;
+            this.tsShowRecipe.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsShowRecipe.Image = ((System.Drawing.Image)(resources.GetObject("tsShowRecipe.Image")));
+            this.tsShowRecipe.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsShowRecipe.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
+            this.tsShowRecipe.Name = "tsShowRecipe";
+            this.tsShowRecipe.Size = new System.Drawing.Size(81, 28);
+            this.tsShowRecipe.Text = "Show Output";
+            this.tsShowRecipe.ToolTipText = "Generate Output";
+            this.tsShowRecipe.Click += new System.EventHandler(this.tsShowRecipe_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -289,6 +317,7 @@ namespace KnoodleUX
             // 
             // tsbAddProduct
             // 
+            this.tsbAddProduct.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsbAddProduct.BackColor = System.Drawing.Color.LightCyan;
             this.tsbAddProduct.CheckOnClick = true;
             this.tsbAddProduct.Image = global::KnoodleUX.Properties.Resources.twotone_add_box_black_24dp;
@@ -302,6 +331,7 @@ namespace KnoodleUX
             // 
             // tsbDeleteProduct
             // 
+            this.tsbDeleteProduct.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsbDeleteProduct.BackColor = System.Drawing.Color.Linen;
             this.tsbDeleteProduct.Image = global::KnoodleUX.Properties.Resources.twotone_remove_circle_black_24dp;
             this.tsbDeleteProduct.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -381,6 +411,27 @@ namespace KnoodleUX
             this.partPropertyGrid.Size = new System.Drawing.Size(586, 508);
             this.partPropertyGrid.TabIndex = 0;
             // 
+            // tbRecipe
+            // 
+            this.tbRecipe.Controls.Add(this.dgvOutputGrid);
+            this.tbRecipe.Location = new System.Drawing.Point(4, 24);
+            this.tbRecipe.Name = "tbRecipe";
+            this.tbRecipe.Padding = new System.Windows.Forms.Padding(6);
+            this.tbRecipe.Size = new System.Drawing.Size(896, 520);
+            this.tbRecipe.TabIndex = 2;
+            this.tbRecipe.Text = "Output";
+            this.tbRecipe.UseVisualStyleBackColor = true;
+            // 
+            // dgvOutputGrid
+            // 
+            this.dgvOutputGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOutputGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvOutputGrid.Location = new System.Drawing.Point(6, 6);
+            this.dgvOutputGrid.Name = "dgvOutputGrid";
+            this.dgvOutputGrid.RowTemplate.Height = 25;
+            this.dgvOutputGrid.Size = new System.Drawing.Size(884, 508);
+            this.dgvOutputGrid.TabIndex = 0;
+            // 
             // buttonsPanel
             // 
             this.buttonsPanel.Controls.Add(this.lbJobLabel);
@@ -457,18 +508,6 @@ namespace KnoodleUX
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
-            // tsShowRecipe
-            // 
-            this.tsShowRecipe.BackColor = System.Drawing.Color.Tan;
-            this.tsShowRecipe.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsShowRecipe.Image = ((System.Drawing.Image)(resources.GetObject("tsShowRecipe.Image")));
-            this.tsShowRecipe.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsShowRecipe.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
-            this.tsShowRecipe.Name = "tsShowRecipe";
-            this.tsShowRecipe.Size = new System.Drawing.Size(78, 28);
-            this.tsShowRecipe.Text = "Show Recipe";
-            this.tsShowRecipe.Click += new System.EventHandler(this.tsShowRecipe_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -483,6 +522,8 @@ namespace KnoodleUX
             this.Text = "Knoodle Parametric";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.stsMainStatus.ResumeLayout(false);
+            this.stsMainStatus.PerformLayout();
             this.splconMain.Panel1.ResumeLayout(false);
             this.splconMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).EndInit();
@@ -512,6 +553,8 @@ namespace KnoodleUX
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tbRecipe.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvOutputGrid)).EndInit();
             this.buttonsPanel.ResumeLayout(false);
             this.buttonsPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -554,6 +597,9 @@ namespace KnoodleUX
         private System.Windows.Forms.TreeView tvBuildTree;
         private System.Windows.Forms.PropertyGrid partPropertyGrid;
         private System.Windows.Forms.ToolStripButton tsShowRecipe;
+        private System.Windows.Forms.ToolStripStatusLabel tsPartLoadedStatus;
+        private System.Windows.Forms.TabPage tbRecipe;
+        private System.Windows.Forms.DataGridView dgvOutputGrid;
     }
 }
 

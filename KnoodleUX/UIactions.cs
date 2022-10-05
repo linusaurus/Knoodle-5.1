@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -233,6 +234,60 @@ namespace KnoodleUX
             dg.Columns.AddRange(colSubassemblyID, colSubAssemblyName, colMakeFile, colMakeFileFind, colW, colH, colD, colCPD_ID, colGlassPartID, colOpCode);
         }
 
+        public static void BuildRecipeGrid(DataGridView dg)
+        {
+            dg.AutoGenerateColumns = false;
+            dg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dg.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            // Currency Decimal Style
+            DataGridViewCellStyle dstyleCurrency = new DataGridViewCellStyle();
+            dstyleCurrency.Format = "C";
+            dstyleCurrency.NullValue = "";
+            dstyleCurrency.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Currency Decimal Style
+            DataGridViewCellStyle dstyleDecimal = new DataGridViewCellStyle();
+            dstyleDecimal.Format = "N2";
+            dstyleDecimal.NullValue = "0.00";
+            dstyleDecimal.Alignment = DataGridViewContentAlignment.MiddleRight;
+            // Wrapping Text Style
+            DataGridViewCellStyle dstyleWrapText = new DataGridViewCellStyle();
+            dstyleWrapText.NullValue = "";
+            dstyleWrapText.Alignment = DataGridViewContentAlignment.TopLeft;
+            dstyleWrapText.WrapMode = DataGridViewTriState.True;
+
+            // ID Column --
+            DataGridViewTextBoxColumn colID = new DataGridViewTextBoxColumn();
+            colID.HeaderText = "id";
+            colID.DataPropertyName = "id";
+            colID.Width = 75;
+
+            // UnitID --
+            DataGridViewTextBoxColumn colSourceName = new DataGridViewTextBoxColumn();
+            colSourceName.DefaultCellStyle = dstyleWrapText;
+            colSourceName.HeaderText = "amount";
+            colSourceName.DataPropertyName = "amount";
+            colSourceName.Width = 100;
+
+            // UnitName ----------
+            DataGridViewTextBoxColumn colLength = new DataGridViewTextBoxColumn();
+            colLength.Width = 400;
+            colLength.HeaderText = "length";
+            colLength.DataPropertyName = "length";
+            colLength.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            // UnitName ----------
+            DataGridViewTextBoxColumn colUnit = new DataGridViewTextBoxColumn();
+            colUnit.Width = 400;
+            colUnit.HeaderText = "unit";
+            colUnit.DataPropertyName = "unit";
+            colUnit.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            //colUnit.DataSource = _partService.Units();
+            dg.Columns.AddRange(colID, colSourceName, colLength, colUnit);
+        }
+
         public static void BuildJobOrderListView(ListView lv)
         {
             lv.View = View.Details;
@@ -246,6 +301,7 @@ namespace KnoodleUX
 
         }
 
+       
 
     }
 }

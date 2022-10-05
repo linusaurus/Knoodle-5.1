@@ -9,7 +9,7 @@ namespace Frameworks.Test
         [TestMethod]
         public void TestMethod1()
         {
-            CutlistDBContext ctx = new CutlistDBContext();
+            CutlistDBContext ctx = new CutlistDBContext("1225");
            
             ctx.Database.EnsureCreated();
             for (int i = 0; i < 400; i++)
@@ -29,6 +29,13 @@ namespace Frameworks.Test
             }
 
             ctx.SaveChanges();
+        }
+
+        [TestMethod]
+        public void TextShouldCreateDB_With_FilePath()
+        {
+            var db = DBFactory.GetDbContext("1216");
+            Assert.IsTrue(db.Database.CanConnect());
         }
     }
 }

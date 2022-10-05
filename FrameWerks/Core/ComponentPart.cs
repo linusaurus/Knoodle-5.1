@@ -126,7 +126,6 @@ namespace FrameWorks
          if (sourceID == -1)
          {
             m_source = new ServiceLayer.PartsService.PartItem();
-
          }
          else
          {
