@@ -33,8 +33,17 @@ namespace CutlistEngine
         public int JobId    { get; set; }
         public string? Jobname { get; set; }
         public int ProductID { get; set; }
+
+        public decimal ProductArea { get; set; }
+
+        public decimal ProductWidth { get; set; }
+
+        public decimal ProductHeight { get; set; }
         public int SubAssemblyID { get; set; }
         public string? SubAssemblyName { get; set; }
+        public decimal SubAssemblyArea { get; set; }
+        public decimal SubAssemblyWidth { get; set; }
+        public decimal SubAssemblyHieght { get; set; }
         public string? ProductName { get; set; }
         [Column(TypeName = "int32")]
         public int PartID { get; set; }

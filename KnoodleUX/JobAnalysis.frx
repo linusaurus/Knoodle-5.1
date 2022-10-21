@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/19/2022 15:33:00" ReportInfo.Modified="10/20/2022 16:59:23" ReportInfo.CreatorVersion="2020.4.0.0">
+  <Styles Name="Sand">
+    <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Header" Fill.Color="Moccasin" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Group" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Data" Font="Arial, 10pt"/>
+    <Style Name="Footer" Fill.Color="Moccasin" Font="Arial, 10pt"/>
+    <Style Name="EvenRows" Fill.Color="FloralWhite" Font="Arial, 10pt"/>
+  </Styles>
+  <Dictionary>
+    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqhrCKa1Fsv1pBk2aeQTFjjXzZKujqhGNwVKxJZlMAY10=">
+      <TableDataSource Name="CutListProducts" DataType="System.Int32" Enabled="true" TableName="CutListProducts">
+        <Column Name="CutlistID" DataType="System.String"/>
+        <Column Name="JobId" DataType="System.Int64"/>
+        <Column Name="Jobname" DataType="System.String"/>
+        <Column Name="ProductID" DataType="System.Int64"/>
+        <Column Name="ProductArea" DataType="System.String"/>
+        <Column Name="ProductWidth" DataType="System.String"/>
+        <Column Name="ProductHeight" DataType="System.String"/>
+        <Column Name="SubAssemblyID" DataType="System.Int64"/>
+        <Column Name="SubAssemblyName" DataType="System.String"/>
+        <Column Name="SubAssemblyArea" DataType="System.String"/>
+        <Column Name="SubAssemblyWidth" DataType="System.String"/>
+        <Column Name="SubAssemblyHieght" DataType="System.String"/>
+        <Column Name="ProductName" DataType="System.String"/>
+        <Column Name="PartID" DataType="System.Int32"/>
+        <Column Name="UnitOfMeasure" DataType="System.String"/>
+        <Column Name="UnitCost" DataType="System.Decimal"/>
+        <Column Name="PartSourceDescription" DataType="System.String"/>
+        <Column Name="FunctionName" DataType="System.String"/>
+        <Column Name="PartIdentifier" DataType="System.String"/>
+        <Column Name="Qnty" DataType="System.Decimal"/>
+        <Column Name="Width" DataType="System.Decimal"/>
+        <Column Name="Length" DataType="System.Decimal"/>
+        <Column Name="PartClass" DataType="System.String"/>
+        <Column Name="FunctionalPartCost" DataType="System.String"/>
+        <Column Name="Waste" DataType="System.Decimal"/>
+        <Column Name="Markup" DataType="System.Decimal"/>
+        <Column Name="Tax" DataType="System.Decimal"/>
+      </TableDataSource>
+    </SQLiteDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
+      <TextObject Name="Text55" Left="18.9" Top="9.45" Width="670.95" Height="28.35" Text="ID = [CutListProducts.JobId]  |  Jobname = [CutListProducts.Jobname]   |  Date = [Date]" Font="Arial, 10pt"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="18.9"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="74.15" Width="718.2" Height="56.7" Condition="[CutListProducts.ProductID]">
+      <GroupHeaderBand Name="GroupHeader2" Top="134.85" Width="718.2" Height="75.6" Condition="[CutListProducts.SubAssemblyID]">
+        <DataBand Name="Data1" Top="214.45" Width="718.2"/>
+      </GroupHeaderBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="218.45" Width="718.2" Height="18.9">
+      <TextObject Name="Text54" Width="718.2" Height="18.9" Dock="Fill" Fill.Color="Moccasin" Text="[PageN]" HorzAlign="Right" Font="Arial, 10pt" Style="Footer"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

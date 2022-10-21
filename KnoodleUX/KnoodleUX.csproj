@@ -16,7 +16,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="JobAnalysis.frx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="JobAnalysis.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="FastReport.Data.SQLite" Version="2022.3.8" />
+    <PackageReference Include="FastReport.Net.Demo" Version="2022.3.11" />
+    <PackageReference Include="FastReport.OpenSource" Version="2022.3.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2-beta2" />
   </ItemGroup>

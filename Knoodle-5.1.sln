@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameWorks", "FrameWerks\Fr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frameworks.Test", "Frameworks.Test\Frameworks.Test.csproj", "{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutlistEngine", "CutlistEngine\CutlistEngine.csproj", "{4D209060-AF3D-4CF5-A191-A080270FF7CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutlistEngine", "CutlistEngine\CutlistEngine.csproj", "{4D209060-AF3D-4CF5-A191-A080270FF7CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

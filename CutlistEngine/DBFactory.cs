@@ -10,12 +10,10 @@ namespace CutlistEngine
 {
     public class DBFactory
     {
-
-
-        public static CutlistDBContext? GetDbContext(String filepath)
+        public async static Task<CutlistDBContext> GetDbContext(String filepath)
         {
             CutlistDBContext db = new CutlistDBContext(filepath);
-            db.Database.EnsureCreated();
+            await db.Database.EnsureCreatedAsync();
             return db;
         }
 

@@ -66,6 +66,7 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
+            this.tsbReport = new System.Windows.Forms.ToolStripButton();
             this.stsMainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
@@ -265,7 +266,8 @@ namespace KnoodleUX
             this.tsShowRecipe,
             this.toolStripSeparator1,
             this.tsbAddProduct,
-            this.tsbDeleteProduct});
+            this.tsbDeleteProduct,
+            this.tsbReport});
             this.tsProductTools.Location = new System.Drawing.Point(0, 0);
             this.tsProductTools.Name = "tsProductTools";
             this.tsProductTools.Padding = new System.Windows.Forms.Padding(3);
@@ -508,6 +510,18 @@ namespace KnoodleUX
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
+            // tsbReport
+            // 
+            this.tsbReport.AutoSize = false;
+            this.tsbReport.BackColor = System.Drawing.Color.LightSalmon;
+            this.tsbReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbReport.Image = ((System.Drawing.Image)(resources.GetObject("tsbReport.Image")));
+            this.tsbReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbReport.Name = "tsbReport";
+            this.tsbReport.Size = new System.Drawing.Size(66, 28);
+            this.tsbReport.Text = "Report";
+            this.tsbReport.Click += new System.EventHandler(this.tsbReport_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -600,6 +614,7 @@ namespace KnoodleUX
         private System.Windows.Forms.ToolStripStatusLabel tsPartLoadedStatus;
         private System.Windows.Forms.TabPage tbRecipe;
         private System.Windows.Forms.DataGridView dgvOutputGrid;
+        private System.Windows.Forms.ToolStripButton tsbReport;
     }
 }
 

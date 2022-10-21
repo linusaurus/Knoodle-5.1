@@ -19,6 +19,8 @@ using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using System.Collections.ObjectModel;
+using FastReport;
+using FastReport.Data;
 
 namespace KnoodleUX
 {
@@ -458,13 +460,17 @@ namespace KnoodleUX
             DB.FillBuildTree(tvBuildTree, internalUnits);
         }
 
-        private void tsSaveOutput_Click(object sender, EventArgs e)
+        private async void  tsSaveOutput_Click(object sender, EventArgs e)
         {
             if (internalUnits.Count > 0)
             {
                 // Spin up the File based MySqlite database base on the selected JobID ---
-                using (CutlistEngine.CutlistDBContext ctx = (CutlistDBContext)DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
+                using (CutlistEngine.CutlistDBContext ctx = await DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
                 {
+                    // Clear the DB
+                   //await  ctx.Database.ExecuteSqlRawAsync("DELETE FROM CutListProducts");
+                    // or just delete the file --
+
                     foreach (var pd in internalUnits)
                     {
                         foreach (var sub in pd.SubAssemblies)
@@ -477,10 +483,16 @@ namespace KnoodleUX
                                     Markup = prt.MarkUp,
                                     PartID = prt.Source.PartID,
                                     SubAssemblyName = sub.Name,
+                                    SubAssemblyArea = sub.Area,
+                                    SubAssemblyWidth = sub.SubAssemblyWidth,
+                                    SubAssemblyHieght = sub.SubAssemblyHieght,
                                     PartSourceDescription = prt.Source.MaterialDescription,
                                     SubAssemblyID = sub.SubAssemblyID,
                                     ProductID = sub.ProductID,
+                                    ProductArea = pd.Area,
                                     ProductName = sub.Parent.UnitName,
+                                    ProductWidth = sub.Parent.UnitWidth,
+                                    ProductHeight = sub.Parent.UnitHeight,
                                     JobId = _selectedJob.jobID,
                                     Jobname = _selectedJob.jobname,
                                     FunctionalPartCost = prt.CalculatedCost,
@@ -493,6 +505,7 @@ namespace KnoodleUX
                                     UnitOfMeasure = prt.UnitOfMeasureName,
                                     Tax = prt.CalculatedCost * 0.78m,
                                     Waste = prt.CalculatedCost * prt.Waste
+                                  
                                 };
 
                                 ctx.CutListProducts.Add(cut);
@@ -501,7 +514,7 @@ namespace KnoodleUX
                         }
 
                     }
-                    ctx.SaveChanges();
+                    await ctx.SaveChangesAsync();
                 }
             }
         }
@@ -549,24 +562,33 @@ namespace KnoodleUX
 
         }
         // Condense the output parts and display 
-        private void tsShowRecipe_Click(object sender, EventArgs e)
+        private async void tsShowRecipe_Click(object sender, EventArgs e)
         {
             //string sql = "SELECT SUM(Qnty), Round(SUM(Length), 2) AS [Total Length], UnitCost, UnitOfMeasure, PartSourceDescription, ProductID, SUm(Qnty) * UnitCost AS Price FROM CutlistProducts GROUP BY PartID, UnitCost";
             string sql = "Select * FROM CutListProducts";
 
-            using (CutlistEngine.CutlistDBContext ctx = (CutlistDBContext)DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
+            using (CutlistEngine.CutlistDBContext ctx = await DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
             {
 
                 List<CutListProduct> crud = ctx.CutListProducts.ToList();
                 dgvOutputGrid.DataSource = crud;
                 tabMainTabControl.SelectedTab = tabMainTabControl.TabPages[2];
 
-
             }
-
         }
 
-       
+        private void tsbReport_Click(object sender, EventArgs e)
+        {
+            FastReport.Report report = new FastReport.Report();
+            FastReport.Data.SQLiteDataConnection reportConnection = new FastReport.Data.SQLiteDataConnection();
+            string jobid = _selectedJob.jobID.ToString();
+            reportConnection.ConnectionString = $"datasource = C:\\DB\\{jobid}.db";
 
+            
+            report.Load($"{Application.StartupPath}/JobAnalysis.frx");
+            report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
+
+            report.Show();
+        }
     }
 }

@@ -135,8 +135,8 @@ namespace KnoodleUX
             // NIC ----------
             DataGridViewCheckBoxColumn colNIC = new DataGridViewCheckBoxColumn();
             colNIC.Width = 45;
-            colNIC.HeaderText = "Make";
-            colNIC.DataPropertyName = "Make";
+            colNIC.HeaderText = "NIC";
+            colNIC.DataPropertyName = "NIC";
 
             //colUnit.DataSource = _partService.Units();
             dg.Columns.AddRange(colID, colArchDescription, colUnitID, colUnitName, colW, colD, colH, colMake, colNIC);
