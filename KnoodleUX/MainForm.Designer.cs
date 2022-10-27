@@ -50,6 +50,7 @@ namespace KnoodleUX
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbAddProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteProduct = new System.Windows.Forms.ToolStripButton();
+            this.tsbReport = new System.Windows.Forms.ToolStripButton();
             this.dgSubAssemblies = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsSubAssemblyLabel = new System.Windows.Forms.ToolStripLabel();
@@ -66,7 +67,7 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
-            this.tsbReport = new System.Windows.Forms.ToolStripButton();
+            this.stbPartListReport = new System.Windows.Forms.ToolStripButton();
             this.stsMainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
@@ -267,7 +268,8 @@ namespace KnoodleUX
             this.toolStripSeparator1,
             this.tsbAddProduct,
             this.tsbDeleteProduct,
-            this.tsbReport});
+            this.tsbReport,
+            this.stbPartListReport});
             this.tsProductTools.Location = new System.Drawing.Point(0, 0);
             this.tsProductTools.Name = "tsProductTools";
             this.tsProductTools.Padding = new System.Windows.Forms.Padding(3);
@@ -341,6 +343,18 @@ namespace KnoodleUX
             this.tsbDeleteProduct.Name = "tsbDeleteProduct";
             this.tsbDeleteProduct.Size = new System.Drawing.Size(113, 28);
             this.tsbDeleteProduct.Text = "Delete Product";
+            // 
+            // tsbReport
+            // 
+            this.tsbReport.AutoSize = false;
+            this.tsbReport.BackColor = System.Drawing.Color.LightSalmon;
+            this.tsbReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbReport.Image = ((System.Drawing.Image)(resources.GetObject("tsbReport.Image")));
+            this.tsbReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbReport.Name = "tsbReport";
+            this.tsbReport.Size = new System.Drawing.Size(66, 28);
+            this.tsbReport.Text = "Report";
+            this.tsbReport.Click += new System.EventHandler(this.tsbReport_Click);
             // 
             // dgSubAssemblies
             // 
@@ -510,17 +524,17 @@ namespace KnoodleUX
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
-            // tsbReport
+            // stbPartListReport
             // 
-            this.tsbReport.AutoSize = false;
-            this.tsbReport.BackColor = System.Drawing.Color.LightSalmon;
-            this.tsbReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbReport.Image = ((System.Drawing.Image)(resources.GetObject("tsbReport.Image")));
-            this.tsbReport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbReport.Name = "tsbReport";
-            this.tsbReport.Size = new System.Drawing.Size(66, 28);
-            this.tsbReport.Text = "Report";
-            this.tsbReport.Click += new System.EventHandler(this.tsbReport_Click);
+            this.stbPartListReport.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.stbPartListReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.stbPartListReport.Image = ((System.Drawing.Image)(resources.GetObject("stbPartListReport.Image")));
+            this.stbPartListReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stbPartListReport.Margin = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.stbPartListReport.Name = "stbPartListReport";
+            this.stbPartListReport.Size = new System.Drawing.Size(88, 27);
+            this.stbPartListReport.Text = "PartList Report";
+            this.stbPartListReport.Click += new System.EventHandler(this.stbPartListReport_Click);
             // 
             // MainForm
             // 
@@ -615,6 +629,7 @@ namespace KnoodleUX
         private System.Windows.Forms.TabPage tbRecipe;
         private System.Windows.Forms.DataGridView dgvOutputGrid;
         private System.Windows.Forms.ToolStripButton tsbReport;
+        private System.Windows.Forms.ToolStripButton stbPartListReport;
     }
 }
 

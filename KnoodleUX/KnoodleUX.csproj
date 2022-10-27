@@ -17,10 +17,14 @@
 
   <ItemGroup>
     <None Remove="JobAnalysis.frx" />
+    <None Remove="PartList.frx" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="JobAnalysis.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PartList.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

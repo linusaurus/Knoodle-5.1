@@ -33,11 +33,8 @@ namespace CutlistEngine
         public int JobId    { get; set; }
         public string? Jobname { get; set; }
         public int ProductID { get; set; }
-
         public decimal ProductArea { get; set; }
-
         public decimal ProductWidth { get; set; }
-
         public decimal ProductHeight { get; set; }
         public int SubAssemblyID { get; set; }
         public string? SubAssemblyName { get; set; }
@@ -56,10 +53,13 @@ namespace CutlistEngine
         [Column(TypeName = "decimal(8,2)")]
         public decimal Qnty { get; set; }
         [Column(TypeName = "decimal(8,2)")]
-        public decimal Width { get; set; }
+        public decimal W { get; set; }
         [Column(TypeName = "decimal(8,2)")]
-        public decimal Length { get; set; }
-        public string? PartClass { get; set; }
+        public decimal T { get; set; }
+        [Column(TypeName = "decimal(8,2)")]
+        public decimal L { get; set; }
+        public string? PartLabel { get; set; }   
+        public string? PartGroupTypeClass { get; set; }
         public decimal FunctionalPartCost { get; set; }
         [Column(TypeName = "decimal(8,2)")]
         public decimal Waste { get; set; }

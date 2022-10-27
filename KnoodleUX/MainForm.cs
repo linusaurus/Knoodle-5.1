@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,13 +37,13 @@ namespace KnoodleUX
         // through the DrawItemEventHandler delegate.
 
         Job _selectedJob;
-        // This is the primary active object
+        // This is the primary active object -----------------------------
         JobListDto _SelectedJobDTO;
         ProductDto _selectedProductDto = new ProductDto();
         SubAssemblyDTO _selectedSubAssemblyDTO = new SubAssemblyDTO();
 
         bool _loading = true;
-        public static int _counter = 1;
+        public static int _counter = 0;
         private List<ProductDto> _products;
         ProductMapper productMapper = new ProductMapper();
         JobMapper jobMapper = new JobMapper();
@@ -53,13 +53,13 @@ namespace KnoodleUX
 
         List<FrameWorks.AssemblyBase> internalUnits = new List<FrameWorks.AssemblyBase>();
         
-
         private Rectangle tabArea;
         private RectangleF tabTextArea;
         //--------------------------------------
-      
-        //-------------------------------------
+        //----------------XXX-------------------
+        //--------------------------------------
         Timer timerOpenCapture = new Timer();
+        
         public MainForm()
         {
             InitializeComponent();
@@ -475,11 +475,12 @@ namespace KnoodleUX
                     {
                         foreach (var sub in pd.SubAssemblies)
                         {
+                            _counter = 0;
                             foreach (var prt in sub.ComponentParts)
                             {
                                 CutListProduct cut = new CutListProduct
                                 {
-                                    PartClass = prt.ComponentGroupType,
+                                    PartGroupTypeClass = prt.ComponentGroupType,
                                     Markup = prt.MarkUp,
                                     PartID = prt.Source.PartID,
                                     SubAssemblyName = sub.Name,
@@ -497,11 +498,12 @@ namespace KnoodleUX
                                     Jobname = _selectedJob.jobname,
                                     FunctionalPartCost = prt.CalculatedCost,
                                     FunctionName = prt.FunctionalName,
-                                    PartIdentifier = pd.ProductID.ToString()+"."+ sub.SubAssemblyID.ToString() +".",                                  
+                                    PartIdentifier = pd.ProductID.ToString()+"."+ sub.SubAssemblyID.ToString() +"." + _counter++.ToString(),                                  
                                     UnitCost = prt.UnitPrice,
                                     Qnty = prt.Qnty,
-                                    Width = prt.ComponentWidth,
-                                    Length = prt.ComponentLength,
+                                    W = prt.ComponentWidth,
+                                    L = prt.ComponentLength,
+                                    T = prt.ComponentThick,
                                     UnitOfMeasure = prt.UnitOfMeasureName,
                                     Tax = prt.CalculatedCost * 0.78m,
                                     Waste = prt.CalculatedCost * prt.Waste
@@ -586,6 +588,20 @@ namespace KnoodleUX
 
             
             report.Load($"{Application.StartupPath}/JobAnalysis.frx");
+            report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
+
+            report.Show();
+        }
+
+        private void stbPartListReport_Click(object sender, EventArgs e)
+        {
+            FastReport.Report report = new FastReport.Report();
+            FastReport.Data.SQLiteDataConnection reportConnection = new FastReport.Data.SQLiteDataConnection();
+            string jobid = _selectedJob.jobID.ToString();
+            reportConnection.ConnectionString = $"datasource = C:\\DB\\{jobid}.db";
+
+
+            report.Load($"{Application.StartupPath}/PartList.frx");
             report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
 
             report.Show();

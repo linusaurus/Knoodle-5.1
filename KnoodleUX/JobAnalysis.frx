@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="10/19/2022 15:33:00" ReportInfo.Modified="10/20/2022 16:59:23" ReportInfo.CreatorVersion="2020.4.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/19/2022 15:33:00" ReportInfo.Modified="10/25/2022 12:53:27" ReportInfo.CreatorVersion="2020.4.0.0">
   <Styles Name="Sand">
     <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
     <Style Name="Header" Fill.Color="Moccasin" Font="Arial, 10pt, style=Bold"/>
@@ -9,7 +9,7 @@
     <Style Name="EvenRows" Fill.Color="FloralWhite" Font="Arial, 10pt"/>
   </Styles>
   <Dictionary>
-    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqhrCKa1Fsv1pBk2aeQTFjjXzZKujqhGNwVKxJZlMAY10=">
+    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqhrCKa1Fsv1pBk2aeQTFjjUCqxVuCy2X15A+vuXUv5Lk=">
       <TableDataSource Name="CutListProducts" DataType="System.Int32" Enabled="true" TableName="CutListProducts">
         <Column Name="CutlistID" DataType="System.String"/>
         <Column Name="JobId" DataType="System.Int64"/>
@@ -40,18 +40,27 @@
         <Column Name="Tax" DataType="System.Decimal"/>
       </TableDataSource>
     </SQLiteDataConnection>
+    <Total Name="QntyTotal" Expression="[CutListProducts.Qnty]" Evaluator="Data1"/>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="47.25">
-      <TextObject Name="Text55" Left="18.9" Top="9.45" Width="670.95" Height="28.35" Text="ID = [CutListProducts.JobId]  |  Jobname = [CutListProducts.Jobname]   |  Date = [Date]" Font="Arial, 10pt"/>
+      <TextObject Name="Text55" Left="18.9" Top="9.45" Width="670.95" Height="28.35" Text="ID = [CutListProducts.JobId]  |  Jobname = [CutListProducts.Jobname]   |  Date = [Date]" Font="Arial, 10pt, style=Bold"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="18.9"/>
-    <GroupHeaderBand Name="GroupHeader1" Top="74.15" Width="718.2" Height="56.7" Condition="[CutListProducts.ProductID]">
-      <GroupHeaderBand Name="GroupHeader2" Top="134.85" Width="718.2" Height="75.6" Condition="[CutListProducts.SubAssemblyID]">
-        <DataBand Name="Data1" Top="214.45" Width="718.2"/>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="718.2" Height="9.45"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="64.7" Width="718.2" Height="75.6" Condition="[CutListProducts.ProductName]">
+      <ShapeObject Name="Shape1" Left="9.45" Width="689.85" Height="66.15" Fill.Color="SkyBlue"/>
+      <TextObject Name="Text60" Left="18.9" Top="9.45" Width="378" Height="18.9" Text="[CutListProducts.ProductName]" Font="Arial, 11pt, style=Bold"/>
+      <TextObject Name="Text63" Left="18.9" Top="37.8" Width="661.5" Height="18.9" Text="Width = [CutListProducts.ProductWidth] | Height = [CutListProducts.ProductHeight] |  Sqft = [CutListProducts.ProductArea]" Font="Arial, 10pt"/>
+      <TextObject Name="Text64" Left="387.45" Top="9.45" Width="292.95" Height="18.9" Text="Product ID = [CutListProducts.ProductID]" Font="Arial, 11pt, style=Bold"/>
+      <GroupHeaderBand Name="GroupHeader2" Top="144.3" Width="718.2" Height="56.7" Condition="[CutListProducts.SubAssemblyID]">
+        <TextObject Name="Text61" Left="28.35" Top="9.45" Width="652.05" Height="18.9" Text="Sub ID = [CutListProducts.SubAssemblyID] Subassembly Name : [CutListProducts.SubAssemblyName]" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text62" Left="28.35" Top="28.35" Width="652.05" Height="18.9" Text="Sub Width = [CutListProducts.SubAssemblyWidth] | SubHeight = [CutListProducts.SubAssemblyHieght] | Area = [CutListProducts.SubAssemblyArea] Sqft" Font="Arial, 10pt"/>
+        <GroupHeaderBand Name="GroupHeader3" Top="205" Width="718.2" CanGrow="true" Condition="[CutListProducts.PartID]">
+          <DataBand Name="Data1" Top="209" Width="718.2" DataSource="CutListProducts"/>
+        </GroupHeaderBand>
       </GroupHeaderBand>
     </GroupHeaderBand>
-    <PageFooterBand Name="PageFooter1" Top="218.45" Width="718.2" Height="18.9">
+    <PageFooterBand Name="PageFooter1" Top="213" Width="718.2" Height="18.9">
       <TextObject Name="Text54" Width="718.2" Height="18.9" Dock="Fill" Fill.Color="Moccasin" Text="[PageN]" HorzAlign="Right" Font="Arial, 10pt" Style="Footer"/>
     </PageFooterBand>
   </ReportPage>

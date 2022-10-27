@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/25/2022 13:07:33" ReportInfo.Modified="10/26/2022 17:05:39" ReportInfo.CreatorVersion="2020.4.0.0">
+  <Dictionary>
+    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqq1SvaCO88YcHSUXsez2fge/m9lI3gWe1f+aAz+4kpzE=">
+      <TableDataSource Name="CutListProducts" DataType="System.Int32" Enabled="true" TableName="CutListProducts">
+        <Column Name="CutlistID" DataType="System.String"/>
+        <Column Name="FunctionalPartCost" DataType="System.String"/>
+        <Column Name="FunctionName" DataType="System.String"/>
+        <Column Name="JobId" DataType="System.Int64"/>
+        <Column Name="Jobname" DataType="System.String"/>
+        <Column Name="L" DataType="System.Decimal"/>
+        <Column Name="Markup" DataType="System.Decimal"/>
+        <Column Name="PartGroupTypeClass" DataType="System.String"/>
+        <Column Name="PartID" DataType="System.Int32"/>
+        <Column Name="PartIdentifier" DataType="System.String"/>
+        <Column Name="PartLabel" DataType="System.String"/>
+        <Column Name="PartSourceDescription" DataType="System.String"/>
+        <Column Name="ProductArea" DataType="System.String"/>
+        <Column Name="ProductHeight" DataType="System.String"/>
+        <Column Name="ProductID" DataType="System.Int64"/>
+        <Column Name="ProductName" DataType="System.String"/>
+        <Column Name="ProductWidth" DataType="System.String"/>
+        <Column Name="Qnty" DataType="System.Decimal"/>
+        <Column Name="SubAssemblyArea" DataType="System.String"/>
+        <Column Name="SubAssemblyHieght" DataType="System.String"/>
+        <Column Name="SubAssemblyID" DataType="System.Int64"/>
+        <Column Name="SubAssemblyName" DataType="System.String"/>
+        <Column Name="SubAssemblyWidth" DataType="System.String"/>
+        <Column Name="T" DataType="System.Decimal"/>
+        <Column Name="Tax" DataType="System.Decimal"/>
+        <Column Name="UnitCost" DataType="System.Decimal"/>
+        <Column Name="UnitOfMeasure" DataType="System.String"/>
+        <Column Name="W" DataType="System.Decimal"/>
+        <Column Name="Waste" DataType="System.Decimal"/>
+      </TableDataSource>
+    </SQLiteDataConnection>
+    <Parameter Name="MyParameter" DataType="System.String"/>
+    <Total Name="LengthTotal" Expression="[CutListProducts.L]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+    <Total Name="QntyTotal" Expression="[CutListProducts.Qnty]" Evaluator="Data1"/>
+    <Total Name="Total" Expression="[CutListProducts.Waste]" Evaluator="Data1"/>
+    <Total Name="FunctionalPartCostTotal" Expression="[CutListProducts.FunctionalPartCost]" Evaluator="Data1" PrintOn="GroupFooter1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" PaperWidth="215.9" PaperHeight="279.4" RawPaperSize="1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="740.5" Height="37.8">
+      <TextObject Name="Text26" Left="14.4" Top="9.6" Width="278.4" Height="19.2" Text="[CutListProducts.ProductID]" Font="Arial, 10pt"/>
+    </ReportTitleBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="40.9" Width="740.5" Height="62.4" Condition="[CutListProducts.PartID]">
+      <ShapeObject Name="Shape2" Left="9.6" Top="38.4" Width="723" Height="24" Border.Width="2" Fill.Color="LightGray"/>
+      <TextObject Name="Text4" Left="245.7" Top="38.65" Width="56.7" Height="19.7" Text="Qnty" Padding="4, 4, 4, 4" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text5" Left="311.85" Top="40.45" Width="46.8" Height="19.2" Text="T" Padding="3, 3, 3, 3" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text10" Left="558.6" Top="41.45" Width="70.8" Height="19.2" Text="PartCost" Padding="4, 4, 4, 4" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text11" Left="19.9" Top="41.45" Width="217.35" Height="17.28" Text="Component Name" Padding="3, 3, 3, 3" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text15" Left="652.35" Top="40.4" Width="66.15" Height="19.2" Text="PID" Padding="4, 4, 4, 4" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <ShapeObject Name="Shape1" Left="9.45" Top="7.65" Width="723" Height="33.15" Border.Width="2" Fill.Color="Cornsilk"/>
+      <LineObject Name="Line1" Left="240" Top="38.4" Height="23.04" Border.Width="2"/>
+      <LineObject Name="Line2" Left="302.4" Top="38.4" Height="23.04" Border.Width="2"/>
+      <LineObject Name="Line3" Left="360" Top="38.4" Height="23.04" Border.Width="2"/>
+      <LineObject Name="Line4" Left="417.6" Top="38.4" Height="23.04" Border.Width="2"/>
+      <LineObject Name="Line5" Left="633.6" Top="38.4" Height="23.04" Border.Width="2"/>
+      <TextObject Name="Text24" Left="364.65" Top="40.45" Width="51.6" Height="19.2" Text="W" Padding="3, 3, 3, 3" HorzAlign="Center" Font="Arial, 8pt, style=Bold"/>
+      <LineObject Name="Line7" Left="556.8" Top="38.4" Height="23.04" Border.Width="2"/>
+      <TextObject Name="Text25" Left="429" Top="41.45" Width="32.4" Height="19.2" Text="L" Padding="4, 4, 4, 4" Font="Arial, 8pt, style=Bold"/>
+      <TextObject Name="Text37" Left="120" Top="14.4" Width="398.4" Height="19.2" Text="[CutListProducts.PartSourceDescription]" Font="Arial, 9pt"/>
+      <TextObject Name="Text38" Left="14.4" Top="14.4" Width="91.2" Height="19.2" Text="[CutListProducts.PartID]" Font="Arial, 11pt, style=Bold"/>
+      <TextObject Name="Text40" Left="528" Top="14.4" Width="192" Height="19.2" Text="Unit = [CutListProducts.UnitOfMeasure] | UnitCost = [CutListProducts.UnitCost]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 8pt" Trimming="EllipsisCharacter"/>
+      <DataBand Name="Data1" Top="106.4" Width="740.5" Height="17.28" DataSource="CutListProducts">
+        <TextObject Name="Text27" Left="244.8" Width="52.8" Height="14.4" Text="[CutListProducts.Qnty]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="0" HorzAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+        <LineObject Name="Line6" Left="240" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line8" Left="10.4" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line9" Left="302.4" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line10" Left="360" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line11" Left="417.6" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line12" Left="556.2" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line13" Left="633.6" Height="17.28" Border.Width="2"/>
+        <LineObject Name="Line14" Left="729.4" Height="17.28" Border.Width="2"/>
+        <TextObject Name="Text28" Left="14.4" Width="148.8" Height="14.4" Text="[CutListProducts.FunctionName]" Font="Arial, 9pt"/>
+        <TextObject Name="Text29" Left="422.4" Width="62.4" Height="14.4" Text="[CutListProducts.L]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="4" HorzAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text30" Left="307.2" Width="48" Height="14.4" Text="[CutListProducts.T]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text31" Left="364" Width="48" Height="14.4" Text="[CutListProducts.W]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text32" Left="648" Width="72" Height="14.4" Text="[CutListProducts.PartIdentifier]" HorzAlign="Center" Font="Arial, 9pt"/>
+        <TextObject Name="Text33" Left="561.6" Width="67.2" Height="14.4" Text="[CutListProducts.FunctionalPartCost]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Center" Font="Arial, 9pt"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="126.77" Width="740.5" Height="43.2" CanGrow="true">
+        <ShapeObject Name="Shape5" Left="9.6" Width="722" Height="38.4" Border.Width="2"/>
+        <ShapeObject Name="Shape4" Left="19.2" Top="7.8" Width="705.6" Height="24" Border.Color="Transparent" Border.Width="2" Fill.Color="Orange" Shape="RoundRectangle"/>
+        <LineObject Name="Line15" Left="9.6" Width="720" Border.Width="2"/>
+        <TextObject Name="Text34" Left="417.6" Top="9.6" Width="86.4" Height="19.2" Text="[LengthTotal]" Padding="2, 2, 2, 2" HorzAlign="Center" Font="Arial, 9pt, style=Bold"/>
+        <TextObject Name="Text35" Left="240" Top="9.6" Width="62.4" Height="19.2" Text="[QntyTotal]" HorzAlign="Center" Font="Arial, 9pt, style=Bold"/>
+        <TextObject Name="Text36" Left="110.4" Top="9.6" Width="96" Height="19.2" Text="[CutListProducts.Waste]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 9pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text39" Left="552" Top="9.6" Width="163.2" Height="19.2" Text="[FunctionalPartCostTotal]" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" Font="Arial, 11pt, style=Bold"/>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="173.07" Width="740.5" Height="18.9"/>
+  </ReportPage>
+</Report>
