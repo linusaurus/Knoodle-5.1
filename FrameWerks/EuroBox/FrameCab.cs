@@ -23,53 +23,46 @@ namespace FrameWorks.Makes.EuroBox
             #region Case
 
             // Left Side
-            Component = new Component(2878, "LSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "LSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Right Side
-            Component = new Component(2878, "RSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "RSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Bottom
-            Component = new Component(2878, "Bottom ", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "Bottom ", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             //Top
-            Component = new Component(2878, "Top", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "Top", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             // Back
-            Component = new Component(2880, "Back", this, 1, this.SubAssemblyHieght - 1.0m);
+            Component = new ComponentPart(2880, "Back", this, 1, this.SubAssemblyHieght - 1.0m);
             Component.ComponentWidth = this.SubAssemblyWidth - 1.0m;
             Component.ComponentThick = 0.25m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
-            // Test
-            Component = new Component(795, "Extrusion", this, 1, this.SubAssemblyHieght - 1.0m);
-            Component.ComponentWidth = this.SubAssemblyWidth - 1.0m;
-            Component.ComponentThick = 1.25m;
-            Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
-
-
-            this.Components.Add(new Component(2893, "21-Runner", this, 1, 22.0m));
+   
+            this.ComponentParts.Add(new ComponentPart(2893, "21-Runner", this, 1, 22.0m));
 
             #endregion
 
             #region Labor
 
           
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             #endregion
 
-            foreach (FrameWorks.ComponentPart p in this.Components)
+            foreach (FrameWorks.ComponentPart p in this.ComponentParts)
             {
                 // needed to tickle the cost forcing calculation
                 decimal d = p.Area;
@@ -95,46 +88,46 @@ namespace FrameWorks.Makes.EuroBox
             #region Case
 
             // Left Side
-            Component = new Component(2878, "LSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "LSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Right Side
-            Component = new Component(2878, "RSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "RSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Bottom
-            Component = new Component(2878, "Bottom ", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "Bottom ", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             //Top
-            Component = new Component(2878, "Top", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
+            Component = new ComponentPart(2878, "Top", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
             Component.ComponentThick = 0.75m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             // Back
-            Component = new Component(2880, "Back", this, 1, this.SubAssemblyHieght - 1.0m);
+            Component = new ComponentPart(2880, "Back", this, 1, this.SubAssemblyHieght - 1.0m);
             Component.ComponentWidth = this.SubAssemblyWidth - 1.0m;
             Component.ComponentThick = 0.25m;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
 
-            this.Components.Add(new Component(2893, "21-Runner", this, 1, 22.0m));
+            this.ComponentParts.Add(new ComponentPart(2893, "21-Runner", this, 1, 22.0m));
 
             #endregion
 
             #region Labor
 
-            Component = new LComponent("Drafting", this, 1.5m, 85.0m);
-            this.Components.Add(Component);
+           
+            
             #endregion
 
-            foreach (FrameWorks.ComponentPart p in this.Components)
+            foreach (FrameWorks.ComponentPart p in this.ComponentParts)
             {
                 // needed to tickle the cost forcing calculation
                 decimal d = p.Area;

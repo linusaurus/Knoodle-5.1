@@ -118,8 +118,6 @@ namespace FrameWorks
 
         }
 
-       
-
 
         public ComponentPart(int sourceID, string functionalName, SubAssemblyBase parent,int Quantity, decimal calculatedLength)
       {
@@ -139,7 +137,7 @@ namespace FrameWorks
                     markup = m_source.MarkUp;
                     unitPrice = m_source.UnitCost;
                 
-                    this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{Globals.counter++}";
+                    //this.ComponentLabel = $"{parent.ProductID.ToString()}-{parent.SubAssemblyID}-{Globals.counter++}";
                 }
              catch 
              {

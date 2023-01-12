@@ -7,7 +7,6 @@
 </PropertyGroup>
 
 <ItemGroup>
-  <Compile Remove="EuroBox\**" />
   <Compile Remove="hardware\**" />
   <Compile Remove="SubAssemblies2010\**" />
   <Compile Remove="SubAssemblies2060\**" />
@@ -27,7 +26,6 @@
   <Compile Remove="SubAssembliesTiburBronze\**" />
   <Compile Remove="SubAssembliesTiburon\**" />
   <Compile Remove="System2000\**" />
-  <EmbeddedResource Remove="EuroBox\**" />
   <EmbeddedResource Remove="hardware\**" />
   <EmbeddedResource Remove="SubAssemblies2010\**" />
   <EmbeddedResource Remove="SubAssemblies2060\**" />
@@ -47,7 +45,6 @@
   <EmbeddedResource Remove="SubAssembliesTiburBronze\**" />
   <EmbeddedResource Remove="SubAssembliesTiburon\**" />
   <EmbeddedResource Remove="System2000\**" />
-  <None Remove="EuroBox\**" />
   <None Remove="hardware\**" />
   <None Remove="SubAssemblies2010\**" />
   <None Remove="SubAssemblies2060\**" />
@@ -67,6 +64,13 @@
   <None Remove="SubAssembliesTiburBronze\**" />
   <None Remove="SubAssembliesTiburon\**" />
   <None Remove="System2000\**" />
+</ItemGroup>
+
+<ItemGroup>
+  <None Include="EuroBox\.svn\all-wcprops" />
+  <None Include="EuroBox\.svn\entries" />
+  <None Include="EuroBox\.svn\text-base\EuroBase.cs.svn-base" />
+  <None Include="EuroBox\.svn\text-base\FrameCab.cs.svn-base" />
 </ItemGroup>
 
 <ItemGroup>

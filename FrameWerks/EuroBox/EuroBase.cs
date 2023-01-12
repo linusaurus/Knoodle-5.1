@@ -11,6 +11,8 @@ namespace FrameWorks.Makes.EuroBox
     {
        public EuroBase() {}
 
+        private decimal materialThickness = 0.73m;
+        private decimal backThickness = 0.5m;
         public override string ToString()
         {
             return this.Name;
@@ -25,59 +27,50 @@ namespace FrameWorks.Makes.EuroBox
 
             // Left Side
             Component = new ComponentPart(2878, "LSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
-            Component.ComponentThick = 0.75m;
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Right Side
             Component = new ComponentPart(2878, "RSide", this, 1, this.SubAssemblyHieght, SubAssemblyDepth);
-            Component.ComponentThick = 0.75m;
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Bottom
-            Component = new ComponentPart(2878, "Bottom ", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
-            Component.ComponentThick = 0.75m;
+            Component = new ComponentPart(2878, "Bottom ", this, 1, this.SubAssemblyWidth - (materialThickness * 2), SubAssemblyDepth);
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             //Top
             Component = new ComponentPart(2878, "Top", this, 1, this.SubAssemblyWidth - 1.5m, SubAssemblyDepth);
-            Component.ComponentThick = 0.75m;
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             Component = new ComponentPart(2878, "Nailers", this, 2, 4.0m, this.SubAssemblyWidth - 1.5m);
-            Component.ComponentThick = 0.75m;
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
             // Back
             Component = new ComponentPart(2880, "Back", this, 1, this.SubAssemblyHieght - 1.0m);
             Component.ComponentWidth = this.SubAssemblyWidth - 1.0m;
-            Component.ComponentThick = 0.25m;
+            Component.ComponentThick = backThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             // Pounds test
             Component = new ComponentPart(3049, "Nailer", this,2, 2.0m, this.SubAssemblyWidth - 1.5m);
-            Component.ComponentThick = 0.75m;
+            Component.ComponentThick = materialThickness;
             Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
-            // Test
-            Component = new ComponentPart(795, "Extrusion", this, 1, this.SubAssemblyHieght - 1.0m);
-            Component.ComponentWidth = this.SubAssemblyWidth - 1.0m;
-            Component.ComponentThick = 1.25m;
-            Component.ComponentGroupType = "Case";
-            this.Components.Add(Component);
-            // Glass Door
-            Component = new ComponentPart(3122, "Glass Door", this, 1, this.SubAssemblyHieght );
-            Component.ComponentWidth = this.SubAssemblyWidth ;
-            Component.ComponentThick = .625m;
-            Component.ComponentGroupType = "Glass";
-            this.Components.Add(Component);
-
-
-            this.Components.Add(new ComponentPart(2893, "21-Runner", this, 1, 0.0m));
+            this.ComponentParts.Add(new ComponentPart(2893, "21-Runner", this, 1, 0.0m));
+            // Drawers 3
+            Component = new ComponentPart(34, "Maple Drawer Box", this, 1, 22.0m);
+            Component.ComponentThick = 6.0m;
+            Component.ComponentWidth = this.SubAssemblyWidth - 0.625m;
+            this.ComponentParts.Add(Component);
 
             #endregion
 
@@ -85,12 +78,12 @@ namespace FrameWorks.Makes.EuroBox
 
            
             Component.UOM = 11;
-            this.Components.Add(Component);
+            this.ComponentParts.Add(Component);
 
             #endregion
 
             //refresh internals
-            foreach (FrameWorks.ComponentPart p in this.Components)
+            foreach (FrameWorks.ComponentPart p in this.ComponentParts)
             {
                 // needed to tickle the cost forcing calculation
                 decimal d = p.Area;

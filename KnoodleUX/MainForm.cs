@@ -468,7 +468,7 @@ namespace KnoodleUX
                 using (CutlistEngine.CutlistDBContext ctx = await DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
                 {
                     // Clear the DB
-                   //await  ctx.Database.ExecuteSqlRawAsync("DELETE FROM CutListProducts");
+                   await  ctx.Database.ExecuteSqlRawAsync("DELETE FROM CutListProducts");
                     // or just delete the file --
 
                     foreach (var pd in internalUnits)
