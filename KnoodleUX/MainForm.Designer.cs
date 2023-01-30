@@ -51,6 +51,7 @@ namespace KnoodleUX
             this.tsbAddProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbDeleteProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbReport = new System.Windows.Forms.ToolStripButton();
+            this.stbPartListReport = new System.Windows.Forms.ToolStripButton();
             this.dgSubAssemblies = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsSubAssemblyLabel = new System.Windows.Forms.ToolStripLabel();
@@ -67,7 +68,6 @@ namespace KnoodleUX
             this.btnClearAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
-            this.stbPartListReport = new System.Windows.Forms.ToolStripButton();
             this.stsMainStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splconMain)).BeginInit();
             this.splconMain.Panel1.SuspendLayout();
@@ -356,6 +356,18 @@ namespace KnoodleUX
             this.tsbReport.Text = "Report";
             this.tsbReport.Click += new System.EventHandler(this.tsbReport_Click);
             // 
+            // stbPartListReport
+            // 
+            this.stbPartListReport.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.stbPartListReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.stbPartListReport.Image = ((System.Drawing.Image)(resources.GetObject("stbPartListReport.Image")));
+            this.stbPartListReport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.stbPartListReport.Margin = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.stbPartListReport.Name = "stbPartListReport";
+            this.stbPartListReport.Size = new System.Drawing.Size(88, 27);
+            this.stbPartListReport.Text = "PartList Report";
+            this.stbPartListReport.Click += new System.EventHandler(this.stbPartListReport_Click);
+            // 
             // dgSubAssemblies
             // 
             this.dgSubAssemblies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -523,18 +535,6 @@ namespace KnoodleUX
             this.btnSaveChanges.Text = "Save Changes";
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
-            // 
-            // stbPartListReport
-            // 
-            this.stbPartListReport.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.stbPartListReport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.stbPartListReport.Image = ((System.Drawing.Image)(resources.GetObject("stbPartListReport.Image")));
-            this.stbPartListReport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.stbPartListReport.Margin = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.stbPartListReport.Name = "stbPartListReport";
-            this.stbPartListReport.Size = new System.Drawing.Size(88, 27);
-            this.stbPartListReport.Text = "PartList Report";
-            this.stbPartListReport.Click += new System.EventHandler(this.stbPartListReport_Click);
             // 
             // MainForm
             // 
