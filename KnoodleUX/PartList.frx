@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="10/25/2022 13:07:33" ReportInfo.Modified="01/12/2023 10:52:52" ReportInfo.CreatorVersion="2020.4.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="10/25/2022 13:07:33" ReportInfo.Modified="02/13/2023 08:53:10" ReportInfo.CreatorVersion="2020.4.0.0">
   <Dictionary>
-    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqq1SvaCO88YcHSUXsez2fgR4gE60mddSuVI+F1OwkdaY=">
+    <SQLiteDataConnection Name="Connection" ConnectionString="rijcmlqq1SvaCO88YcHSUXsez2fgaLrXZu2fhIoIvIHZAnzRis=">
       <TableDataSource Name="CutListProducts" DataType="System.Int32" Enabled="true" TableName="CutListProducts">
         <Column Name="CutlistID" DataType="System.String"/>
-        <Column Name="FunctionalPartCost" DataType="System.String"/>
+        <Column Name="FunctionalPartCost" DataType="System.Decimal" Format="Number"/>
         <Column Name="FunctionName" DataType="System.String"/>
         <Column Name="JobId" DataType="System.Int64"/>
         <Column Name="Jobname" DataType="System.String"/>

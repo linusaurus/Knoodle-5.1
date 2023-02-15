@@ -17,7 +17,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Configuration;
-
+using KnoodleUX;
+using DataLayer.Entity;
 
 namespace BinPackingCuttingStock
 {
@@ -46,9 +47,6 @@ namespace BinPackingCuttingStock
             get { return materialDescription; }
             set { materialDescription = value; }
         }
-
-       
-        
 
         private uint maxPieces;
         public uint MaxPieces
@@ -107,6 +105,7 @@ namespace BinPackingCuttingStock
             get { return theBinIsLINQable; }
             set { theBinIsLINQable = value; }
         }
+        private String JobName;
 
         private float stock;
         public float Stock
@@ -142,6 +141,8 @@ namespace BinPackingCuttingStock
             get { return itemsAssigned; }
             set { itemsAssigned = value; }
         }
+
+        public string JobName1 { get => JobName; set => JobName = value; }
 
         public Bin(float size, float cost)
         {
@@ -232,7 +233,7 @@ namespace BinPackingCuttingStock
         }
 
 
-        public void Solve()
+        public void Solve(Job job)
         {
             // This method drives the solver algorithms
 
@@ -944,7 +945,7 @@ namespace BinPackingCuttingStock
             return size;
         }
 
-        private void PrintSolution(float absoluteBestSize, float bestCost, Dictionary<string, List<Bin>> mySetOfSolutions,int k)//,BusinessObjects.Project project)
+        private void PrintSolution(float absoluteBestSize, float bestCost, Dictionary<string, List<Bin>> mySetOfSolutions,int k)
         {
             // Status Label
             Label.Text = "Print solution";
@@ -1016,7 +1017,7 @@ namespace BinPackingCuttingStock
         {
             // Status Label
             Label.Text = "Print solution";
-
+            
             StringBuilder sb = new StringBuilder();
           
             foreach (KeyValuePair<string, List<Bin>> kvp in mySetOfSolutions)
@@ -1026,10 +1027,10 @@ namespace BinPackingCuttingStock
                 {continue;}
                 
                 sb.Clear();
-                
+                String reportHeader = String.Format("Job :{0} -> ID={1} Date:{2}",KnoodleUX.Program.ActiveJob.jobname.ToString(), KnoodleUX.Program.ActiveJob.jobID.ToString(),DateTime.Now.ToString());
                 // Header for Report
                 sb.AppendLine("-------------------------------------------------------------");
-                sb.AppendLine("OPTIMIZATION REPORT:  " ); //Weaselware.Knoodle.Db.ProjectData().JobName.ToString());
+                sb.AppendLine("OPTIMIZATION REPORT:  " + reportHeader);
                 sb.AppendLine("-------------------------------------------------------------");
 
                 // Get the solution data
@@ -1074,7 +1075,11 @@ namespace BinPackingCuttingStock
                     reportLocation += @"\Report.txt";
 
                     File.WriteAllText(reportLocation, sb.ToString());
-                    Process.Start(reportLocation);
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.UseShellExecute = true;
+                    info.FileName = reportLocation;
+              
+                    Process.Start(info);
                     
                 
                 

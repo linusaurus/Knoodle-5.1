@@ -52,6 +52,7 @@ namespace KnoodleUX
             this.tsbDeleteProduct = new System.Windows.Forms.ToolStripButton();
             this.tsbReport = new System.Windows.Forms.ToolStripButton();
             this.stbPartListReport = new System.Windows.Forms.ToolStripButton();
+            this.tsbOptimize = new System.Windows.Forms.ToolStripButton();
             this.dgSubAssemblies = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsSubAssemblyLabel = new System.Windows.Forms.ToolStripLabel();
@@ -62,7 +63,7 @@ namespace KnoodleUX
             this.tbRecipe = new System.Windows.Forms.TabPage();
             this.dgvOutputGrid = new System.Windows.Forms.DataGridView();
             this.buttonsPanel = new System.Windows.Forms.Panel();
-            this.lbJobLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cboJobsPicker = new System.Windows.Forms.ComboBox();
             this.btnInvertSelection = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
@@ -97,15 +98,16 @@ namespace KnoodleUX
             this.tbRecipe.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutputGrid)).BeginInit();
             this.buttonsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // stsMainStatus
             // 
             this.stsMainStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsPartLoadedStatus});
-            this.stsMainStatus.Location = new System.Drawing.Point(10, 670);
+            this.stsMainStatus.Location = new System.Drawing.Point(10, 672);
             this.stsMainStatus.Name = "stsMainStatus";
-            this.stsMainStatus.Size = new System.Drawing.Size(1258, 22);
+            this.stsMainStatus.Size = new System.Drawing.Size(1287, 22);
             this.stsMainStatus.TabIndex = 1;
             this.stsMainStatus.Text = "statusStrip1";
             // 
@@ -131,8 +133,8 @@ namespace KnoodleUX
             // 
             this.splconMain.Panel2.Controls.Add(this.tabMainTabControl);
             this.splconMain.Panel2.Padding = new System.Windows.Forms.Padding(6);
-            this.splconMain.Size = new System.Drawing.Size(1258, 560);
-            this.splconMain.SplitterDistance = 338;
+            this.splconMain.Size = new System.Drawing.Size(1287, 562);
+            this.splconMain.SplitterDistance = 345;
             this.splconMain.TabIndex = 2;
             // 
             // tabControl1
@@ -143,7 +145,7 @@ namespace KnoodleUX
             this.tabControl1.Location = new System.Drawing.Point(6, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(332, 548);
+            this.tabControl1.Size = new System.Drawing.Size(339, 550);
             this.tabControl1.TabIndex = 0;
             // 
             // tbpJobOrders
@@ -152,7 +154,7 @@ namespace KnoodleUX
             this.tbpJobOrders.Location = new System.Drawing.Point(4, 24);
             this.tbpJobOrders.Name = "tbpJobOrders";
             this.tbpJobOrders.Padding = new System.Windows.Forms.Padding(6);
-            this.tbpJobOrders.Size = new System.Drawing.Size(324, 520);
+            this.tbpJobOrders.Size = new System.Drawing.Size(331, 522);
             this.tbpJobOrders.TabIndex = 0;
             this.tbpJobOrders.Text = "Job Orders";
             this.tbpJobOrders.UseVisualStyleBackColor = true;
@@ -162,7 +164,7 @@ namespace KnoodleUX
             this.lvJobOrders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvJobOrders.Location = new System.Drawing.Point(6, 6);
             this.lvJobOrders.Name = "lvJobOrders";
-            this.lvJobOrders.Size = new System.Drawing.Size(312, 508);
+            this.lvJobOrders.Size = new System.Drawing.Size(319, 510);
             this.lvJobOrders.TabIndex = 0;
             this.lvJobOrders.UseCompatibleStateImageBehavior = false;
             // 
@@ -172,7 +174,7 @@ namespace KnoodleUX
             this.tbpDeliveries.Location = new System.Drawing.Point(4, 24);
             this.tbpDeliveries.Name = "tbpDeliveries";
             this.tbpDeliveries.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpDeliveries.Size = new System.Drawing.Size(324, 520);
+            this.tbpDeliveries.Size = new System.Drawing.Size(331, 522);
             this.tbpDeliveries.TabIndex = 1;
             this.tbpDeliveries.Text = "Deliveries";
             this.tbpDeliveries.UseVisualStyleBackColor = true;
@@ -188,7 +190,7 @@ namespace KnoodleUX
             // spDeliveries.Panel2
             // 
             this.spDeliveries.Panel2.Controls.Add(this.lbDelivery);
-            this.spDeliveries.Size = new System.Drawing.Size(318, 514);
+            this.spDeliveries.Size = new System.Drawing.Size(325, 516);
             this.spDeliveries.SplitterDistance = 108;
             this.spDeliveries.TabIndex = 0;
             // 
@@ -199,7 +201,7 @@ namespace KnoodleUX
             this.lbDelivery.ItemHeight = 15;
             this.lbDelivery.Location = new System.Drawing.Point(0, 0);
             this.lbDelivery.Name = "lbDelivery";
-            this.lbDelivery.Size = new System.Drawing.Size(318, 402);
+            this.lbDelivery.Size = new System.Drawing.Size(325, 404);
             this.lbDelivery.TabIndex = 0;
             // 
             // tabMainTabControl
@@ -212,7 +214,7 @@ namespace KnoodleUX
             this.tabMainTabControl.Location = new System.Drawing.Point(6, 6);
             this.tabMainTabControl.Name = "tabMainTabControl";
             this.tabMainTabControl.SelectedIndex = 0;
-            this.tabMainTabControl.Size = new System.Drawing.Size(904, 548);
+            this.tabMainTabControl.Size = new System.Drawing.Size(926, 550);
             this.tabMainTabControl.TabIndex = 0;
             this.tabMainTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabMainTabControl_DrawItem);
             // 
@@ -222,7 +224,7 @@ namespace KnoodleUX
             this.tabInputTable.Location = new System.Drawing.Point(4, 24);
             this.tabInputTable.Name = "tabInputTable";
             this.tabInputTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabInputTable.Size = new System.Drawing.Size(896, 520);
+            this.tabInputTable.Size = new System.Drawing.Size(918, 522);
             this.tabInputTable.TabIndex = 0;
             this.tabInputTable.Text = "Input Data";
             this.tabInputTable.UseVisualStyleBackColor = true;
@@ -243,8 +245,8 @@ namespace KnoodleUX
             // 
             this.spcMainTabControl.Panel2.Controls.Add(this.dgSubAssemblies);
             this.spcMainTabControl.Panel2.Controls.Add(this.toolStrip1);
-            this.spcMainTabControl.Size = new System.Drawing.Size(890, 514);
-            this.spcMainTabControl.SplitterDistance = 306;
+            this.spcMainTabControl.Size = new System.Drawing.Size(912, 516);
+            this.spcMainTabControl.SplitterDistance = 307;
             this.spcMainTabControl.TabIndex = 0;
             // 
             // dgProductGrid
@@ -254,7 +256,7 @@ namespace KnoodleUX
             this.dgProductGrid.Location = new System.Drawing.Point(0, 37);
             this.dgProductGrid.Name = "dgProductGrid";
             this.dgProductGrid.RowTemplate.Height = 25;
-            this.dgProductGrid.Size = new System.Drawing.Size(890, 269);
+            this.dgProductGrid.Size = new System.Drawing.Size(912, 270);
             this.dgProductGrid.TabIndex = 0;
             this.dgProductGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgProductGrid_CellContentClick);
             this.dgProductGrid.SelectionChanged += new System.EventHandler(this.dgProducts_SelectionChanged);
@@ -269,19 +271,21 @@ namespace KnoodleUX
             this.tsbAddProduct,
             this.tsbDeleteProduct,
             this.tsbReport,
-            this.stbPartListReport});
+            this.stbPartListReport,
+            this.tsbOptimize});
             this.tsProductTools.Location = new System.Drawing.Point(0, 0);
             this.tsProductTools.Name = "tsProductTools";
             this.tsProductTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tsProductTools.Size = new System.Drawing.Size(890, 37);
+            this.tsProductTools.Size = new System.Drawing.Size(912, 37);
             this.tsProductTools.TabIndex = 1;
             this.tsProductTools.Text = "toolStrip1";
             this.tsProductTools.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsProductTools_ItemClicked);
             // 
             // tsBuildProducts
             // 
-            this.tsBuildProducts.BackColor = System.Drawing.Color.Gainsboro;
+            this.tsBuildProducts.BackColor = System.Drawing.Color.Black;
             this.tsBuildProducts.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsBuildProducts.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.tsBuildProducts.Image = ((System.Drawing.Image)(resources.GetObject("tsBuildProducts.Image")));
             this.tsBuildProducts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBuildProducts.Name = "tsBuildProducts";
@@ -368,6 +372,19 @@ namespace KnoodleUX
             this.stbPartListReport.Text = "PartList Report";
             this.stbPartListReport.Click += new System.EventHandler(this.stbPartListReport_Click);
             // 
+            // tsbOptimize
+            // 
+            this.tsbOptimize.BackColor = System.Drawing.Color.PowderBlue;
+            this.tsbOptimize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbOptimize.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tsbOptimize.Image = ((System.Drawing.Image)(resources.GetObject("tsbOptimize.Image")));
+            this.tsbOptimize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbOptimize.Margin = new System.Windows.Forms.Padding(4, 1, 0, 2);
+            this.tsbOptimize.Name = "tsbOptimize";
+            this.tsbOptimize.Size = new System.Drawing.Size(59, 28);
+            this.tsbOptimize.Text = "Optimize";
+            this.tsbOptimize.Click += new System.EventHandler(this.tsbOptimize_Click);
+            // 
             // dgSubAssemblies
             // 
             this.dgSubAssemblies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -375,7 +392,7 @@ namespace KnoodleUX
             this.dgSubAssemblies.Location = new System.Drawing.Point(0, 25);
             this.dgSubAssemblies.Name = "dgSubAssemblies";
             this.dgSubAssemblies.RowTemplate.Height = 25;
-            this.dgSubAssemblies.Size = new System.Drawing.Size(890, 179);
+            this.dgSubAssemblies.Size = new System.Drawing.Size(912, 180);
             this.dgSubAssemblies.TabIndex = 0;
             // 
             // toolStrip1
@@ -384,7 +401,7 @@ namespace KnoodleUX
             this.tsSubAssemblyLabel});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(890, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(912, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -400,7 +417,7 @@ namespace KnoodleUX
             this.tabInspector.Location = new System.Drawing.Point(4, 24);
             this.tabInspector.Name = "tabInspector";
             this.tabInspector.Padding = new System.Windows.Forms.Padding(6);
-            this.tabInspector.Size = new System.Drawing.Size(896, 520);
+            this.tabInspector.Size = new System.Drawing.Size(918, 522);
             this.tabInspector.TabIndex = 1;
             this.tabInspector.Text = "Inspector";
             this.tabInspector.UseVisualStyleBackColor = true;
@@ -418,8 +435,8 @@ namespace KnoodleUX
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.partPropertyGrid);
-            this.splitContainer1.Size = new System.Drawing.Size(884, 508);
-            this.splitContainer1.SplitterDistance = 294;
+            this.splitContainer1.Size = new System.Drawing.Size(906, 510);
+            this.splitContainer1.SplitterDistance = 301;
             this.splitContainer1.TabIndex = 0;
             // 
             // tvBuildTree
@@ -427,7 +444,7 @@ namespace KnoodleUX
             this.tvBuildTree.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvBuildTree.Location = new System.Drawing.Point(0, 0);
             this.tvBuildTree.Name = "tvBuildTree";
-            this.tvBuildTree.Size = new System.Drawing.Size(294, 508);
+            this.tvBuildTree.Size = new System.Drawing.Size(301, 510);
             this.tvBuildTree.TabIndex = 0;
             this.tvBuildTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvBuildTree_AfterSelect);
             // 
@@ -436,7 +453,7 @@ namespace KnoodleUX
             this.partPropertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.partPropertyGrid.Location = new System.Drawing.Point(0, 0);
             this.partPropertyGrid.Name = "partPropertyGrid";
-            this.partPropertyGrid.Size = new System.Drawing.Size(586, 508);
+            this.partPropertyGrid.Size = new System.Drawing.Size(601, 510);
             this.partPropertyGrid.TabIndex = 0;
             // 
             // tbRecipe
@@ -445,7 +462,7 @@ namespace KnoodleUX
             this.tbRecipe.Location = new System.Drawing.Point(4, 24);
             this.tbRecipe.Name = "tbRecipe";
             this.tbRecipe.Padding = new System.Windows.Forms.Padding(6);
-            this.tbRecipe.Size = new System.Drawing.Size(896, 520);
+            this.tbRecipe.Size = new System.Drawing.Size(918, 522);
             this.tbRecipe.TabIndex = 2;
             this.tbRecipe.Text = "Output";
             this.tbRecipe.UseVisualStyleBackColor = true;
@@ -457,12 +474,12 @@ namespace KnoodleUX
             this.dgvOutputGrid.Location = new System.Drawing.Point(6, 6);
             this.dgvOutputGrid.Name = "dgvOutputGrid";
             this.dgvOutputGrid.RowTemplate.Height = 25;
-            this.dgvOutputGrid.Size = new System.Drawing.Size(884, 508);
+            this.dgvOutputGrid.Size = new System.Drawing.Size(906, 510);
             this.dgvOutputGrid.TabIndex = 0;
             // 
             // buttonsPanel
             // 
-            this.buttonsPanel.Controls.Add(this.lbJobLabel);
+            this.buttonsPanel.Controls.Add(this.pictureBox1);
             this.buttonsPanel.Controls.Add(this.cboJobsPicker);
             this.buttonsPanel.Controls.Add(this.btnInvertSelection);
             this.buttonsPanel.Controls.Add(this.btnClearAll);
@@ -471,25 +488,25 @@ namespace KnoodleUX
             this.buttonsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonsPanel.Location = new System.Drawing.Point(10, 10);
             this.buttonsPanel.Name = "buttonsPanel";
-            this.buttonsPanel.Size = new System.Drawing.Size(1258, 100);
+            this.buttonsPanel.Size = new System.Drawing.Size(1287, 100);
             this.buttonsPanel.TabIndex = 3;
             // 
-            // lbJobLabel
+            // pictureBox1
             // 
-            this.lbJobLabel.AutoSize = true;
-            this.lbJobLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbJobLabel.Location = new System.Drawing.Point(337, 21);
-            this.lbJobLabel.Name = "lbJobLabel";
-            this.lbJobLabel.Size = new System.Drawing.Size(41, 25);
-            this.lbJobLabel.TabIndex = 3;
-            this.lbJobLabel.Text = "Job";
-            this.lbJobLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.pictureBox1.Image = global::KnoodleUX.Properties.Resources.arrow_back;
+            this.pictureBox1.Location = new System.Drawing.Point(10, 65);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(26, 23);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // cboJobsPicker
             // 
             this.cboJobsPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cboJobsPicker.FormattingEnabled = true;
-            this.cboJobsPicker.Location = new System.Drawing.Point(951, 12);
+            this.cboJobsPicker.Location = new System.Drawing.Point(980, 12);
             this.cboJobsPicker.Name = "cboJobsPicker";
             this.cboJobsPicker.Size = new System.Drawing.Size(294, 23);
             this.cboJobsPicker.TabIndex = 2;
@@ -498,7 +515,7 @@ namespace KnoodleUX
             // btnInvertSelection
             // 
             this.btnInvertSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnInvertSelection.Location = new System.Drawing.Point(1140, 65);
+            this.btnInvertSelection.Location = new System.Drawing.Point(1169, 65);
             this.btnInvertSelection.Name = "btnInvertSelection";
             this.btnInvertSelection.Size = new System.Drawing.Size(106, 23);
             this.btnInvertSelection.TabIndex = 1;
@@ -508,7 +525,7 @@ namespace KnoodleUX
             // btnClearAll
             // 
             this.btnClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearAll.Location = new System.Drawing.Point(1059, 65);
+            this.btnClearAll.Location = new System.Drawing.Point(1088, 65);
             this.btnClearAll.Name = "btnClearAll";
             this.btnClearAll.Size = new System.Drawing.Size(75, 23);
             this.btnClearAll.TabIndex = 1;
@@ -518,7 +535,7 @@ namespace KnoodleUX
             // btnSelectAll
             // 
             this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSelectAll.Location = new System.Drawing.Point(951, 65);
+            this.btnSelectAll.Location = new System.Drawing.Point(980, 65);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(102, 23);
             this.btnSelectAll.TabIndex = 1;
@@ -528,7 +545,7 @@ namespace KnoodleUX
             // btnSaveChanges
             // 
             this.btnSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveChanges.Location = new System.Drawing.Point(12, 12);
+            this.btnSaveChanges.Location = new System.Drawing.Point(10, 12);
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new System.Drawing.Size(126, 34);
             this.btnSaveChanges.TabIndex = 0;
@@ -540,7 +557,8 @@ namespace KnoodleUX
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1278, 702);
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ClientSize = new System.Drawing.Size(1307, 704);
             this.Controls.Add(this.splconMain);
             this.Controls.Add(this.stsMainStatus);
             this.Controls.Add(this.buttonsPanel);
@@ -584,7 +602,7 @@ namespace KnoodleUX
             this.tbRecipe.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOutputGrid)).EndInit();
             this.buttonsPanel.ResumeLayout(false);
-            this.buttonsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -620,7 +638,6 @@ namespace KnoodleUX
         private System.Windows.Forms.SplitContainer spDeliveries;
         private System.Windows.Forms.ListBox lbDelivery;
         private System.Windows.Forms.Button btnSaveChanges;
-        private System.Windows.Forms.Label lbJobLabel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView tvBuildTree;
         private System.Windows.Forms.PropertyGrid partPropertyGrid;
@@ -630,6 +647,8 @@ namespace KnoodleUX
         private System.Windows.Forms.DataGridView dgvOutputGrid;
         private System.Windows.Forms.ToolStripButton tsbReport;
         private System.Windows.Forms.ToolStripButton stbPartListReport;
+        private System.Windows.Forms.ToolStripButton tsbOptimize;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -95,10 +95,10 @@ namespace KnoodleUX
                 _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);            
                 // Populate the Product-Subassemlby graph ---
                 LoadProducts(_selectedJob.jobID);
-
+                KnoodleUX.Program.ActiveJob = _selectedJob;
                 LoadJobOrders(_selectedJob.jobID);
                 this.Text = $"Knoodle Parametric - Current Job = {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
-                lbJobLabel.Text = $" {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
+               
             }
 
             //---Load the Parts into memory as dictionary------------
@@ -181,12 +181,12 @@ namespace KnoodleUX
         {
             var hit = lvJobOrders.SelectedItems;
             int po = int.Parse(hit[0].Text);
-            PurchaseOrderControl poControl = new PurchaseOrderControl(ctx);
-            TabPage poPage = new TabPage(po.ToString());
+           // PurchaseOrderControl poControl = new PurchaseOrderControl(ctx);
+            //TabPage poPage = new TabPage(po.ToString());
             
-            poPage.Controls.Add(poControl);
-            tabMainTabControl.TabPages.Add(poPage);
-            tabMainTabControl.SelectedTab = poPage;
+           // poPage.Controls.Add(poControl);
+           // tabMainTabControl.TabPages.Add(poPage);
+           // tabMainTabControl.SelectedTab = poPage;
         }
 
         private void BsSubassemlies_ListChanged(object sender, ListChangedEventArgs e)
@@ -196,8 +196,7 @@ namespace KnoodleUX
             { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }
             if (e.ListChangedType == ListChangedType.ItemDeleted)
             {
-                { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }
-                
+                { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }               
             }
             
         }
@@ -579,13 +578,23 @@ namespace KnoodleUX
             }
         }
 
+        private async Task<IEnumerable<CutListProduct>> GetJobCutlistItems()
+        {
+            //string sql = "SELECT SUM(Qnty), Round(SUM(Length), 2) AS [Total Length], UnitCost, UnitOfMeasure, PartSourceDescription, ProductID, SUm(Qnty) * UnitCost AS Price FROM CutlistProducts GROUP BY PartID, UnitCost";
+            string sql = "Select * FROM CutListProducts";
+
+            using (CutlistEngine.CutlistDBContext ctx = await DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
+            {
+                return ctx.CutListProducts.ToList();
+            }
+        }
+
         private void tsbReport_Click(object sender, EventArgs e)
         {
             FastReport.Report report = new FastReport.Report();
             FastReport.Data.SQLiteDataConnection reportConnection = new FastReport.Data.SQLiteDataConnection();
             string jobid = _selectedJob.jobID.ToString();
             reportConnection.ConnectionString = $"datasource = C:\\DB\\{jobid}.db";
-
             
             report.Load($"{Application.StartupPath}/JobAnalysis.frx");
             report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
@@ -605,6 +614,37 @@ namespace KnoodleUX
             report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
 
             report.Show();
+        }
+
+        private async void  tsbOptimize_Click(object sender, EventArgs e)
+        {
+            
+            TabPage tabOptimizer = new TabPage("Optimizer");
+            OptimizerControl control = new OptimizerControl(await GetJobCutlistItems(),_selectedJob);
+            tabOptimizer.Controls.Add(control);
+            control.Dock = DockStyle.Fill;
+
+            tabMainTabControl.TabPages.Add(tabOptimizer);
+            tabMainTabControl.SelectedTab = tabOptimizer;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (splconMain.Panel1Collapsed == false)
+            {
+                splconMain.Panel1Collapsed = true;              
+                pictureBox1.Image = KnoodleUX.Properties.Resources.arrow_forward;
+                pictureBox1.BackColor = Color.LightGray;
+            }
+            else if (splconMain.Panel1Collapsed==true)
+            {
+                splconMain.Panel1Collapsed = false;
+               
+                pictureBox1.Image = KnoodleUX.Properties.Resources.arrow_back;
+                pictureBox1.BackColor = Color.LightBlue;
+
+            }
+           
         }
     }
 }

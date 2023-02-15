@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KnoodleUX": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
