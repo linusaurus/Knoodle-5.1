@@ -205,7 +205,7 @@ namespace KnoodleUX.UXControls
                 {
                     BinPackingCuttingStock.Item i = new Item();
                     i.Pieces = (uint)outp.Qnty;
-                    i.Size = (float)outp.W;
+                    i.Size = (float)outp.L;
                     i.BarCode = outp.PartIdentifier;
                     
                     theItems.Add(i);

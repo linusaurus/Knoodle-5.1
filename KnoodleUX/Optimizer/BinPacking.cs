@@ -105,8 +105,7 @@ namespace BinPackingCuttingStock
             get { return theBinIsLINQable; }
             set { theBinIsLINQable = value; }
         }
-        private String JobName;
-
+        
         private float stock;
         public float Stock
         {
@@ -142,7 +141,7 @@ namespace BinPackingCuttingStock
             set { itemsAssigned = value; }
         }
 
-        public string JobName1 { get => JobName; set => JobName = value; }
+      
 
         public Bin(float size, float cost)
         {
