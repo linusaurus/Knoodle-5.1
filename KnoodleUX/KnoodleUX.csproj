@@ -1,14 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>KnoodleUX.Program</StartupObject>
-    <AssemblyVersion>5.1.0.4</AssemblyVersion>
-    <FileVersion>5.1.0.4</FileVersion>
-    <Version>5.1.3</Version>
+    <AssemblyVersion>5.1.0.2</AssemblyVersion>
+    <FileVersion>5.1.0.2</FileVersion>
+    <Version>5.1.2</Version>
     <Copyright>Weaselware 2022</Copyright>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,11 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="24ProductLabel.tl" />
     <None Remove="JobAnalysis.frx" />
     <None Remove="PartList.frx" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="24ProductLabel.tl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="JobAnalysis.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -35,7 +40,10 @@
     <PackageReference Include="FastReport.Net.Demo" Version="2022.3.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel" Version="11.0.22.1021" />
+    <PackageReference Include="Neodynamic.SDK.ThermalLabel.WindowsPrinting.NetCore" Version="11.0.22.1021" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="System.IO.Ports" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="PrintJobDialog.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

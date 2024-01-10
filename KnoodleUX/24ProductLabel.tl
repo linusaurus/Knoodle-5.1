@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ThermalLabel Version="11.0" Width="4" Height="2" GapLength="0" MarkLength="0" OffsetLength="0" UnitType="Inch" LabelsPerRow="1" LabelsHorizontalGapLength="0" IsContinuous="False" PrintSpeed="" PrintMirror="False" CutAfterPrinting="False" BatchCut="1">
+  <Items>
+    <RectangleShapeItem X="0.0677" Y="0.0703" Locked="True" Width="3.8698" Height="1.8646" StrokeThickness="0.03" />
+    <TextItem X="0.2002" Y="0.2336" Expression="_x005B_DataFields_x0021_ProductID_x005D_" Width="0.9895" Height="0.3471" Text="Type_x0020_here" Font="ZPL Font 0,18,Point,,,False,90,,CP850" TextAlignment="Center" />
+    <LineShapeItem X="0.0781" Y="0.6193" Width="3.8542" Height="0.0104" StrokeThickness="0.02" Orientation="DiagonalDown" />
+    <LineShapeItem X="1.2658" Y="0.0807" Width="0.015" Height="0.5417" StrokeThickness="0.015" Orientation="Vertical" />
+    <TextItem X="0.1459" Y="0.6408" DataField="JobName" Width="2.5562" Height="0.2145" Text="Type_x0020_here" Font="ZPL Font 0,10,True,False,False,False,Point,,,False,90,,CP850" />
+    <ImageItem X="2.257" Y="0.1032" Width="1.625" Height="0.5" Source="File" SourceData="\\dsfiles\Office\MARKETING\DS Branding\logo-01.png" MonochromeSettings="OtsuThreshold,50,False" ConvertToMonochrome="True" />
+    <TextItem X="0.1259" Y="0.9194" Expression="_x0022_Item-_x0022__x0020__x002B__x0020__x005B_DataFields_x0021_ArchDescription_x005D_" Width="3.7442" Height="0.2447" Text="Type_x0020_here" Font="ZPL Font 0,10,Point,,,False,90,,CP850" />
+    <TextItem X="0.0729" Y="0.0755" Width="0.3854" Height="0.1979" Text="PN_x0023_" BackColor="Black" Font="ZPL Font 0,10,Point,,,False,90,,CP850" ForeColor="White" TextAlignment="Center" />
+    <TextItem X="2.7653" Y="0.6555" DataField="JobID" Expression="_x0022_JobID_x0020__x003D__x0020__x0022__x0020__x002B__x005B_DataFields_x0021_JobID_x005D_" Width="1.122" Height="0.1927" Text="Type_x0020_here" Font="ZPL Font 0,10,True,False,False,False,Point,,,False,90,,CP850" TextAlignment="Center" />
+    <LineShapeItem X="0.08" Y="0.8734" Locked="True" Width="3.84" Height="0.0159" StrokeThickness="0.03" Orientation="DiagonalDown" />
+    <LineShapeItem X="2.2331" Y="0.0799" Width="0.001" Height="0.5367" StrokeThickness="0.015" Orientation="DiagonalDown" />
+    <TextItem X="1.4458" Y="0.1592" Expression="_x005B_DataFields_x0021_UnitID_x005D_" Width="0.7712" Height="0.4165" Text="Type_x0020_here" Font="ZPL Font 0,22,Point,,,False,90,,CP850" TextAlignment="Right" />
+    <TextItem X="1.2735" Y="0.0753" Width="0.4846" Height="0.1979" Text="UNIT_x0023_" BackColor="Black" Font="ZPL Font 0,10,Point,,,False,90,,CP850" ForeColor="White" TextAlignment="Center" />
+    <LineShapeItem X="2.7279" Y="0.6305" Width="0.0013" Height="0.255" StrokeThickness="0.02" Orientation="DiagonalUp" />
+    <TextItem X="0.1352" Y="1.4516" Expression="_x0022_W_x0020_:_x0020__x0022__x0020__x002B__x0020_FormatNumber_x0028__x005B_DataFields_x0021_W_x005D__x002C_2_x002C__x0020__x0022_UseDefault_x0022__x002C__x0020__x0022_UseDefault_x0022__x002C__x0020__x0020__x0022_UseDefault_x0022__x0029__x0020__x002B__x0020__x0022__x0020__x0020_H_x0020_:_x0020__x0022__x0020__x002B__x0020_FormatNumber_x0028__x005B_DataFields_x0021_H_x005D__x002C__x0020_2_x002C__x0020__x0022_UseDefault_x0022__x002C__x0020__x0022_UseDefault_x0022__x002C__x0020__x0022_UseDefault_x0022__x0029_" Width="2.9651" Height="0.2412" Text="Type_x0020_here" Font="ZPL Font 0,10,Point,,,False,90,,CP850" />
+    <LineShapeItem X="0.0684" Y="1.1786" Width="3.8587" Height="0.0078" StrokeThickness="0.02" Orientation="DiagonalDown" />
+    <TextItem X="0.1357" Y="1.2247" DataField="UnitName" Width="2.9634" Height="0.2379" Text="Type_x0020_here" Font="ZPL Font 0,10,Point,,,False,90,,CP850" />
+    <TextItem X="0.1597" Y="1.7068" Width="0.0104" Height="0.0104" Text="Type_x0020_here" Font="NativePrinterFontA,10,Point,,,False,90,,CP850" />
+    <TextItem X="0.1551" Y="1.6671" Expression="_x0022_Production_x0020_Date_x0020_:_x0020__x0022__x002B__x0020__x005B_DataFields_x0021_ProductionDate_x005D_" Width="2.9469" Height="0.21" Text="Type_x0020_here" Font="ZPL Font 0,10,Point,,,False,90,,CP850" />
+    <BarcodeItem X="3.1308" Y="1.2257" DataField="ProductID" Expression="_x0022_PN_x0023__x0020__x0022__x0020__x002B__x005B_DataFields_x0021_ProductID_x005D__x0020__x002B__x0020__x0022__x002C__x0022__x0020__x002B__x0020__x0022_JobID-_x0022__x0020__x002B__x0020__x005B_DataFields_x0021_JobID_x005D__x0020__x002B__x0020__x0022__x002C__x0022__x0020__x002B__x0020__x005B_DataFields_x0021_ProductionDate_x005D__x0020__x002B__x0022__x0020_-_x0020__x0022__x0020__x002B__x005B_DataFields_x0021_JobName_x005D_" Width="0.7545" Height="0.6602" Symbology="GS1QRCode" Code="_x0030_01_x007C_BHBLDEHHXXX_x007C_Franz_x0020_Mustermänn_x007C_DE71110220330123456789_x007C_EUR12.3_x007C_GDDS_x007C_RF18539007547034" BarcodeAlignment="MiddleCenter" DisplayCode="False" Font="NativePrinterFontA,5,Point,,,False,90,,CP850" Sizing="FitProportional" TextFont="NativePrinterFontA,10,Point,,,False,90,,CP850" MaxiCodeDrawPixelBasedSymbol="True" DotCodeAspectRatio="" />
+  </Items>
+</ThermalLabel>

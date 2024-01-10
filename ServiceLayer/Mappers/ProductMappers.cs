@@ -26,8 +26,6 @@ namespace ServiceLayer.Mappers
        //private readonly IMapper<Product, ProductDto> productMapper = new ProductMapper();
         private readonly IMapper<SubAssembly, SubAssemblyDTO> subAssemblyMapper = new SubAssemblyMapper();
 
-
-
         public void Map(Product source, ProductDto destination)
         {
             destination.ProductID = source.ProductID;

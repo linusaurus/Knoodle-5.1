@@ -16,8 +16,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrameWorks", "FrameWerks\FrameWorks.csproj", "{22D86184-699A-4384-911D-41091B301860}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frameworks.Test", "Frameworks.Test\Frameworks.Test.csproj", "{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutlistEngine", "CutlistEngine\CutlistEngine.csproj", "{4D209060-AF3D-4CF5-A191-A080270FF7CD}"
 EndProject
 Global
@@ -42,10 +40,6 @@ Global
 		{22D86184-699A-4384-911D-41091B301860}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22D86184-699A-4384-911D-41091B301860}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22D86184-699A-4384-911D-41091B301860}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81F8A6CD-E6DD-4F03-A6D4-12F85549A065}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D209060-AF3D-4CF5-A191-A080270FF7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D209060-AF3D-4CF5-A191-A080270FF7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D209060-AF3D-4CF5-A191-A080270FF7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU

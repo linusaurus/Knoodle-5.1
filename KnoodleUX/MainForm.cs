@@ -21,6 +21,12 @@ using Microsoft.Data.Sqlite;
 using System.Collections.ObjectModel;
 using FastReport;
 using FastReport.Data;
+using System.Xml.Serialization;
+using System.Xml;
+using System.IO;
+using ServiceLayer.Service;
+using Neodynamic.SDK.Printing;
+using System.Xml.Linq;
 
 namespace KnoodleUX
 {
@@ -32,7 +38,7 @@ namespace KnoodleUX
         JobService _jobService;
         PartsService partsService;
         //-------------------------------------------
-       
+
         // Binds the event handler DrawOnTab to the DrawItem event 
         // through the DrawItemEventHandler delegate.
 
@@ -52,19 +58,46 @@ namespace KnoodleUX
         BindingSource bsSubassemlies = new BindingSource();
 
         List<FrameWorks.AssemblyBase> internalUnits = new List<FrameWorks.AssemblyBase>();
-        
+
         private Rectangle tabArea;
         private RectangleF tabTextArea;
         //--------------------------------------
         //----------------XXX-------------------
         //--------------------------------------
         Timer timerOpenCapture = new Timer();
-        
+
         public MainForm()
         {
             InitializeComponent();
             ctx = new MosaicContext(Properties.Settings.Default.MosiacConnection);
-        
+            #region Serializer
+            // XML Serielazer Code ------
+            //ProductModel model = new ProductModel
+            //{
+
+            //    ProductID = 1467,
+            //    ProductionDate = DateTime.Now,
+            //    ArchDescription = "Window 12 | Her Closet Unit2",
+            //    UnitID = 1,
+            //    UnitName = "Test",
+            //    W = 45.60m,
+            //    D = 8.25m,
+            //    H = 93.25m,
+            //    Delivered = false,
+            //    DeliveryDate = DateTime.Now,
+            //    JobID = 487
+
+            //};
+
+            //StreamWriter tr = new StreamWriter(@"C:\temp\out.xml");
+            //XmlSerializer xmlSerializer = new XmlSerializer(typeof(ProductModel));
+            //xmlSerializer.Serialize(tr, model);
+            #endregion
+
+            ThermalLabel.LicenseOwner = "Richard Young";
+            ThermalLabel.LicenseKey = "RALJ9V89HNTFJMHZWRMH6MFP82AXAXDTX3ZXUESKXRFLXAZ346GQ";
+            
+
             UIactions.BuildJobOrderListView(lvJobOrders);
 
             _productService = new ProductService(ctx);
@@ -76,7 +109,7 @@ namespace KnoodleUX
 
             UIactions.BuildProductGrid(this.dgProductGrid);
             UIactions.BuildSubAssemblyGrid(dgSubAssemblies);
-           // UIactions.BuildRecipeGrid(dgvRecipeGrid);
+            // UIactions.BuildRecipeGrid(dgvRecipeGrid);
             dgSubAssemblies.CellClick += DgSubAssemblies_CellClick; ;
 
             //---------------------Wire Events------------------------
@@ -92,13 +125,13 @@ namespace KnoodleUX
 
             if (KnoodleUX.Properties.Settings.Default.LastSelectedJob != default)
             {
-                _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);            
+                _selectedJob = _jobService.GetDeepJob(KnoodleUX.Properties.Settings.Default.LastSelectedJob);
                 // Populate the Product-Subassemlby graph ---
                 LoadProducts(_selectedJob.jobID);
                 KnoodleUX.Program.ActiveJob = _selectedJob;
                 LoadJobOrders(_selectedJob.jobID);
                 this.Text = $"Knoodle Parametric - Current Job = {_selectedJob.jobname} = {_selectedJob.jobID.ToString()}";
-               
+
             }
 
             //---Load the Parts into memory as dictionary------------
@@ -122,11 +155,11 @@ namespace KnoodleUX
         private void DgSubAssemblies_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dv = (DataGridView)sender;
-        
+
             if (e.ColumnIndex == 3)
             {
                 ClassNameFinder classNameFinder = new ClassNameFinder();
-                if(classNameFinder.ShowDialog() == DialogResult.OK)
+                if (classNameFinder.ShowDialog() == DialogResult.OK)
                 {
                     ((SubAssemblyDTO)bsSubassemlies.Current).MakeFile = classNameFinder.SelectedClass;
                     dv.Refresh();
@@ -138,7 +171,7 @@ namespace KnoodleUX
         #region UI Handlers
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-         
+
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -181,12 +214,12 @@ namespace KnoodleUX
         {
             var hit = lvJobOrders.SelectedItems;
             int po = int.Parse(hit[0].Text);
-           // PurchaseOrderControl poControl = new PurchaseOrderControl(ctx);
+            // PurchaseOrderControl poControl = new PurchaseOrderControl(ctx);
             //TabPage poPage = new TabPage(po.ToString());
-            
-           // poPage.Controls.Add(poControl);
-           // tabMainTabControl.TabPages.Add(poPage);
-           // tabMainTabControl.SelectedTab = poPage;
+
+            // poPage.Controls.Add(poControl);
+            // tabMainTabControl.TabPages.Add(poPage);
+            // tabMainTabControl.SelectedTab = poPage;
         }
 
         private void BsSubassemlies_ListChanged(object sender, ListChangedEventArgs e)
@@ -196,9 +229,9 @@ namespace KnoodleUX
             { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }
             if (e.ListChangedType == ListChangedType.ItemDeleted)
             {
-                { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }               
+                { UIactions.CheckForDirtyState(e, this.btnSaveChanges); }
             }
-            
+
         }
 
         private void BsSubassemlies_AddingNew(object sender, AddingNewEventArgs e)
@@ -212,7 +245,7 @@ namespace KnoodleUX
                     W = decimal.Zero,
                     H = decimal.Zero,
                     D = decimal.Zero,
-                    
+
                 };
 
             }
@@ -228,9 +261,9 @@ namespace KnoodleUX
             if (e.ListChangedType == ListChangedType.ItemDeleted)
             {
                 UIactions.CheckForDirtyState(e, this.btnSaveChanges);
-               
+
                 bsProducts.EndEdit();
-                
+
             }
         }
 
@@ -283,8 +316,8 @@ namespace KnoodleUX
         private void MainForm_Load(object sender, EventArgs e)
         {
 
-           
-  
+
+
         }
 
         /// <summary>
@@ -315,7 +348,7 @@ namespace KnoodleUX
                 BindingManagerBase bm = BindingContext[dv.DataSource, dv.DataMember];
                 if (bm.Count > 0 && bm.Current != null)
                 {
-                    _selectedProductDto = (ProductDto)bm.Current;    
+                    _selectedProductDto = (ProductDto)bm.Current;
                 }
             }
         }
@@ -326,17 +359,17 @@ namespace KnoodleUX
             try
             {
                 _selectedJob = _jobService.GetDeepJob(_selectedJob.jobID);
-               _SelectedJobDTO = new JobListDto();
+                _SelectedJobDTO = new JobListDto();
                 jobMapper.Map(_selectedJob, _SelectedJobDTO);
                 _products = _SelectedJobDTO.Products;
-               
+
                 bsProducts.DataSource = _products;
                 //dgProductGrid.DataSource = bsProducts;
                 // -- Prepare binding for child objects ---
                 bsSubassemlies.DataSource = bsProducts;
                 bsSubassemlies.DataMember = "SubAssemblies";
                 dgSubAssemblies.DataSource = bsSubassemlies;
-                
+
             }
             catch (Exception)
             {
@@ -347,7 +380,7 @@ namespace KnoodleUX
         private void cboJobsPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!_loading)
-            {          
+            {
                 ComboBox cb = (ComboBox)sender;
                 if (cb.DataSource != null)
                 {
@@ -364,8 +397,8 @@ namespace KnoodleUX
                         LoadJobOrders(_selectedJob.jobID);
                     }
                 }
-             }
-           
+            }
+
         }
 
         private void dgProductGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -387,7 +420,7 @@ namespace KnoodleUX
 
             foreach (var item in result)
             {
-                lvJobOrders.Items.Add(new ListViewItem(new string[] { item.PurchaseOrderID.ToString(), item.OrderDate, item.SupplierName}));          
+                lvJobOrders.Items.Add(new ListViewItem(new string[] { item.PurchaseOrderID.ToString(), item.OrderDate, item.SupplierName }));
             }
         }
 
@@ -401,27 +434,27 @@ namespace KnoodleUX
             Rectangle r = e.Bounds;
             r = this.tabMainTabControl.GetTabRect(e.Index);
             r.Offset(2, 2);
-            Brush TitleBrush = new SolidBrush(Color.Black);
-            Font f = this.Font;
+            Brush TitleBrush = new SolidBrush(System.Drawing.Color.Black);
+            System.Drawing.Font f = this.Font;
             string title = this.tabMainTabControl.TabPages[e.Index].Text;
             e.Graphics.DrawString(title, f, TitleBrush, new PointF(r.X, r.Y));
-            
+
             if (e.Index > 1)
             {
                 e.Graphics.DrawImage(img, new Point(r.X + (this.tabMainTabControl.GetTabRect(e.Index).Width - _imageLocation.X), _imageLocation.Y));
             }
-           
+
 
         }
 
         private void tsProductTools_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            switch (e.ClickedItem.Name)             
+            switch (e.ClickedItem.Name)
             {
                 case "tsbAddProduct":
                     bsProducts.AddNew();
-                       
-                    
+
+
                     break;
                 case "tsbDeleteProduct":
 
@@ -448,18 +481,18 @@ namespace KnoodleUX
                         SubAssemblyBase s = SubAssemblyBase.FactoryNew(sub);
                         b.AddSubAssembly(s);
                         s.Build();
-                      
+
                     }
                     //Populate list of processed Units
                     internalUnits.Add(b);
                 }
-               
+
             }
 
             DB.FillBuildTree(tvBuildTree, internalUnits);
         }
 
-        private async void  tsSaveOutput_Click(object sender, EventArgs e)
+        private async void tsSaveOutput_Click(object sender, EventArgs e)
         {
             if (internalUnits.Count > 0)
             {
@@ -467,7 +500,7 @@ namespace KnoodleUX
                 using (CutlistEngine.CutlistDBContext ctx = await DBFactory.GetDbContext(_selectedJob.jobID.ToString()))
                 {
                     // Clear the DB
-                   await  ctx.Database.ExecuteSqlRawAsync("DELETE FROM CutListProducts");
+                    await ctx.Database.ExecuteSqlRawAsync("DELETE FROM CutListProducts");
                     // or just delete the file --
 
                     foreach (var pd in internalUnits)
@@ -497,7 +530,7 @@ namespace KnoodleUX
                                     Jobname = _selectedJob.jobname,
                                     FunctionalPartCost = prt.CalculatedCost,
                                     FunctionName = prt.FunctionalName,
-                                    PartIdentifier = pd.ProductID.ToString()+"."+ sub.SubAssemblyID.ToString() +"." + _counter++.ToString(),                                  
+                                    PartIdentifier = pd.ProductID.ToString() + "." + sub.SubAssemblyID.ToString() + "." + _counter++.ToString(),
                                     UnitCost = prt.UnitPrice,
                                     Qnty = prt.Qnty,
                                     W = prt.ComponentWidth,
@@ -506,7 +539,7 @@ namespace KnoodleUX
                                     UnitOfMeasure = prt.UnitOfMeasureName,
                                     Tax = prt.CalculatedCost * 0.78m,
                                     Waste = prt.CalculatedCost * prt.Waste
-                                  
+
                                 };
 
                                 ctx.CutListProducts.Add(cut);
@@ -595,7 +628,7 @@ namespace KnoodleUX
             FastReport.Data.SQLiteDataConnection reportConnection = new FastReport.Data.SQLiteDataConnection();
             string jobid = _selectedJob.jobID.ToString();
             reportConnection.ConnectionString = $"datasource = C:\\DB\\{jobid}.db";
-            
+
             report.Load($"{Application.StartupPath}/JobAnalysis.frx");
             report.Dictionary.Connections[0].ConnectionString = reportConnection.ConnectionString;
 
@@ -616,11 +649,11 @@ namespace KnoodleUX
             report.Show();
         }
 
-        private async void  tsbOptimize_Click(object sender, EventArgs e)
+        private async void tsbOptimize_Click(object sender, EventArgs e)
         {
-            
+
             TabPage tabOptimizer = new TabPage("Optimizer");
-            OptimizerControl control = new OptimizerControl(await GetJobCutlistItems(),_selectedJob);
+            OptimizerControl control = new OptimizerControl(await GetJobCutlistItems(), _selectedJob);
             tabOptimizer.Controls.Add(control);
             control.Dock = DockStyle.Fill;
 
@@ -632,19 +665,91 @@ namespace KnoodleUX
         {
             if (splconMain.Panel1Collapsed == false)
             {
-                splconMain.Panel1Collapsed = true;              
+                splconMain.Panel1Collapsed = true;
                 pictureBox1.Image = KnoodleUX.Properties.Resources.arrow_forward;
-                pictureBox1.BackColor = Color.LightGray;
+                pictureBox1.BackColor = System.Drawing.Color.LightGray;
             }
-            else if (splconMain.Panel1Collapsed==true)
+            else if (splconMain.Panel1Collapsed == true)
             {
                 splconMain.Panel1Collapsed = false;
-               
+
                 pictureBox1.Image = KnoodleUX.Properties.Resources.arrow_back;
-                pictureBox1.BackColor = Color.LightBlue;
+                pictureBox1.BackColor = System.Drawing.Color.LightBlue;
 
             }
-           
+
         }
+        /// <summary>
+        /// Print Product Labels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbLabels_Click(object sender, EventArgs e)
+        {
+            ThermalLabel.LicenseOwner = "Richard Young-Ultimate Edition-Developer License";
+            ThermalLabel.LicenseKey = "RALJ9V89HNTFJMHZWRMH6MFP82AXAXDTX3ZXUESKXRFLXAZ346GQ";
+            int PiD;
+            bool printAsImage = false;
+
+            foreach (DataGridViewRow row in dgProductGrid.SelectedRows)
+            {
+
+                PiD = ((ProductDto)row.DataBoundItem).ProductID;
+                System.IO.File.WriteAllText(@"C:\temp\OUT.xml", LabelService.ProductLabelData(PiD));
+                var ds = new DataSet();
+                ds.ReadXml(@"C:\Temp\OUT.xml");
+
+                ThermalLabel label = LabelService.GenerateProductLabel(ds);
+                label.DataSource = ds;
+                PrinterSettings XmlData;
+
+                var fileName = Path.Combine(Environment.GetFolderPath(
+                                  Environment.SpecialFolder.ApplicationData), "GK420t.xml");
+                // if the settings file doesn't exist-re-create them
+                if (!File.Exists(fileName))
+                {
+                    //Display Print Job dialog...           
+                    PrintJobDialog frmPrintJob = new PrintJobDialog();
+                    if (frmPrintJob.ShowDialog() == DialogResult.OK)
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(PrinterSettings));
+                        using (TextWriter writer = new StreamWriter(fileName))
+                        {
+                            serializer.Serialize(writer, frmPrintJob.PrinterSettings);
+                        }
+                    }
+                }
+
+                //Pull the settings from XML file --
+                XmlSerializer deserializer = new XmlSerializer(typeof(PrinterSettings));
+                TextReader reader = new StreamReader(fileName);
+                object obj = deserializer.Deserialize(reader);
+                XmlData = (PrinterSettings)obj;
+                reader.Close();
+
+                if (printAsImage)
+                { 
+                    using (PrintJob pj = new PrintJob())
+                    {
+                        pj.Copies = 1; // set copies
+                        pj.PrintOrientation = PrintOrientation.Portrait; //set orientation
+                        pj.ThermalLabel = label;
+                        pj.ExportToImage(label, @"C\:temp\image.jpg", new ImageSettings(ImageFormat.Jpeg), 300);
+                    }
+                }
+                if (!printAsImage)
+                {
+                    using (WindowsPrintJob pj = new WindowsPrintJob(XmlData))
+                    {
+                        pj.Copies = 1; // set copies
+                        pj.PrintOrientation = PrintOrientation.Portrait; //set orientation
+                        pj.ThermalLabel = label;
+                        pj.PrintAsGraphic(label);
+                    }
+                }
+            }
+
+        }       
     }
+
 }
